@@ -1,0 +1,42 @@
+
+
+
+Calculer la somme:
+1110
+0010
+1110
+1100
+----
+1010
+  10
+1100
+
+
+
+Exercice:
+ 
+Synchronisez la trame suivante en utilisant 3 méthodes:
+10010101 01011111 11010111 11011001
+
+Drapeau = 01111110
+ESC = 11100000
+
+- Méthode bit stuffing:
+On ajoute un bit 0 après chaque séquence de 5 bits 1 consécutifs dans la trame d'origine pour éviter une confusion avec le drapeau.
+
+10010101 0 01011111 1 1010111 0 11011001
+
+- Méthode byte stuffing:
+On utilise l'octet Esc pour remplacer les octets qui correspondent au drapeau dans la trame d'origine.
+
+10010101 11100000 01011111 11100000 11010111 11100000 11011001
+
+- Méthode champs de contrôle de longueur:
+On ajoute une longueur spécifique à la trame d'origine pour indiquer la longueur réelle des données. Par exemple, si la longueur des données est 8 octets, on peut ajouter un champ de contrôle de longueur de 8 bits à la trame.
+
+Longueur = 00001000
+
+00001000 10010101 01011111 11010111 110110
+
+
+

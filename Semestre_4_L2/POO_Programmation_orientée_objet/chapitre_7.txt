@@ -1,0 +1,116 @@
+
+Chapitre 7: inférence de type et types paramètres
+
+
+Patron de fonction: 
+Un "patron" de fonction (ou template de fonction) 
+est la définition d'une fonction 
+où un paramètre est un type:
+
+Illustration:
+
+template<typename T> T max(T a, T b){
+	if (a<b)
+		return b;
+	else
+		return a;
+}
+
+int main(){
+	max<int>(3, 5);
+	max<double>(3.5, 6.2);
+	// en supposant qu'il existe une classe fraction_t
+	// qui surcharge l'opérateur < a peut aussi
+	// écrire
+	max<fraction_t>(fraction_t(3, 5), fraction_t(2, 4));
+}
+
+
+
+Fonctionement:
+Le compilateur lors du l'appel au patron génére le code du patron
+selon l'argument "type" qui est donné.
+Pour cette raison les patrons doient donc etre inclus dans des fichiers d'entetes
+(à trouver des '#include ".....hpp" ') et pas dans des fichier.o
+
+
+
+Inférence de type:
+Lors d'un appels à un patron de fichier les "type argument" 
+peuvent etre amis si le compilatuer est capable de les déterminer à patron 
+des type des arguments.
+
+
+Illustration:
+// à partir du patron de "max"
+max<int>(2, 5);
+max(1, 6); //équivalent à max<int>(1, 6);
+// max(1, 6l); //erreur.
+max<long>(1,6l); // ok
+max<int>(1,6l); // ok
+
+Dans le cas une "" fonction possède une correspendance exacte des types c'est elle qui est choisie en priorité.
+- On peut préciser plusieurs types <..., ..., ...>
+- On peut faire patrons de méthode.
+- On peut utiliser de valeur au lien de type.
+
+Exemple: 
+template<int a> int f(int b){...}
+	f<3>(5);
+dans ce dernier cas la valeur doit pouvoir etre connue à la compilaeur.
+//int c; c vi >> c; f<c>(5);
+//erreur 
+
+
+auto:
+le mot clé ou t a peut remplacer un mot de type lors d'une
+initialisation de variabledans ce cas le compilateur remplace auto par le type de type l'expression "qui initialise".
+
+
+int a = 3;
+int b = 3.7;
+auto c = 3; // ok auto est remplacer par int 
+	// car 3 est de type int
+	// c est de type int
+auto d = 3.7; // d est double
+
+Remarque: on peut écrire:
+auto & h = ... ;
+const auto * m = ... ;
+
+
+
+Patron de la classe:
+Illustration:
+template <typename X, typename Y>
+struct Couple {
+	X attr1;
+	Y attr2;
+}
+
+int main(){
+	Couple<int, string> c1;
+	c1.attr1 = 5;
+	c1.attr2 = "cinq";
+}
+
+
+- pour des patrons de fonctions on doit "à priori" spécifier les types.
+- Comme pour les patrons de fonctions le code des patrons de classes doit dans les fichiers d'en-tete : #include "....hpp"
+Pour définr une méthode à l'exterieur de la définition d'un patron de classe:
+template <typename X, typename Y> A{
+	X maméthode(Y);
+};
+
+template <typename X, typename Y>
+X A<X,Y>::maméthode(Y pas){
+	...
+}
+
+
+
+
+
+
+
+

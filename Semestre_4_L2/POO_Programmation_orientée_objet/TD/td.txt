@@ -1,0 +1,208 @@
+
+TD:
+
+
+MI 1 - Ex1: a=a;
+        this -> a=a;
+        (*this).a=a;
+
+
+MI 2:
+l11: methode // equivalant à (*this).methode();
+l18: "methode" n'est pas une fonction, c'est une methode d'instance, 
+    elle doit etre appele à partir d'un objet de la classe d.
+
+
+MI 5:
+afficher:
+2M
+1M (par défaut c'est la méthode de la classe qui est appelée)
+
+
+MI 3:
+l10: 2M ::mamethode1//fonction externe.
+l11: 1F *this
+
+
+PPI1:
+l7: erreur de compilation tentative d'accédent à un membre privé.
+
+
+PPI3:
+OK ce code compile
+
+PPI4:
+l6: erreur de compilation
+(l2: 'atr' est privé par défaut car on définit la classe avec le mot clé 'class')
+
+
+PPI2.1:
+Ce code compile. Le constructeur est implicitenent construit et est publique.
+
+
+PPI2.2:
+l7: erreur de compilation.
+Le constructeur sans paramètre est implicitenent - appelé pour construire ob 
+ce construction est défini explicitenentà la ligne 2. Entant que membre privé donc il ne peut pas etre utilisation dans le fonction main.
+
+
+SI3:
+l3: erreur de compilation 
+    les fonction définies ligne 3 et ligne 2 ont la meme signature f(char)........
+    (le type de retour n'est pas puis en compte)
+
+
+SI1:
+l8: je suis f3
+l9: je suis f2
+l10: je suis f4
+l11: je suis f1
+
+
+SI2:
+l6: erreur compilation le compilateur ne soit pas choisit entre f(l2) et f(l3).
+car il n'y a pas de correspondant exclude de type argument/paramètre
+et les deux conversias implicites arg -> paramètre
+
+long -> int   sizeof(long) >= sizeof(int) > sizeof(char)
+long -> char
+
+
+
+
+Exercice 18 SI4:
+
+A a;        je suis A()
+A b{5}      je suis A(int) avec 5
+A c = {3}   je suis A(int) avec 3
+A d(2)      je suis A(int) avec 2
+A e();      (rien)
+
+
+
+
+Exercice 19 CDI2 :
+
+l10: construction   // appel au constructeur 10
+    destruction     // appel au destructeur à la fi de main
+
+
+
+
+Exercice 20 CDI4 :
+
+(m'affiche rien)
+A do();     // et pas de définie d'objet A do = exp;
+
+
+
+Exercice 21 CDI3 :
+
+A ob0{0};       // c0
+A ob1 != 1;     // c1
+{
+    A ob2(2);   // c2
+    A ob3 = {3};// c3
+}               // d3
+                // d2
+A ob4{4};       // c4
+
+
+
+
+Exercice 22 CDI1 :
+
+Erreur à ligne 6.
+Le constructeur définie à ligne 3
+il 'remplace' le constructeur par défaut qui est sans paramètre 
+et donc le compilation ne sait pas quel constructeur appeler à ligne 6.
+
+
+
+
+Exercice 23 CDI5 :
+
+A ob0;          // construction A1
+A ob1{};        // construction A1
+A ob2{3l};      // construction A2
+A ob3(3.f);     // construction A3
+A ob4{3, 2};    // construction A3
+// A ob5{3};    // erreur de compilation
+                // le compilation ne sont pas 
+
+
+
+Exercice 24 NDI1 :
+
+A * p = new A(5);   // c5
+A a(1);             // c1
+delete p;           // d5
+                    // d1
+
+
+
+Exercice 25 NDI6 :
+
+(m'affiche rien !!)
+
+
+
+
+Exercice 26 NDI2 :
+
+A * p = new A(5);   // c5
+A a(1);             // c1
+                    // d1
+Erreur l'objet (*p) n'a pas été libéré.
+
+
+
+
+Exercice 27 NDI3 :
+
+A a{2};             // c2
+new (&a) A{4};      // c4
+                    // d4
+pas de fuite de mémoire.
+l14: appel au constructeur sans réservation mémoire à l'addresse de a.
+
+
+
+Exercice 28 NDI4 :
+
+A ob;               // Bonjour
+A *obj2 = new A();  // Bonjour
+A * obj3;           // rien
+{
+    A obj4;         // Bonjour
+    delete obj2;    // Au revoir
+    obj2 = new A(); // Bonjour
+}                   // Au revoir
+A obj5;             // Bonjour
+                    // Au revoir 
+
+
+
+Exercice 29 NDI5 :
+
+struct A {.....};
+int i ;
+A * ptr = (A*)malloc(sizeof(A)*10);
+if (ptr == nullptr)
+    ... 
+
+for (i = 0; i < 5; i++){
+    new (ptr + i) A();
+}
+for (i = 0; i < 5; i++){
+    (*(ptr + i)).~A()
+}
+free(ptr);
+
+
+
+Ce code l'etat ne produit pas de fuite mémoire. 
+Ce code pourrait en produire si la classe A était différente 
+En effet, il n'y a pas d'appels aux destructeur sur les 5 premièrs cases du tableaux, 
+alors que sur ces cases le constructeur a été appelé (l14)
+

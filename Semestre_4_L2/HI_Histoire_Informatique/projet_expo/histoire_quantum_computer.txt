@@ -1,0 +1,24 @@
+Dưới đây là một dòng thời gian lịch sử phát triển của máy tính:
+
+1822: Charles Babbage thiết kế máy tính phân tích đầu tiên.
+1930: Máy tính điện tử đầu tiên được phát triển.
+1943: Colossus được phát triển để giải mã các mã bí mật của đối thủ trong Thế chiến II.
+1946: Máy tính ENIAC được phát triển, có thể giải quyết các vấn đề toán học phức tạp chỉ trong vài giây.
+1947: Transistor được phát minh, cho phép xây dựng các máy tính nhỏ hơn và đáng tin cậy hơn.
+1970: Máy tính cá nhân được phát minh và trở nên phổ biến với công chúng.
+1980-1990: Internet được phát triển, cho phép các máy tính truyền thông và chia sẻ thông tin trên toàn cầu.
+2000-2010: Sự phát triển của các thiết bị di động, máy tính xách tay và máy tính bảng.
+Hiện tại: Sự phát triển tiếp tục với máy tính thế hệ mới, trí tuệ nhân tạo, học sâu, Internet of Things (IoT), và nhiều công nghệ khác.
+
+
+1900: Max Planck đưa ra lý thuyết hạt nhỏ để giải thích quá trình bức xạ của các vật chất.
+1905: Albert Einstein đưa ra lý thuyết tuyệt đối về sự đồng thời của không gian và thời gian (được gọi là Thuyết tương đối hẹp).
+1913: Niels Bohr đưa ra mô hình nguyên tử Bohr, giải thích về các mức năng lượng của nguyên tử.
+1924: Louis de Broglie đưa ra lý thuyết sóng vật chất, cho thấy các hạt nhỏ cũng có tính chất sóng.
+1925: Werner Heisenberg đưa ra Nguyên lý không đồng thời (Uncertainty principle), giải thích về sự không thể đo đạc chính xác vị trí và động lượng của một hạt nhỏ đồng thời.
+1926: Erwin Schrödinger đưa ra phương trình Schrödinger, giải thích về tính chất sóng của các hạt nhỏ.
+1927: Max Born giải thích về sự khả năng xác suất trong vật lý lượng tử, dẫn đến khái niệm của các vùng đám mây electron.
+1932: James Chadwick phát hiện ra hạt nơtron, giúp giải thích về sự ổn định của nhân nguyên tử.
+1947: Transistor được phát minh, giúp làm cho các thiết bị điện tử trở nên nhỏ gọn và tiên tiến hơn.
+1964: John Bell đưa ra phương trình Bell, cho thấy rằng vật lý lượng tử không thể được giải thích bằng các giả thuyết cổ điển.
+Hiện tại: Vật lý lượng tử đang phát triển mạnh mẽ, với nhiều ứng dụng trong lĩnh vực lượng tử tính toán, truyền thông bảo mật lượng tử, và nhiều công nghệ khác.

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>home_made_bt_VS_set: Référence du fichier bt.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">home_made_bt_VS_set<span id="projectnumber">&#160;0.5</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.2 -->
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',false,false,'search.php','Recherche');
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier bt.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>bibliothèque de gestion de conteneur d'un ensemble ordonné d'éléments uniques implémenté sous la forme d'un arbre binaire non équilibré. Dans cette version non générique, seul le type int est géré pour les éléments.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de bt.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="bt_8h__incl.png" border="0" usemap="#abt_8h" alt=""/></div>
+<map name="abt_8h" id="abt_8h">
+<area shape="rect" title="bibliothèque de gestion de conteneur d&#39;un ensemble ordonné d&#39;éléments uniques implémenté sous la form..." alt="" coords="61,5,105,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,69,107"/>
+<area shape="rect" title=" " alt="" coords="93,80,163,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="bt_8h__dep__incl.png" border="0" usemap="#abt_8hdep" alt=""/></div>
+<map name="abt_8hdep" id="abt_8hdep">
+<area shape="rect" title="bibliothèque de gestion de conteneur d&#39;un ensemble ordonné d&#39;éléments uniques implémenté sous la form..." alt="" coords="36,5,80,32"/>
+<area shape="rect" href="test__them_8cpp.html" title="dernier VS de la saisons : l&#39;arbre binaire &quot;fait maison&quot; en C, versus l&#39;arbre binaire de la STL/C++ r..." alt="" coords="5,80,111,107"/>
+</map>
+</div>
+</div>
+<p><a href="bt_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbt__node.html">bt_node</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a57b33d1ce0e2791f10d0c4066a85a572"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structbt__node.html">bt_node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a></td></tr>
+<tr class="memdesc:a57b33d1ce0e2791f10d0c4066a85a572"><td class="mdescLeft">&#160;</td><td class="mdescRight">le type et la structure de l'arbre binaire  <a href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a57b33d1ce0e2791f10d0c4066a85a572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a6ddcc428aa73fb9049ef1d50892f7c28"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bt_8h.html#a6ddcc428aa73fb9049ef1d50892f7c28">bt_new_node</a> (int data)</td></tr>
+<tr class="memdesc:a6ddcc428aa73fb9049ef1d50892f7c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">créé un nouveau noeud avec comme donnée data  <a href="bt_8h.html#a6ddcc428aa73fb9049ef1d50892f7c28">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6ddcc428aa73fb9049ef1d50892f7c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae17fc0d8a8e95a4a9bd3e1b664950956"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bt_8h.html#ae17fc0d8a8e95a4a9bd3e1b664950956">bt_insert_node</a> (<a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **pos, <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> *new_node)</td></tr>
+<tr class="memdesc:ae17fc0d8a8e95a4a9bd3e1b664950956"><td class="mdescLeft">&#160;</td><td class="mdescRight">insère à une position donnée un nouveau noeud déjà créé  <a href="bt_8h.html#ae17fc0d8a8e95a4a9bd3e1b664950956">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae17fc0d8a8e95a4a9bd3e1b664950956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae925ab9215b915a80c4bbe0d62cfbf5d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bt_8h.html#ae925ab9215b915a80c4bbe0d62cfbf5d">bt_find_ordered_position</a> (<a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **ptree, int data, int *found)</td></tr>
+<tr class="memdesc:ae925ab9215b915a80c4bbe0d62cfbf5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">recherche une position pour une donnée, de manière à ce que l'arbre soit toujours ordonné. Si la donnée est déjà dans l'arbre le contenu pointé par le paramètre <em>found</em> sera mis à 1 (mettre à 0 avant appel).  <a href="bt_8h.html#ae925ab9215b915a80c4bbe0d62cfbf5d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae925ab9215b915a80c4bbe0d62cfbf5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ea192dc68c5a90b9a0aa63da8a3b24"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bt_8h.html#ac6ea192dc68c5a90b9a0aa63da8a3b24">bt_free</a> (<a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **tree)</td></tr>
+<tr class="memdesc:ac6ea192dc68c5a90b9a0aa63da8a3b24"><td class="mdescLeft">&#160;</td><td class="mdescRight">libère l'arbre  <a href="bt_8h.html#ac6ea192dc68c5a90b9a0aa63da8a3b24">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac6ea192dc68c5a90b9a0aa63da8a3b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >bibliothèque de gestion de conteneur d'un ensemble ordonné d'éléments uniques implémenté sous la forme d'un arbre binaire non équilibré. Dans cette version non générique, seul le type int est géré pour les éléments. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Farès BELHADJ, <a href="#" onclick="location.href='mai'+'lto:'+'ams'+'i@'+'up8'+'.e'+'du'; return false;">amsi@<span style="display: none;">.nosp@m.</span>up8.<span style="display: none;">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>December 12 2022 </dd></dl>
+</div><h2 class="groupheader">Documentation des définitions de type</h2>
+<a id="a57b33d1ce0e2791f10d0c4066a85a572" name="a57b33d1ce0e2791f10d0c4066a85a572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b33d1ce0e2791f10d0c4066a85a572">&#9670;&nbsp;</a></span>bt_node_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structbt__node.html">bt_node</a> <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>le type et la structure de l'arbre binaire </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ae925ab9215b915a80c4bbe0d62cfbf5d" name="ae925ab9215b915a80c4bbe0d62cfbf5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae925ab9215b915a80c4bbe0d62cfbf5d">&#9670;&nbsp;</a></span>bt_find_ordered_position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> ** bt_find_ordered_position </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **&#160;</td>
+          <td class="paramname"><em>ptree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>found</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>recherche une position pour une donnée, de manière à ce que l'arbre soit toujours ordonné. Si la donnée est déjà dans l'arbre le contenu pointé par le paramètre <em>found</em> sera mis à 1 (mettre à 0 avant appel). </p>
+
+<p class="reference">Références <a class="el" href="bt_8h.html#ae925ab9215b915a80c4bbe0d62cfbf5d">bt_find_ordered_position()</a>, et <a class="el" href="structbt__node.html#a7ba5c7d8be91c4cdf659479e17f12c14">bt_node::data</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="bt_8h.html#ae925ab9215b915a80c4bbe0d62cfbf5d">bt_find_ordered_position()</a>, et <a class="el" href="test__them_8cpp.html#aee3ffbc0b1d139604b094e8dd4d9523d">test_bt()</a>.</p>
+
+</div>
+</div>
+<a id="ac6ea192dc68c5a90b9a0aa63da8a3b24" name="ac6ea192dc68c5a90b9a0aa63da8a3b24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ea192dc68c5a90b9a0aa63da8a3b24">&#9670;&nbsp;</a></span>bt_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bt_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>libère l'arbre </p>
+
+<p class="reference">Références <a class="el" href="bt_8h.html#ac6ea192dc68c5a90b9a0aa63da8a3b24">bt_free()</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="bt_8h.html#ac6ea192dc68c5a90b9a0aa63da8a3b24">bt_free()</a>, et <a class="el" href="test__them_8cpp.html#aee3ffbc0b1d139604b094e8dd4d9523d">test_bt()</a>.</p>
+
+</div>
+</div>
+<a id="ae17fc0d8a8e95a4a9bd3e1b664950956" name="ae17fc0d8a8e95a4a9bd3e1b664950956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae17fc0d8a8e95a4a9bd3e1b664950956">&#9670;&nbsp;</a></span>bt_insert_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> * bt_insert_node </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> **&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> *&#160;</td>
+          <td class="paramname"><em>new_node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>insère à une position donnée un nouveau noeud déjà créé </p>
+
+<p class="reference">Références <a class="el" href="structbt__node.html#a7ba5c7d8be91c4cdf659479e17f12c14">bt_node::data</a>, <a class="el" href="structbt__node.html#aa14e1765aecca97287f68d479defeef0">bt_node::l_child</a>, et <a class="el" href="structbt__node.html#a5732217b7f0745c6cdacdd262a18d9c4">bt_node::r_child</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8cpp.html#aee3ffbc0b1d139604b094e8dd4d9523d">test_bt()</a>.</p>
+
+</div>
+</div>
+<a id="a6ddcc428aa73fb9049ef1d50892f7c28" name="a6ddcc428aa73fb9049ef1d50892f7c28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ddcc428aa73fb9049ef1d50892f7c28">&#9670;&nbsp;</a></span>bt_new_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="bt_8h.html#a57b33d1ce0e2791f10d0c4066a85a572">bt_node_t</a> * bt_new_node </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>créé un nouveau noeud avec comme donnée data </p>
+
+<p class="reference">Références <a class="el" href="structbt__node.html#a7ba5c7d8be91c4cdf659479e17f12c14">bt_node::data</a>, <a class="el" href="structbt__node.html#aa14e1765aecca97287f68d479defeef0">bt_node::l_child</a>, et <a class="el" href="structbt__node.html#a5732217b7f0745c6cdacdd262a18d9c4">bt_node::r_child</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8cpp.html#aee3ffbc0b1d139604b094e8dd4d9523d">test_bt()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
+</body>
+</html>

@@ -1,0 +1,133 @@
+
+
+Chapitre 6 (Règle des 3)
+
+
+Rappel: Toutes nos source allouée (ou reservée) (exemple : mémoire, fichier).
+doit etre libérée lorsqu'elle n'est plus utile.
+
+Rappel: Par défaut les constructeur de copie, 
+opérateur d'affectation se contexte de recopie 
+les valeurs des attribute et le destructeur ne fait rien.
+
+
+Illustration:
+
+struct A {
+    int a1;
+    int a2;
+};
+
+int main(){
+    A ob1;
+    ob1.a1 = 0;
+    ob1.a2 = 1;
+    A ob2 = ob1; // constructeur de copie
+    A ob3;
+    ob3 = ob1;
+}
+
+
+
+Ce carpotement par défaut pose problèeme si l'objet est suceptiplede réserver des réserver des ressources.
+
+Illustration:
+
+struct tableau_t {
+    int * p;
+    int taille;
+    tableau_t(int tai){
+        taille = tai;
+        p = new int[tai];
+    }
+    ~tableau_t(){
+        delete[] this -> p;
+    }
+    tableau_t(tableau_t const & pa){
+        this -> taille = pa.taille;
+        this -> p = new int[pa.taille];
+        int i;
+        for (i = 0; i < p.taille; i++){
+            this -> p[i] = pa.p[i];
+        }
+    }
+}
+
+tableau_t & operator = (const tableau_t & pa){
+    int i;
+    delete[] this -> p[i] = pa.p[i];
+    this -> taille = pa.taille;
+    this -> p = new int[pa.taille];
+    for (i = 0; i < pa.taille; i++){
+        this -> p[i] = pa.p[i];
+    }
+    return *this;
+}; // fin de la classe tableau_t
+
+
+int main(){
+    tableau_t T{5};
+    T.p[0] = 1;
+    T.p[1] = 2;
+    tableau_t H = T;
+    H.p[1] = 3;
+    // ici T.p[3] == 3!!!
+    // il faut réécrire le constructeur de copie
+    tableau_t G{3};
+    G.p[0] = 7;
+    G = H;
+    // ici G.p = H.P !!
+    
+}
+
+
+
+Conclusion :
+
+Lorsqu'un objet d'une classe A est susceptible de réserver des ressources
+il faut expliciter
+- le constructeur par copie
+- le destructeur
+- l'opérateur d'affectation.
+(Règle des 3)
+
+
+
+
+les fonctions et classes amies:
+Si A est une classe alors 
+1) Une fonction f peut etre déclarée "amie" de la classe A
+2) Une classe B peut etre déclarée "amie" de la classe a1
+
+1. f accèsà tous les membres privés de A
+2. les méthodes de B ont toutes accès aux membres "privés" de A.
+
+
+Exemple:
+
+class B; // déclaration de la classe B; (ou struct B)
+
+class A {
+    int a; // attribute privé
+    friend void f();
+    friend B;
+}
+void h(){
+    A ob;
+    ob.a = 1;
+}
+void f(){
+    A ob;
+    op.a = 1; // ok f est ami de A
+}
+
+struct B{
+    void g(){
+        A do;
+        do.a = 2; // ok B est ami de A
+    }
+}
+
+
+
+

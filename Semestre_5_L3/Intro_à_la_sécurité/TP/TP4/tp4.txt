@@ -1,0 +1,50 @@
+
+Exercice 1:
+
+1)
+m = 42c0ffee93
+N = 02c99a781f
+s = 02306bf1b7
+
+
+2) 
+La fonction modexp est un raccourci pour "modular exponentiation" (exponentiation modulaire en français). 
+C'est un algorithme fondamental en cryptographie, couramment utilisé dans le contexte de RSA (Rivest-Shamir-Adleman) 
+pour calculer des opérations d'exponentiation modulaire, telles que 𝑏^𝑒 mod 𝑚.
+
+L'algorithme utilisé par la fonction modexp est généralement basé sur l'exponentiation rapide (exponentiation modulaire rapide) pour optimiser le calcul de 𝑏^𝑒 mod 𝑚 en réduisant le nombre d'opérations nécessaires. 
+L'idée principale de l'algorithme est de diviser l'exposant 𝑒 en bits binaires et d'utiliser ces bits pour calculer progressivement les puissances de 𝑏 tout en prenant des réductions modulo 𝑚 à chaque étape.
+
+Voici un aperçu de l'algorithme de l'exponentiation modulaire utilisé dans la fonction modexp :
+
+ -  Initialisation des variables :
+        r1 : Stocke le résultat (initialisé à 1)
+        r6 : Stocke la base (b)
+        r7 : Stocke l'exposant (e)
+        r8 : Variable temporaire
+        r5 : Utilisé pour la copie de résultats
+
+ -  Boucle principale :
+        La boucle commence en testant si l'exposant e est non nul.
+        À chaque itération de la boucle, on vérifie le bit de poids faible de e.
+        Si ce bit est 1, on effectue une multiplication modulaire entre le résultat actuel (r1) et la base (b) et on stocke le résultat dans r1.
+        Ensuite, on divise e par 2 (décalage binaire vers la droite).
+
+ -  Après avoir parcouru tous les bits de l'exposant, on obtient le résultat final dans r1. Ce résultat est la valeur de 𝑏^𝑒 mod 𝑚.
+
+L'algorithme d'exponentiation modulaire est optimisé pour minimiser le nombre d'opérations de multiplication et de réduction modulo, 
+ce qui le rend particulièrement efficace pour les calculs RSA où de grandes puissances sont élevées modulo un grand nombre premier.
+
+
+3)
+
+
+4)
+
+
+5)
+
+
+
+
+

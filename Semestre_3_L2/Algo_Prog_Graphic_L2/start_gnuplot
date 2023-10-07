@@ -1,0 +1,38 @@
+
+$ sudo apt install gnuplot-x11
+
+$ echo "command test start gnuplot:" 
+
+$ gnuplot 
+
+
+
+
+plot x*x
+set parametrice
+set trange[0:1]
+set xlabel "x l'abscisse du point P"
+set ylabel "y l'ordonnée du point P"
+
+plot t,t
+
+plot 1 -t,t
+
+
+
+plot cos(2*pi*t),sin(2*pi*t)
+replot 0.5 * cos(2*pi*t), 0.5 * sin(2*pi*t)
+
+
+plot t*cos(4*pi*t),t*sin(4*pi*t)
+plot t * cos(10 * pi* t), t * sin(10 * pi *t)
+
+
+
+
+
+$ echo "Note Barycentres"
+
+
+
+

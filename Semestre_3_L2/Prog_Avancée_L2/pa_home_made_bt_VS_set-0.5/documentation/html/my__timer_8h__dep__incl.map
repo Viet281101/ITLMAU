@@ -1,0 +1,5 @@
+<map id="my_timer.h" name="my_timer.h">
+<area shape="rect" id="node1" title="fonctions pour chronométrer le temps passé entre initTimer et getElapsedTime" alt="" coords="65,5,153,32"/>
+<area shape="rect" id="node2" href="$my__timer_8c.html" title="fonctions pour chronométrer le temps passé entre initTimer et getElapsedTime" alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$test__them_8cpp.html" title="dernier VS de la saisons : l&#39;arbre binaire &quot;fait maison&quot; en C, versus l&#39;arbre binaire de la STL/C++ r..." alt="" coords="116,80,221,107"/>
+</map>

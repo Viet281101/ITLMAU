@@ -1,0 +1,28 @@
+
+
+#include <stdio.h>
+#include "dijkstra.h"
+
+#define MAX 9
+
+int main()
+{
+    //// la matrice d’adjacence du graphe
+    int G[MAX][MAX] = {
+        {0, INFINITY, INFINITY, INFINITY, INFINITY, 12, 5, 6, INFINITY},
+        {INFINITY, 0, 2, INFINITY, INFINITY, INFINITY, 7, INFINITY, INFINITY},
+        {INFINITY, 2, 0, 13, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY},
+        {INFINITY, INFINITY, 13, 0, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY},
+        {INFINITY, INFINITY, INFINITY, INFINITY, 0, INFINITY, 2, INFINITY, INFINITY},
+        {12, INFINITY, INFINITY, INFINITY, INFINITY, 0, 12, INFINITY, 4},
+        {5, 7, 10, INFINITY, 2, INFINITY, 0, INFINITY, 6},
+        {6, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, 0, INFINITY},
+        {INFINITY, INFINITY, INFINITY, INFINITY, INFINITY, 4, 6, INFINITY, 0},
+    };
+    
+    int depart = 2;
+    dijkstra(G, depart);
+
+    return 0;
+}
+

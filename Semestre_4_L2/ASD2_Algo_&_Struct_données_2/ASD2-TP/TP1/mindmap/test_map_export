@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.4/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.14.4"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.14.4/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{"type":"root","depth":0,"content":"","children":[{"type":"heading","depth":1,"payload":{"lines":[2,3]},"content":"Algorithmique et Structures de données 1","children":[{"type":"heading","depth":2,"payload":{"lines":[4,5]},"content":"Plan de cours :","children":[{"type":"heading","depth":3,"payload":{"lines":[6,7]},"content":"Chapitre 1 - Qu'est-ce qu'un algorithme"},{"type":"heading","depth":3,"payload":{"lines":[7,8]},"content":"Chapitre 2 - Terminaison, Correction, Complexité"},{"type":"heading","depth":3,"payload":{"lines":[8,9]},"content":"Chapitre 3 - Suites et Domination"},{"type":"heading","depth":3,"payload":{"lines":[9,10]},"content":"Chapitre 4 - Non determinisme, parallèlisme, pire des cas vs cas moyen"},{"type":"heading","depth":3,"payload":{"lines":[10,11]},"content":"Chapitre 5 - Liste chainée"},{"type":"heading","depth":3,"payload":{"lines":[11,12]},"content":"Chapitre 6 - Arbres (binaires)"},{"type":"heading","depth":3,"payload":{"lines":[12,13]},"content":"Chapitre 7 - Organisation de la mémoire"},{"type":"heading","depth":3,"payload":{"lines":[13,14]},"content":"Chapitre 8 - Conteneur. Pile,File,Ensemble,Sac,Map"},{"type":"heading","depth":3,"payload":{"lines":[14,15]},"content":"Chapitre 9 - Arbre AVL"},{"type":"heading","depth":3,"payload":{"lines":[15,16]},"content":"Chapitre 10 - Graphe (parcours en profondeur, recherche de circuit, recherche du plus court chemin)"}]},{"type":"heading","depth":2,"payload":{"lines":[19,20]},"content":"Calcul de Note :","children":[{"type":"heading","depth":3,"payload":{"lines":[22,23]},"content":"NF : Note finale du cours &quot;algorithmique et structures de données&quot;"},{"type":"heading","depth":3,"payload":{"lines":[23,24]},"content":"ND2 : Note du second devoir sur table (fin de semestre) (entre 1h30 et 2h)"},{"type":"heading","depth":3,"payload":{"lines":[24,25]},"content":"ND1 : Note du premier devoir sur table (entre 1h30 et 2h00)"},{"type":"heading","depth":3,"payload":{"lines":[25,26]},"content":"NTPi : Note du tp(i) (tp1,tp2,tp3,...)"},{"type":"heading","depth":3,"payload":{"lines":[26,27]},"content":"NPro : Note du projet"},{"type":"heading","depth":3,"payload":{"lines":[27,28]},"content":"NIi : Note à l'interrogation i (entre 10 et 20 min)"},{"type":"heading","depth":3,"payload":{"lines":[28,29]},"content":"NF= (voir ci-dessous) si NFt&gt;10 NF=NFt si NFt&lt;10 NF=min(10,NFt+NTP/10)"},{"type":"heading","depth":3,"payload":{"lines":[29,30]},"content":"NFt=moyenne(NPro,NT)"},{"type":"heading","depth":3,"payload":{"lines":[30,31]},"content":"NT(Note Théorie)=max(ND2,moyenne(ND2,ND1,NI))"},{"type":"heading","depth":3,"payload":{"lines":[31,32]},"content":"NI : moyenne des 3 meilleurs notes NIi (notes des interros)"},{"type":"heading","depth":3,"payload":{"lines":[32,33]},"content":"NTP : (sur 20) moyenne équipondérée des 4 meilleurs notes NTPi (notes des TP) en respectant la regle (Regle A) (voir Modalité de Rendu des TP). Si i-eme TP non rendu alors NTPi=0."}]},{"type":"heading","depth":2,"payload":{"lines":[37,38]},"content":"Sujets de projet:","children":[{"type":"heading","depth":3,"payload":{"lines":[39,40]},"content":"Fabriquer une bibliothèque qui implante une map de valeurs entières à l'aide d'une structure d'arbre bicolore (autrement appelé arbre rouge-noir) (voir fichier map plus bas)"},{"type":"heading","depth":3,"payload":{"lines":[41,42]},"content":"Fabriquer une bibliothèque qui implante une map de chaînes de caractère à l'aide d'un arbre ternaire (voir fichier map plus bas et fichier arbre ternaire lexicographique)"},{"type":"heading","depth":3,"payload":{"lines":[43,44]},"content":"Implanter un programme lexique (voir fichier arbre ternaire lexicographique)"},{"type":"heading","depth":3,"payload":{"lines":[45,46]},"content":"Implanter un résolveur de sudoku (9x9) puis éventuellement un générateur de grille de sudoku incomplète et valide (une unique solution) et essayer d'améliorer votre générateur de façon qu'il puisse potentiellement générer n'importe quelle grille (9x9) valide et incomplète."},{"type":"heading","depth":3,"payload":{"lines":[47,48]},"content":"Rechercher le plus court chemin entre deux points d'un réseau (par exemple ferroviaire) décrit par un fichier texte"},{"type":"heading","depth":3,"payload":{"lines":[49,50]},"content":"Fabriquer un interpreteur Prolog"},{"type":"heading","depth":3,"payload":{"lines":[51,52]},"content":"Projet jeu labyrinthe"}]}]},{"type":"heading","depth":1,"payload":{"lines":[62,63]},"content":"Algorithmique et Structures de données 2","children":[{"type":"heading","depth":2,"payload":{"lines":[65,66]},"content":"Plan de cours:","children":[{"type":"heading","depth":3,"payload":{"lines":[67,68]},"content":"Chapitre 1 - Outils de débogage en C"},{"type":"heading","depth":3,"payload":{"lines":[68,69]},"content":"Chapitre 2 - Révisions S1"},{"type":"heading","depth":3,"payload":{"lines":[69,70]},"content":"Chapitre 3 - Révisions S1"},{"type":"heading","depth":3,"payload":{"lines":[70,71]},"content":"Chapitre 4 - Automates"},{"type":"heading","depth":3,"payload":{"lines":[71,72]},"content":"Chapitre 5 - Algorithmique textuelle, distances de levenshtein"},{"type":"heading","depth":3,"payload":{"lines":[72,73]},"content":"Chapitre 6 - Tables de hachage"},{"type":"heading","depth":3,"payload":{"lines":[73,74]},"content":"Chapitre 7 - Tables de hachage"},{"type":"heading","depth":3,"payload":{"lines":[74,75]},"content":"Chapitre 8 - Plus longue sous-séquence commune"},{"type":"heading","depth":3,"payload":{"lines":[75,76]},"content":"Chapitre 9 - TBD"},{"type":"heading","depth":3,"payload":{"lines":[76,77]},"content":"Chapitre 10 - TBD"}]}]}],"payload":{}},{})</script>
+</body>
+</html>

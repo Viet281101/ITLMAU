@@ -1,0 +1,40 @@
+
+
+ POO Programmton orientée objet
+ 
+ 
+ Chapitre 1:
+ 
+ On utiliser le langage C++, pourilluster les mécanismes de POO.
+ C++: c'est le langageC au quel on a ajouté de nouveaux aspects:
+ 
+ POO: 
+ - Encpsulation.
+ spécification / Implontation 
+ publique / privé
+ utilisateur / contenu
+ Interface /
+ 
+ 
+ Un construction ne possède pas de type/valeur de retourne a le meme nom que la classe.
+ Les "fonctions" définie à l'intérieur de la classe sont appellées "méthodes".
+ Les "données" défini à l'intérieur de la chose sont appelées "attributes".
+ l'ensemble des attributes et méthodes sont appelés les membres de la classe. 
+ chaque membre peut etre "publique" ou "privé" mais pas les deux en meme temps.
+ on ne peut accèder aux membres privés hors de la classe.
+ 
+ 
+ 
+ - Héritage.
+ - Polymonphisme.
+ "Fonction au parameters de type abstrait"
+ 
+ autres méchanismes.
+ - template (type parametré)
+ - Références
+ - fonction anonymes
+ - Exception
+ - diférence de type.
+ 
+ 
+ 

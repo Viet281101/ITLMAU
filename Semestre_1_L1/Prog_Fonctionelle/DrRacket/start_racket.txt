@@ -1,0 +1,6 @@
+- Link GitHub: https://github.com/racket/racket
+
+- Link Documentation: https://docs.racket-lang.org/
+
+- Link to download: https://download.racket-lang.org/
+
