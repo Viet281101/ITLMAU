@@ -1,2 +1,3 @@
-# LICENCE_computer_science_learning_doc
-Materials and exercises in courses 
+# Information technology learning materials at University (ITLMAU)
+
+All materials, exercises and projects in courses 
