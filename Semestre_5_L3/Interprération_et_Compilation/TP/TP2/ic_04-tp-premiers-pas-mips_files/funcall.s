@@ -34,8 +34,9 @@ add_user_num:
   
 main:
   jal add_user_num
+  li $v0, 10
+  syscall
 
-  jr $ra
 
 .data
 num1q: .asciiz "Please enter a first number: "
