@@ -82,9 +82,13 @@ int main (int argc, char ** argv) {
     dt = t1 - t0;
     printf("Temps d'execution Triviale verif: %d\n", (int) dt);
 
+    t0 = clock();
     memset(plan, ' ', MAX*MAX);
     droite_triviale_verif (24, 10, plan);
     affiche (24, 10, plan);
+    t1 = clock();
+    dt = t1 - t0;
+    printf("Temps d'execution Triviale verif: %d\n", (int) dt);
     
     /* Test des fonctions */
     // memset (plan, ' ', MAX*MAX);
