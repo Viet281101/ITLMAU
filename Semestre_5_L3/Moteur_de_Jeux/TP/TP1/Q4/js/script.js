@@ -1,155 +1,65 @@
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
-
 canvas.width = 1280;
 canvas.height = 960;
-
-ctx.fillStyle = 'rgb(255, 255, 255)';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.imageSmoothingEnabled = false;
 
-const tilemap = new Image();
-tilemap.src = './assets/tilemap1280x960.png';
+const background = new Image();
+background.src = './assets/tilemap1280x960.png';
 
-const candleSpriteA = new Image();
-candleSpriteA.src = './assets/candleA.png';
+const skeletonRight = new Image();
+skeletonRight.src = './assets/walk_right.png';
 
-const candleSpriteB = new Image();
-candleSpriteB.src = './assets/candleB.png';
+const skeletonLeft = new Image();
+skeletonLeft.src = './assets/walk_left.png';
 
-const torch = new Image();
-torch.src = './assets/torch.png';
+let xPos = 320;
+let yPos = 600;
+const endPos = 870;
+const speed = 4;
 
-Promise.all([tilemap, candleSpriteA, candleSpriteB, torch].map(image => new Promise(resolve => {
-    image.onload = resolve;
-}))).then(() => {
-    const objectsToDraw = [];
+let isFlipped = false;
 
-    const candleAPositions = [
-        { x: 768, y: 130 },
-        { x: 800, y: 620 }
-    ];
+let frame = 0;
+let frameRate = 140;
+let frameWidth = 128;
+let frameHeight = 96;
 
-    const candleBPositions = [
-        { x: 448, y: 606 },
-        { x: 970, y: 130 }
-    ];
+background.onload = () => {
+	drawSkeleton();
+};
 
-    const torchPositions = [
-        { x: 176, y: 60 },
-        { x: 368, y: 60 },
-        { x: 944, y: 60 },
-        { x: 1136, y: 60 },
-        { x: 625, y: 542 },
-    ];
+function drawSkeleton() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    let frameIndex = 0;
-    const frameWidth = 16;
-    const frameHeight = 16;
-    const frameRate = 200;
+    ctx.drawImage(background, 0, 0);
 
-    function drawCandles() {
-        ctx.drawImage(tilemap, 0, 0);
+    if (!isFlipped) {
+		ctx.drawImage(skeletonRight, frame * frameWidth, 0, frameWidth, frameHeight, xPos, yPos, frameWidth * 2, frameHeight * 2);
+		xPos += speed;
 
-        const sourceX = frameIndex * frameWidth;
+		if (xPos >= endPos) {
+			isFlipped = true;
+			frame = 0;
+		} else {
+			frame = (frame + 1) % 6;
+		}
+    } else {
+		ctx.save();
+		ctx.scale(-1, 1);
+		ctx.drawImage(skeletonLeft, frame * frameWidth, 0, frameWidth, frameHeight, -xPos -128, yPos, frameWidth * 2, frameHeight * 2);
+		ctx.restore();
+		xPos -= speed;
 
-        for (const position of candleAPositions) {
-            // ctx.drawImage(candleSpriteA, sourceX, 0, frameWidth, frameHeight, position.x, position.y, 32, 32);
-            objectsToDraw.push({
-                image: candleSpriteA,
-                sourceX,
-                sourceY: 0,
-                sourceWidth: frameWidth,
-                sourceHeight: frameHeight,
-                destinationX: position.x,
-                destinationY: position.y,
-                destinationWidth: 32,
-                destinationHeight: 32
-            });
-        }
-
-        for (const position of candleBPositions) {
-            // ctx.drawImage(candleSpriteB, sourceX, 0, frameWidth, frameHeight, position.x, position.y, 32, 32);
-            objectsToDraw.push({
-                image: candleSpriteB,
-                sourceX,
-                sourceY: 0,
-                sourceWidth: frameWidth,
-                sourceHeight: frameHeight,
-                destinationX: position.x,
-                destinationY: position.y,
-                destinationWidth: 32,
-                destinationHeight: 32
-            });
-        }
-
-        for (const position of torchPositions) {
-            // ctx.drawImage(torch, sourceX, 0, frameWidth, frameHeight, position.x, position.y, 32, 32);
-            objectsToDraw.push({
-                image: torch,
-                sourceX,
-                sourceY: 0,
-                sourceWidth: frameWidth,
-                sourceHeight: frameHeight,
-                destinationX: position.x,
-                destinationY: position.y,
-                destinationWidth: 32,
-                destinationHeight: 32
-            });
-        }
-
-        for (const object of objectsToDraw) {
-            ctx.drawImage(
-                object.image,
-                object.sourceX,
-                object.sourceY,
-                object.sourceWidth,
-                object.sourceHeight,
-                object.destinationX,
-                object.destinationY,
-                object.destinationWidth,
-                object.destinationHeight
-            );
-        }
-
-        objectsToDraw.length = 0;
-
-        frameIndex = (frameIndex + 1) % 4;
-        // requestAnimationFrame(drawCandles);
-        setTimeout(drawCandles, frameRate);
+		if (xPos <= 320) {
+			isFlipped = false;
+			frame = 0;
+		} else {
+			frame = (frame + 1) % 6;
+		}
     }
 
-    drawCandles();
-});
-
-
-/** Track mouse position **/
-// https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
-(function() {
-    document.addEventListener('mousedown', handleMouseMove);
-    function handleMouseMove(event) {
-        var eventDoc, doc, body;
-
-        event = event || window.event; // IE-ism
-
-        // If pageX/Y aren't available and clientX/Y are,
-        // calculate pageX/Y - logic taken from jQuery.
-        // (This is to support old IE)
-        if (event.pageX == null && event.clientX != null) {
-            eventDoc = (event.target && event.target.ownerDocument) || document;
-            doc = eventDoc.documentElement;
-            body = eventDoc.body;
-
-            event.pageX = event.clientX +
-              (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-              (doc && doc.clientLeft || body && body.clientLeft || 0);
-            event.pageY = event.clientY +
-              (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-              (doc && doc.clientTop  || body && body.clientTop  || 0 );
-        }
-
-        // Use event.pageX / event.pageY here
-        console.log(event.pageX, event.pageY);
-    }
-})();
+    // requestAnimationFrame(drawSkeleton);
+	setTimeout(drawSkeleton, frameRate);
+}

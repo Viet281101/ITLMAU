@@ -1,0 +1,13 @@
+
+
+35. Pavages de polyominos en JavaScript
+
+43. Nuées d'étourneaux
+
+13. Portal 2D ou 3D collaboratif en Godot
+
+25. IA pour Antichess par recherche arborescente
+
+3. Predict the rating of a book
+
+
