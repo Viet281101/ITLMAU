@@ -6,6 +6,7 @@
 #include<assert.h>
 #include<string.h>
 
+
 #define MAX 2000
 typedef unsigned char uchar;
 typedef unsigned char monplan [MAX][MAX];
@@ -43,8 +44,8 @@ void droite_triviale_verif (int dx, int dy, monplan pl) {
 
 void droite_br (int dx, int dy, monplan plan);
 void droite_br_verif (int dx, int dy, monplan plan);
-void droite_rvw (int dx, int dy, monplan plan);
-void droite_rvw_verif (int dx, int dy, monplan plan);
+// void droite_rvw (int dx, int dy, monplan plan);
+// void droite_rvw_verif (int dx, int dy, monplan plan);
 
 
 
@@ -92,14 +93,17 @@ int main (int argc, char ** argv) {
     printf("Temps d'execution Triviale verif: %d\n", (int) dt);
     
     /* Test des fonctions */
-    // memset (plan, ' ', MAX*MAX);
-    // printf("\n \n");
-    // printf("Bresenham\n");
-    // droite_br_verif (11, 3, plan);
-    // affiche (11, 3, plan);
-    // memset (plan, ' ', MAX*MAX);
-    // droite_br_verif (24, 11, plan);
-    // affiche (24, 11, plan);
+    ////* Test avec l'algo de Bresenham */////
+    memset (plan, ' ', MAX*MAX);
+    printf("\n \n");
+    printf("Bresenham\n");
+    droite_br_verif (11, 3, plan);
+    affiche (11, 3, plan);
+    
+    memset (plan, ' ', MAX*MAX);
+    droite_br_verif (24, 11, plan);
+    affiche (24, 11, plan);
+
     // memset (plan, ' ', MAX*MAX);
     // printf("\n \n");
     // printf("Rokne \n");
@@ -112,26 +116,42 @@ int main (int argc, char ** argv) {
 }
 
 
-void droite_br (int dx, int dy, monplan plan)
-{
-    int delta, incH, incO;
-    int x, y;
+void droite_br(int dx, int dy, monplan pl) {
+    int x = 0, y = 0;
+    int xe = dx;
+    int ye = dy;
+    int i, e;
 
-    incH= - dy - dy;
-    delta = incH + dx;
-    incO = delta + dx;
+    pl[x][y] = '.';
 
-    for ( x=0, y=0 ; x<=dx ; x++ )
-    {
-        affiche(x, y, plan);
-
-        if ( delta < 0 ) {
+    if (dx > dy) {
+        e = (dy - dx) * 2;
+        for (i = 0; i < dx; i++) {
+            x++;
+            if (e > 0) {
+                y++;
+                e -= 2 * dx;
+            }
+            e += 2 * dy;
+            pl[x][y] = '.';
+        }
+    } else {
+        e = (dx - dy) * 2;
+        for (i = 0; i < dy; i++) {
             y++;
-            delta += incO;
-        } else
-            delta += incH;
+            if (e > 0) {
+                x++;
+                e -= 2 * dy;
+            }
+            e += 2 * dx;
+            pl[x][y] = '.';
+        }
     }
 }
 
-void droite_br_verif (int dx, int dy, monplan plan) {}
+
+void droite_br_verif(int dx, int dy, monplan pl) {
+    memset(pl, ' ', MAX * MAX);
+    droite_br(dx, dy, pl);
+}
 

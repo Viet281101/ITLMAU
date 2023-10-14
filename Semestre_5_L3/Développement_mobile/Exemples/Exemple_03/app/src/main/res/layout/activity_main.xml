@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:id="@+id/scrolling">
+
+<RelativeLayout
+    android:id="@+id/visuel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/bad_script"
+        android:text="Liste"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="normal" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:contentDescription="@string/une_liste"
+        android:layout_below="@+id/title"
+        android:layout_margin="25dp"
+        android:padding="10dp"
+        android:background="@drawable/border"
+        android:dividerHeight="5dp"
+        tools:listitem="@layout/theitem"/>
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/list"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="475dp"
+        android:layout_marginEnd="200dp"
+        android:background="@drawable/border"
+        android:src="@drawable/baseline_add_24"
+        android:scaleType="fitCenter"
+        android:contentDescription="TODO" />
+
+    <ImageButton
+        android:id="@+id/delete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/list"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="475dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/border"
+        android:src="@drawable/border"
+        android:scaleType="fitCenter"
+        android:contentDescription="TODO" />
+
+    <ImageButton
+        android:id="@+id/appStop"
+        android:layout_width="wrap_content"
+        android:layout_height="86dp"
+        android:layout_below="@+id/add"
+        android:layout_alignStart="@+id/list"
+        android:layout_alignEnd="@+id/list"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="125dp"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:contentDescription="Déconnexion"
+        android:hint="Déconnexion"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:drawable/ic_lock_power_off"
+        app:tint="@color/black" />
+
+</RelativeLayout>
+
+</ScrollView>

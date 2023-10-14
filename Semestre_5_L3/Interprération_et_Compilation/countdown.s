@@ -50,4 +50,4 @@ main:
 .data
 nl: .asciiz "\n"
 boum: .asciiz "BOUM!\n"
-cf: .asciiz "Count from? "
+cf: .asciiz "Count from? \t"
