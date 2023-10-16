@@ -8,7 +8,7 @@
 
 #define _AUDIO_HELPER_H
 
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <GL4D/gl4dh.h>
 
 #ifdef __cplusplus

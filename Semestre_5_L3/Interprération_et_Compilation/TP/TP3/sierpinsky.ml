@@ -2,46 +2,46 @@
 open Misp
 
 let sierpinski_program = [
-  Li (T0, 16) ;;
-  Li (T1, 1) ;;
+  Li (T0, 16) ;
+  Li (T1, 1) ;
 
-  Label "outer_loop" ;;
+  Label "outer_loop" ;
 
-  Beq (T0, Zero, "done") ;;
+  Beq (T0, Zero, "done") ;
 
-  Label "inner_loop" ;;
+  Label "inner_loop" ;
 
-  Beq (T1, T0, "print_newline") ;;
+  Beq (T1, T0, "print_newline") ;
 
   Li (V0, Syscall.print_str);
-  La (A0, Lbl "#") ;;
-  Syscall ;;
+  La (A0, Lbl "#") ;
+  Syscall ;
 
-  Addi (T1, T1, 1) ;;
-  B "inner_loop" ;;
+  Addi (T1, T1, 1) ;
+  B "inner_loop" ;
 
-  Label "print_newline" ;;
+  Label "print_newline" ;
 
-  Li (V0, Syscall.print_str) ;;
-  La (A0, Lbl "\n") ;;
-  Syscall ;;
+  Li (V0, Syscall.print_str) ;
+  La (A0, Lbl "\n") ;
+  Syscall ;
 
-  Addi (T0, T0, -1) ;;
-  Li (T1, 1) ;;
-  B "outer_loop" ;;
+  Addi (T0, T0, -1) ;
+  Li (T1, 1) ;
+  B "outer_loop" ;
 
-  Label "done" ;;
+  Label "done" ;
 
-  Li (V0, Syscall.print_str) ;;
-  La (A0, Lbl "\n") ;;
-  Syscall ;;
+  Li (V0, Syscall.print_str) ;
+  La (A0, Lbl "\n") ;
+  Syscall ;
 
-  Li (V0, Syscall.print_str) ;;
-  La (A0, Lbl "Done\n") ;;
-  Syscall ;;
+  Li (V0, Syscall.print_str) ;
+  La (A0, Lbl "Done\n") ;
+  Syscall ;
 
-  Li (V0, Syscall.exit) ;;
-  Syscall ;;
+  Li (V0, Syscall.exit) ;
+  Syscall ;
 ]
 
 let () =
