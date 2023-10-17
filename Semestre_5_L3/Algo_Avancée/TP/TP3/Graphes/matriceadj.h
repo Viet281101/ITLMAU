@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<time.h>
+#include <time.h>
 
 #define INF 9999
 
@@ -8,7 +8,7 @@
 typedef struct grapheM{
     int vertices;
     int **adj;
-}grapheM;
+} grapheM;
 
 
 grapheM *new_grapheM(int n);

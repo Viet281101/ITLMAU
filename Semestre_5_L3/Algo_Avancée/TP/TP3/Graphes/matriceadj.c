@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<time.h>
+#include <time.h>
 
 #include "fifo.h"
 #include "affichage.h"
@@ -89,6 +89,48 @@ int minDistanceM(grapheM *grph, int dist[], int access[]){
 
 //////////// FONCTIONS A ECRIRE //////////////////
 
-void accessibles_mat(grapheM *grph, int src);
+void accessibles_mat(grapheM *grph, int src){
+    int n = grph->vertices;
+    int *access = malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++){
+        access[i] = 0;
+    }
+    access[src] = 1;
+    fifo *voisins = new_fifo();
+    push(voisins, src);
+    while (is_empty_fifo(voisins) == 0){
+        int s = get_first(voisins);
+        enqueue(voisins);
+        for (int i = 0; i < n; i++){
+            if (grph->adj[s][i] != 0 && access[i] == 0){
+                access[i] = 1;
+                push(voisins, i);
+            }
+        }
+    }
+    print_acc(access, n, src);
+    free(access);
+};
 
-void dijkstra_mat(grapheM *grph, int src);
+void dijkstra_mat(grapheM *grph, int src){
+    int n = grph->vertices;
+    int *dist = malloc(n * sizeof(int));
+    int *access = malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++){
+        dist[i] = INF;
+        access[i] = 0;
+    }
+    dist[src] = 0;
+    for (int i = 0; i < n - 1; i++){
+        int u = minDistanceM(grph, dist, access);
+        access[u] = 1;
+        for (int j = 0; j < n; j++){
+            if (!access[j] && grph->adj[u][j] && dist[u] != INF && dist[u] + grph->adj[u][j] < dist[j]){
+                dist[j] = dist[u] + grph->adj[u][j];
+            }
+        }
+    }
+    print_dist(dist, n, src);
+    free(dist);
+    free(access);
+};

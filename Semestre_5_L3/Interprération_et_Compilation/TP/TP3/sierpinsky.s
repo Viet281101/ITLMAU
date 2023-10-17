@@ -2,50 +2,60 @@
 .globl main
 
 main:
-    li $t0, 1
-    li $t1, 1
-    li $t2, 1
+    li $t0, 1                  # x
+    li $t1, 2147483648         # 2**31 (limit for x)
 
-outer_loop:
-    beq $t0, 32, done
+loop_x:
 
-    inner_loop:
-        beq $t1, $t0, print_space_or_hash
+    bgtu $t0, $t1 , end_loop_x #if x < 10
 
-        beq $t2, 1, print_hash
-        j print_space
+    move $t2, $t0              # n
 
-    print_space_or_hash:
-        beq $t1, $t0, print_newline
-        j toggle_space_or_hash
+loop_n:
+    blez $t2, end_loop_n       # if n < 0
 
-    print_hash:
-        li $v0, 11
-        li $a0, '#'
-        syscall
-        j toggle_space_or_hash
+    li $t3, 1
+    and $t4, $t2, $t3          # $t3 = x & 1 ($t3 == 1 --> x impair)
 
-    toggle_space_or_hash:
-        xori $t2, $t2, 1
-        addi $t1, $t1, 1
-        j inner_loop
-
-    print_space:
-        li $v0, 11
-        li $a0, ' '
-        syscall
-        j toggle_space_or_hash
-
-    print_newline:
-        li $v0, 11
-        li $a0, 10
-        syscall
-
-        addi $t0, $t0, 1
-        li $t1, 1
-        j outer_loop
-
-done:
-    li $v0, 10
+    beq $t4, $zero, x_odd_false
+x_odd_true:
+    # print "#"
+    li $v0, 4
+    la $a0, diez
     syscall
+
+    j end_if
+x_odd_false:
+    # print " "
+    li $v0, 4
+    la $a0, space
+    syscall
+end_if:
+    srl $t2, $t2, 1      # n = n >> 1
+
+    j loop_n
+end_loop_n:
+    # print "\n"
+    li $v0, 4
+    la $a0, nl
+    syscall
+
+    # x ^= x << 1
+    sll $t3, $t0, 1      # $t3 = x << 1
+    xor $t0, $t0, $t3    # x = x ^ $t3
+
+    j loop_x
+end_loop_x:
+
+    li $v0, 4
+    la $a0, aled
+    syscall
+
+    jr $ra
+
+
 .data
+nl: .asciiz "\n"
+space: .asciiz " "
+diez: .asciiz "#"
+aled: .asciiz "ez mdr\n"

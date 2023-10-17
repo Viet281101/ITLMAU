@@ -11,19 +11,19 @@
 
 
 int main(){
-    // Tests matrices d'adjacence
-    // grapheM *grph=remplir_grapheM(15);
-    // print_graphe(grph);
-    // printf("\n \n");
-    // int s=0;
-    // printf("Affichage des accessibles depuis %d : \n ",s);
-    // accessibles_mat(grph,0);
-    // printf("\n \n");
-    // printf("Affichage du résultat avec Dijkstra : \n");
-    // dijkstra_mat(grph,0);
-    // free_graph(grph);
+    //// Tests matrices d'adjacence
+    grapheM *grph=remplir_grapheM(15);
+    print_graphe(grph);
+    printf("\n \n");
+    int s=0;
+    printf("Affichage des accessibles depuis %d : \n ",s);
+    accessibles_mat(grph,0);
+    printf("\n \n");
+    printf("Affichage du résultat avec Dijkstra : \n");
+    dijkstra_mat(grph,0);
+    free_graph(grph);
 
-    //Tests listes d'adjacence
+    ////Tests listes d'adjacence
     // grapheL *grphb = remplir_grapheL(10);
     // print_adjlist(grphb);
     // printf("\n \n");
