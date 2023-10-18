@@ -5,7 +5,7 @@
 (avec ou sans SAT.js)
 (avec ou sans DAT.js pour avoir un mode debug)
 
-### Idee de démo :
+### Idees de démo :
 + ball trap de gentils et de vilains (collision click-souris)
 ++ personnage et objet vue de dessus (pousser les objets)
 ++ football vue de dessus (shooter dans la balle, pousser la balle)

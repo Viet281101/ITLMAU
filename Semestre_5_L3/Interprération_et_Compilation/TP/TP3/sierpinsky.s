@@ -1,3 +1,4 @@
+
 .text
 .globl main
 
@@ -34,6 +35,7 @@ end_if:
     srl $t2, $t2, 1      # n = n >> 1
 
     j loop_n
+
 end_loop_n:
     # print "\n"
     li $v0, 4
@@ -58,4 +60,4 @@ end_loop_x:
 nl: .asciiz "\n"
 space: .asciiz " "
 diez: .asciiz "#"
-aled: .asciiz "ez mdr\n"
+aled: .asciiz "bye\n"
