@@ -24,14 +24,14 @@ int main(){
     free_graph(grph);
 
     ////Tests listes d'adjacence
-    // grapheL *grphb = remplir_grapheL(10);
-    // print_adjlist(grphb);
-    // printf("\n \n");
-    // printf("Affichage du résultat avec Dijkstra : \n");
-    // dijkstra_list(grphb,0);
-    // printf("\n \n");
-    // printf("Affichage du résultat avec Dijkstra prio: \n");
-    // dijkstra_list_prio(grphb,0);
-    // free(grphb);
+    grapheL *grphb = remplir_grapheL(10);
+    print_adjlist(grphb);
+    printf("\n \n");
+    printf("Affichage du résultat avec Dijkstra : \n");
+    dijkstra_list(grphb,0);
+    printf("\n \n");
+    printf("Affichage du résultat avec Dijkstra prio: \n");
+    dijkstra_list_prio(grphb,0);
+    free(grphb);
     return 0;
 }

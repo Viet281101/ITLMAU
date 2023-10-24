@@ -101,9 +101,64 @@ int minDistanceL(grapheL *grph, int dist[], int access[])
 
 ///////// FONCTIONS A ECRIRE //////////////
 
-void accessibles_list(struct grapheL* grph, int s);
 
-void dijkstra_list_prio(grapheL* grph, int src);
+void accessibles_list(struct grapheL* grph, int s) {};
 
-void diklstra_list(grapheL* grph, int src);
+void dijkstra_list_prio(grapheL* grph, int src) {
+    int n = grph->vertices;
+    int dist[n];
+    int access[n];
+    int i;
+    for (i = 0; i < n; i++) {
+        dist[i] = INF;
+        access[i] = 0;
+    }
+    dist[src] = 0;
+    Tas *tas = creer_tas(n);
+    for (i = 0; i < n; i++) {
+        tas->array[i] = new_noeudTas(i, dist[i]);
+        tas->pos[i] = i;
+    }
+    tas->taille = n;
+    decrease_value(tas, src, dist[src]);
+    while (!is_empty_tas(tas)) {
+        noeudTas *noeud = extract_min(tas);
+        int u = noeud->v;
+        access[u] = 1;
+        noeudListeAdj *n = grph->array[u].head;
+        while (n != NULL) {
+            int v = n->but;
+            if (access[v] == 0 && dist[u] != INF && dist[u] + n->poids < dist[v]) {
+                dist[v] = dist[u] + n->poids;
+                decrease_value(tas, v, dist[v]);
+            }
+            n = n->suivant;
+        }
+    }
+    print_dist(dist, n, src);
+};
+
+/* Implémente l'algorithme de Dijkstra en utilisant la fonction minDistanceL, p ermettant de trouver le sommet non-encore parcours situé à plus courte distance. */
+void diklstra_list(grapheL* grph, int src) {
+    int n = grph->vertices;
+    int dist[n];
+    int access[n];
+    int i;
+    for (i = 0; i < n; i++) {
+        dist[i] = INF;
+        access[i] = 0;
+    }
+    dist[src] = 0;
+    for (i = 0; i < n - 1; i++) {
+        int u = minDistanceL(grph, dist, access);
+        access[u] = 1;
+        noeudListeAdj *n = grph->array[u].head;
+        while (n != NULL) {
+            if (access[n->but] == 0 && dist[u] != INF && dist[u] + n->poids < dist[n->but])
+                dist[n->but] = dist[u] + n->poids;
+            n = n->suivant;
+        }
+    }
+    print_dist(dist, n, src);
+};
 

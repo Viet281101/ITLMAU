@@ -1,5 +1,9 @@
 {
     "ocaml.sandbox": {
         "kind": "global"
+    },
+    "files.associations": {
+        "heap.h": "c",
+        "fifo.h": "c"
     }
 }
