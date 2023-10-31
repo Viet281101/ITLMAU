@@ -33,4 +33,4 @@ let rec eval_block b env =
 let eval prog =
   match eval_block prog  Env.empty with
   | Ret v -> v
-  | Env e -> e
+  | Env e -> Nil

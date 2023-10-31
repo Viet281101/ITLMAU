@@ -15,6 +15,12 @@ Viet NGUYEN -- L3B -- 20006303
 
 ### PS :
 #### Toujours exécuter le fichier _'serveur.py'_ en premier
+```
+python3 serveur.py
+```
 #### Le fichier _'client.py'_ doit toujours etre accompagné du dossier _'./assets/'_ pour l'icon dans gui
+```
+python3 client.py
+```
 
 

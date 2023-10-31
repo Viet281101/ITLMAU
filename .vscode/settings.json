@@ -5,5 +5,24 @@
     "files.associations": {
         "heap.h": "c",
         "fifo.h": "c"
+    },
+
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "entity.name.todo.latex",
+                "settings": {
+                    "foreground": "#bd7829",
+                    "fontStyle": "italic",
+                }
+            },
+            {
+                "scope": "support.function.todo.latex",
+                "settings": {
+                    "foreground": "#bd7829",
+                    "fontStyle": "italic",
+                }
+            }
+        ],
     }
 }
