@@ -1,26 +1,26 @@
 
-# Projet Application de messagerie encryto -- Introduction à la Sécurité
+# Projet Déveloper Chatbox App Sécurité -- Introduction à la Sécurité
 
 La mise en place de fonctionnalités d'un mini-tchat sécurisé.
 
 Viet NGUYEN -- L3B -- 20006303
 
 
-### Bibliotheque de langage python :
-#### sys
-#### tkinter
-#### socket, threading
-#### datetime
+L’Objectif est de créer une application de chat de base avec une interface simple utilisant la bibliothèque ‘tkinter’ et un serveur utilisant ‘socket’ avec les idées pour développer des systèmes de sécurité supplémentaires suivants:
+
+1)  Crypter les messages avant de les envoyer:
+	- Utilisez des algorithmes de chiffrement tels que AES ou RSA pour chiffrer les messages avant de les envoyer du client au serveur et les décrypter lors de la réception des messages.
+	- Il doit y avoir un mécanisme pour échanger en toute sécurité les clés de chiffrement entre le client et le serveur.
 
 
-### PS :
-#### Toujours exécuter le fichier _'serveur.py'_ en premier
-```
-python3 serveur.py
-```
-#### Le fichier _'client.py'_ doit toujours etre accompagné du dossier _'./assets/'_ pour l'icon dans gui
-```
-python3 client.py
-```
+2)  Cryptage de connexion:
+	- Utilisez SSL/TLS pour crypter la connexion entre le client et le serveur. Cela garanti que les messages ne sont pas capturés et lus en ligne.
 
+
+3) Authentification d’utilisateur:
+	- Ajoutez un système de connexion qui permet l’authentification des utilisateurs. Cela fournit une couche de sécurité supplémentaire et permet d’empecher d’autres utilisateurs malveillants.
+
+
+4) Stockage des messages:
+	- Archiver des messages, assurer qu’ils sont cryptés avant de les enregistrer dans la base de données.
 
