@@ -13,8 +13,17 @@ L’Objectif est de créer une application de chat de base avec une interface si
 	- Il doit y avoir un mécanisme pour échanger en toute sécurité les clés de chiffrement entre le client et le serveur.
 
 
+J'utilise un projet [SmallChatAppPython](https://github.com/Viet281101/SmallChatAppPython/tree/main) sur mon GitHub avec 2 fichiers serveur.py et client.py disponibles.
+
+
 2)  Cryptage de connexion:
 	- Utilisez SSL/TLS pour crypter la connexion entre le client et le serveur. Cela garanti que les messages ne sont pas capturés et lus en ligne.
+
+Sur terminal:
+```
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+```
+Il va créer 2 fichier **key.pem** et **cert.pem**
 
 
 3) Authentification d’utilisateur:

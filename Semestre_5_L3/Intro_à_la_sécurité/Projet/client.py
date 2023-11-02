@@ -1,12 +1,18 @@
 
 
-import sys
+import sys, atexit
 import socket, threading
 from tkinter import *
 import tkinter as tk
 from datetime import datetime
 from tkinter import messagebox
 
+from Crypto.Cipher import AES
+from base64 import b64encode, b64decode
+
+#### AES
+KEY = b'0123456789abcdef' # 16 bytes
+CIPHER = AES.new(KEY, AES.MODE_ECB)
 
 #### SERVER ####
 SERVER : str = "127.0.0.1"
@@ -60,7 +66,6 @@ class Login(tk.Frame):
             bd = 0, bg = BG_COLOR,
             highlightthickness = 0)
 		self.canvas.pack(side=TOP,padx=0,pady=0)
-		self.canvas.focus_set()
 
 		self.pls = Label(self.canvas, text="Please login to continue",
 			justify=CENTER, font=HELV_14_B, bg=BG_COLOR, fg=TXT_COLOR)
@@ -101,8 +106,8 @@ class ChatBox(tk.Frame):
 		tk.Frame.__init__(self, master)
 		self.tkraise()
 		self.master.title("CHATBOX")
-		self.name : str = str(master._frame.entryName.get())
-		self.goAhead(self.name)
+		self.usrname : str = str(master._frame.entryName.get())
+		self.goAhead(self.usrname)
 
 	def goAhead(self, name:str) -> None:
 		self.layout(name)
@@ -209,11 +214,15 @@ class ChatBox(tk.Frame):
 
 	def sendMessage(self) -> None:
 		time : str = datetime.now().strftime("%H:%M:%S")
-		self.txtCons.config(state=DISABLED)
-		while True:
-			message = (f"{self.name} ~ {time} :  {self.msg}")
-			client.send(message.encode(FORMAT))
-			break
+		plaintext = f"{self.name} ~ {time} :  {self.msg}"
+		padded_message = plaintext.ljust(HEADER)
+
+		if len(padded_message) > HEADER:
+			raise ValueError("Message is too long to be encrypted!")
+
+		ciphertext = CIPHER.encrypt(padded_message.encode('utf-8'))
+		encoded_ciphertext = b64encode(ciphertext)
+		client.send(encoded_ciphertext)
 
 	def connect(self) -> None:
 		global client
@@ -303,5 +312,6 @@ def main(args) -> None:
 
 if __name__ == "__main__":
 	main(sys.argv)
+	atexit.register(ChatBox.closeServer)
 
 
