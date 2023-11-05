@@ -1,11 +1,11 @@
 
 
 open Ast.IR
-open Baselib.Env
+open Baselib
 
 type 'a result =
   | Ret of value
-  | Env of 'a t
+  | Env of 'a Env.t
 
 let eval_const = function
   | Nil -> Nil
@@ -13,31 +13,48 @@ let eval_const = function
   | Int n -> Int n
   | Str s -> Str s
 
-let rec eval_expr e env = 
+let eval_native (func: native) args =
+  func args
+
+let rec eval_expr e env =
   match e with
   | Value v -> eval_const v
-  | Var v -> find v env
-  | Call (f, args) ->
-      failwith "Function call evaluation not yet implemented"
+  | Var v ->
+    (match Env.find v env with
+    | V value -> value
+    | N _ -> failwith "Expected value, found function")
+  | Call (f, arg_exprs) ->
+    let func = match Env.find f env with
+      | N native_func -> native_func
+      | V _ -> failwith "Expected function, found value"
+    in
+    let arg_values = List.map (fun arg -> eval_expr arg env) arg_exprs in
+    eval_native func arg_values
 
-let rec eval_instr i env = 
+and eval_instr i env =
   match i with
   | Return e -> Ret (eval_expr e env)
-  | Expr e -> 
-      let _ = eval_expr e env in Env env
-  | Assign (v, e) -> Env(add v (eval_expr e env) env)
+  | Expr e -> let _ = eval_expr e env in Env env
+  | Assign (v, e) -> Env(Env.add v (V (eval_expr e env)) env)
   | Cond (cond, then_block, else_block) ->
-      let result = eval_expr cond env in
-      begin
-        match result with
-        | Bool true -> eval_block then_block env
-        | Bool false -> eval_block else_block env
-        | _ -> failwith "Condition must be a boolean"
-      end
+    let result = eval_expr cond env in
+    begin
+      match result with
+      | Bool true -> eval_block then_block env
+      | Bool false -> eval_block else_block env
+      | _ -> failwith "Condition must be a boolean"
+    end
   | Loop (cond, block) ->
-      failwith "Loop evaluation not yet implemented"
+    let rec loop env =
+      match eval_expr cond env with
+      | Bool true -> (match eval_block block env with
+                      | Env env' -> loop env'
+                      | Ret v -> Ret v)
+      | Bool false -> Env env
+      | _ -> failwith "Loop condition must be a boolean"
+    in loop env
 
-and eval_block b env = 
+and eval_block b env =
   match b with
   | [] -> Env env
   | i :: r ->
@@ -46,6 +63,7 @@ and eval_block b env =
     | Env e -> eval_block r e
 
 let eval prog =
-  match eval_block prog empty with
+  match eval_block prog Baselib.baselib with
   | Ret v -> v
   | Env _ -> Nil
+

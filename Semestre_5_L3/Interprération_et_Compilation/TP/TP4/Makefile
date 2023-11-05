@@ -10,6 +10,6 @@ run:
 	$ ./test.byte
 
 clean:
-	$ rmdir --ignore-fail-on-non-empty _build
-	$ rm -r test.byte
+	$ rm -r _build
+	$ rm -r -f test.byte
 
