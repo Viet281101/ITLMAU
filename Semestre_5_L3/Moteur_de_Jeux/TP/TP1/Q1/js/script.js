@@ -196,7 +196,7 @@ function loadCharacterState(stateName) {
         characterFrame = 0;
         characterStagger = 0;
     }
-}
+};
 
 
 
@@ -213,14 +213,14 @@ function drawCharacterFrame() {
     }
     characterStagger++;
     animationRequestId = requestAnimationFrame(drawCharacterFrame);
-}
+};
 
 
 function startCharacterAnimation() {
     if (characterState.name) {
         animationRequestId = requestAnimationFrame(drawCharacterFrame);
     }
-}
+};
 
 
 for (const stateName in imgInfo.state) {
@@ -231,5 +231,11 @@ for (const stateName in imgInfo.state) {
         startCharacterAnimation();
     });
     buttonsContainer.appendChild(button);
-}
+};
+
+
+let gui = new dat.GUI();
+let stateController = gui.addFolder('State');
+stateController.add(characterState, 'name', Object.keys(imgInfo.state));
+stateController.open();
 
