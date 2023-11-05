@@ -20,13 +20,13 @@ let rec eval_expr e env =
   match e with
   | Value v -> eval_const v
   | Var v ->
-    (match Env.find v env with
-    | V value -> value
-    | N _ -> failwith "Expected value, found function")
+    (match Env.find_opt v env with
+    | Some (V value) -> value
+    | Some (N _) | Some (F _) | None -> failwith "Expected value, found function or function not found")
   | Call (f, arg_exprs) ->
-    let func = match Env.find f env with
-      | N native_func -> native_func
-      | V _ -> failwith "Expected function, found value"
+    let func = match Env.find_opt f env with
+      | Some (N native_func) -> native_func
+      | Some (V _) | Some (F _) | None -> failwith "Expected function, found value or function not found"
     in
     let arg_values = List.map (fun arg -> eval_expr arg env) arg_exprs in
     eval_native func arg_values
