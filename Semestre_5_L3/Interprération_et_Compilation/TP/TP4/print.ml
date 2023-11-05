@@ -1,5 +1,5 @@
 
-open Ast
+open Ast.IR
 
 let fmt_const = function
   | Nil -> "nil"
@@ -7,7 +7,7 @@ let fmt_const = function
   | Int n -> string_of_int n
   | Str s -> Printf.sprintf "\"%s\"" s
 
-let print_const c = Printf.sprintf "%s\n" (fmt_const c)
+let print_const c = Printf.printf "%s\n" (fmt_const c)
 
 (* print_const(Str "Hello") *)
 

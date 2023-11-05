@@ -4,12 +4,12 @@ module IR = struct
 
   type value = 
   | Nil
-  | Bool pf bool
+  | Bool of bool
   | Int of int
   | Str of string
 
   type expr =
-  | value of value
+  | Value of value
   | Var of ident
   | Call of ident * expr list
 
