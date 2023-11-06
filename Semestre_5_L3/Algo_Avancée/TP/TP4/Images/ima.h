@@ -25,9 +25,11 @@ int ImageLoad_PPM(char *filename, Image *image);
 void imagesave_PPM(char *filename, Image *image);
 void upsidedown(Image *im);
 void vert(Image *image);
-//void vert_uniform(Image *image)
-//void gris_uniform (Image *image);
-//void rouge_origin(Image *image);
-//void swap_green_red(Image *image);
+
+void vert_uniform(Image *image);
+void gris_uniform (Image *image);
+void rouge_origin(Image *image);
+void swap_green_red(Image *image);
+void swap_blue_red(Image *image);
 
 

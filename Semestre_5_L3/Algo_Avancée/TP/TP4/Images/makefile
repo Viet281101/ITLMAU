@@ -22,7 +22,7 @@ else
 GL_LDFLAGS = -lGL -lglut -lGLU
 endif
 
-CFLAGS = -Wall
+CFLAGS = -Wall -Wno-sequence-point
 LDFLAGS = -lm $(GL_LDFLAGS)
 #definition des fichiers et dossiers
 PROGNAME = palette

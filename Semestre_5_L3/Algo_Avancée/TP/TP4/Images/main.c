@@ -90,25 +90,35 @@ void menuFunc(int item) {
     break;
   case 2:
     printf("Vert uniforme \n");
-    //vert_uniform(image);
+    vert_uniform(image);
     Display();
     break;
   case 3:
     printf("Gris uniforme \n");
-    //gris_uniform(image);
+    gris_uniform(image);
     Display();
     break;
   case 4:
-    printf("Swap red and green \n");
-    //swap_green_red(image);
+    printf("Rouge origin \n");
+    rouge_origin(image);
     Display();
     break;
   case 5:
+    printf("Swap red and green \n");
+    swap_green_red(image);
+    Display();
+    break;
+  case 6:
+    printf("Swap blue and red \n");
+    swap_blue_red(image);
+    Display();
+    break;
+  case 7:
     printf("Entrer le nom pour l'image dans cette taille\n");
     scanf("%s", &s[0]);
     imagesave_PPM(s, image);
     break;
-  case 6:
+  case 8:
     printf("Taille de l image : %d %d\n", (int) image->sizeX, (int) image->sizeY);
     break;
   default:
@@ -136,9 +146,11 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Vert", 1);
   glutAddMenuEntry("Vert uniforme", 2);
   glutAddMenuEntry("Gris uniforme", 3);
-  glutAddMenuEntry("Swap G and R", 4);
-  glutAddMenuEntry("Save", 5);
-  glutAddMenuEntry("Infos", 6);
+  glutAddMenuEntry("Rouge origin", 4);
+  glutAddMenuEntry("Swap G and R", 5);
+  glutAddMenuEntry("Swap B and R", 6);
+  glutAddMenuEntry("Save", 7);
+  glutAddMenuEntry("Infos", 8);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  
