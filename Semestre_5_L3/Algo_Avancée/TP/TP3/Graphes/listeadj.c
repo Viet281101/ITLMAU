@@ -102,7 +102,42 @@ int minDistanceL(grapheL *grph, int dist[], int access[])
 ///////// FONCTIONS A ECRIRE //////////////
 
 
-void accessibles_list(struct grapheL* grph, int s) {};
+void accessibles_list(struct grapheL* grph, int s) {
+    int *visited = calloc(grph->vertices, sizeof(int));
+    fifo *queue = new_fifo();
+
+    visited[s] = 1;
+    push(queue, s);
+
+    while (!is_empty_fifo(queue)) {
+        int currentVertex = get_first(queue);
+        enqueue(queue);
+
+        noeudListeAdj* temp = grph->array[currentVertex].head;
+        while (temp != NULL) {
+            int adjVertex = temp->but;
+            if (visited[adjVertex] == 0) {
+                visited[adjVertex] = 1;
+                push(queue, adjVertex);
+            }
+            temp = temp->suivant;
+        }
+    }
+
+    printf("Les sommets sont accessibles par le haut %d: ", s);
+    for (int i = 0; i < grph->vertices; i++) {
+        if (visited[i]) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+
+    free(visited);
+    while (!is_empty_fifo(queue)) {
+        enqueue(queue);
+    }
+    free(queue);
+}
 
 void dijkstra_list_prio(grapheL* grph, int src) {
     int n = grph->vertices;
