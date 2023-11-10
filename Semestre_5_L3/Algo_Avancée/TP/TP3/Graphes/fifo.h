@@ -26,3 +26,5 @@ void enqueue(fifo *F);
 int get_first(fifo *F);
 // Afficher les données de la file
 void print_fifo(fifo *F);
+// Tester si la file est vide
+int is_empty_fifo(fifo *F);

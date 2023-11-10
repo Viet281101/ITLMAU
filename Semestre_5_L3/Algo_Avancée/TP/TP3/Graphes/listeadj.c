@@ -174,7 +174,7 @@ void dijkstra_list_prio(grapheL* grph, int src) {
 };
 
 /* Implémente l'algorithme de Dijkstra en utilisant la fonction minDistanceL, p ermettant de trouver le sommet non-encore parcours situé à plus courte distance. */
-void diklstra_list(grapheL* grph, int src) {
+void dijkstra_list(grapheL* grph, int src) {
     int n = grph->vertices;
     int dist[n];
     int access[n];
