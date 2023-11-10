@@ -138,7 +138,12 @@ int main(){
     printf("\n \n");
     int s=0;
     printf("Affichage du résultat avec Dijkstra : \n");
+    
+    clock_t t1, t2;
+    t1 = clock();
     dijkstra_triplet(grph,0);
+    t2 = clock();
+    printf("Temps d'execution Dijkstra: %f secondes\n", (double) (t2 - t1) / CLOCKS_PER_SEC);
     free(grph);
 
 
