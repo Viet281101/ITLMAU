@@ -46,6 +46,7 @@ const settings = {
 	numSpheres: 50,
 	color: '#5fcde4',
 	emissiveIntensity: 0.5,
+	flicker: false
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -89,11 +90,23 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 gui.addColor(settings, 'color').onChange(function(e) {
 	sphereMaterial.color.set(e);
 });
-gui.add(settings, 'emissiveIntensity', 0, 3, 0.01).onChange(function(e) {
+gui.add(settings, 'emissiveIntensity', 0, 10, 0.01).onChange(function(e) {
 	spheres.forEach(sphere => {
 		sphere.material.emissive.set(settings.color).multiplyScalar(e);
 	});
 });
+gui.add(settings, 'flicker');
+
+
+//// Flicker Effect
+function flickerSpheres() {
+	if (settings.flicker) {
+		spheres.forEach(sphere => {
+			sphere.material.emissive.set(settings.color).multiplyScalar(Math.random() * settings.emissiveIntensity);
+		});
+	}
+	requestAnimationFrame(flickerSpheres);
+}
   
 
 
@@ -107,12 +120,14 @@ function animate() {
 		sphere.position.z += (simplex.noise3D(index, time, 2)) * settings.speed;
 	});
 
+	flickerSpheres();
+
 	controls.update();
 	renderer.render(scene, camera);
 
 
 	requestAnimationFrame(animate);
-}
+};
 
 animate();
 
