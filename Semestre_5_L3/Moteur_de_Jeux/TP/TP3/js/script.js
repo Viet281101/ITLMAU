@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const simplex = new SimplexNoise();
 const originalColor = [];
+const targetColor = [];
 
 
 //// Scene and Camera
@@ -29,12 +30,7 @@ scene.add(directionalLight);
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x5fcde4 });
 const spheres = [];
 for (let i = 0; i < 50; i++) {
-	const sphereGeometry = new THREE.SphereGeometry(0.5, 30, 30);
-	const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
-	scene.add(sphere);
-	spheres.push(sphere);
-	originalColor.push(sphereMaterial.color.clone());
+	createSphere(0.5);
 }
 
 //// Orbit Controls
@@ -50,6 +46,7 @@ const settings = {
 	emissiveIntensity: 0.5,
 	flicker: false,
 	colorChange: false,
+	lerpSpeed: 0.05,
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -62,11 +59,7 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 	//////////// Add or remove spheres solution 1
 	// if (e > spheres.length) {
 	// 	for (let i = spheres.length; i < e; i++) {
-	// 		const sphereGeometry = new THREE.SphereGeometry(settings.radius, 30, 30);
-	// 		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	// 		sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
-	// 		scene.add(sphere);
-	// 		spheres.push(sphere);
+	// 		createSphere(settings.radius);
 	// 	}
 	// } else {
 	// 	for (let i = spheres.length; i > e; i--) {
@@ -83,12 +76,7 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 	});
 	spheres.length = 0;
 	for (let i = 0; i < e; i++) {
-		const sphereGeometry = new THREE.SphereGeometry(settings.radius, 30, 30);
-		const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-		sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
-		scene.add(sphere);
-		spheres.push(sphere);
-		originalColor.push(sphereMaterial.color.clone());
+		createSphere(settings.radius);
 	}
 });
 gui.addColor(settings, 'color').onChange(function(e) {
@@ -101,6 +89,7 @@ gui.add(settings, 'emissiveIntensity', 0, 10, 0.01).onChange(function(e) {
 });
 gui.add(settings, 'flicker');
 gui.add(settings, 'colorChange');
+gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
 
 
 //// Flicker Effect
@@ -116,19 +105,33 @@ function flickerSpheres() {
 //// Color Change Effect
 function changeSphereColors() {
 	if (settings.colorChange) {
-		spheres.forEach(sphere => {
-			const color = new THREE.Color(
-			Math.random(),
-			Math.random(),
-			Math.random()
-			);
-			sphere.material.color.set(color);
+		spheres.forEach((sphere, index) => {
+			sphere.material.color.lerp(targetColor[index], settings.lerpSpeed);
 		});
 	} else {
 		spheres.forEach((sphere, index) => {
 			sphere.material.color.set(originalColor[index]);
 		});
 	}
+};
+function updateTargetColors() {
+	if (settings.colorChange) {
+		for (let i = 0; i < targetColor.length; i++) {
+			targetColor[i].set(new THREE.Color(Math.random(), Math.random(), Math.random()));
+		}
+	}
+};
+
+
+//// Create Sphere
+function createSphere(radius) {
+	const sphereGeometry = new THREE.SphereGeometry(radius, 30, 30);
+	const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+	scene.add(sphere);
+	spheres.push(sphere);
+	originalColor.push(sphereMaterial.color.clone());
+	targetColor.push(new THREE.Color(Math.random(), Math.random(), Math.random()));
 };
   
 
@@ -154,4 +157,5 @@ function animate() {
 };
 
 animate();
+setInterval(updateTargetColors, 1000);
 
