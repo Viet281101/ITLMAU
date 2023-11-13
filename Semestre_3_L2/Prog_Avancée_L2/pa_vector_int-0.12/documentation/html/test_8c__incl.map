@@ -1,8 +1,0 @@
-<map id="test.c" name="test.c">
-<area shape="rect" id="node1" title="tests de quelques fonctions de la bibliothèque et vector." alt="" coords="147,5,200,32"/>
-<area shape="rect" id="node2" href="$vector_8h.html" title="entête d&#39;une bibliothèque de gestion de vecteurs (tableaux dynamiques extensibles) d&#39;entiers." alt="" coords="88,80,157,107"/>
-<area shape="rect" id="node6" href="$my__timer_8h.html" title="fonctions pour chronométrer le temps passé entre initTimer et getElapsedTime" alt="" coords="181,80,269,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,67,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="91,155,155,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="179,155,248,181"/>
-</map>

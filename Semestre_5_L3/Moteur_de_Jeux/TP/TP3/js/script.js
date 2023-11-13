@@ -9,7 +9,7 @@ const originalColor = [];
 const targetColor = [];
 
 
-//// Scene and Camera
+//// Scene & Camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 5;
@@ -31,7 +31,7 @@ const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x5fcde4 });
 const spheres = [];
 for (let i = 0; i < 50; i++) {
 	createSphere(0.5);
-}
+};
 
 //// Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -118,7 +118,7 @@ function updateTargetColors() {
 	if (settings.colorChange) {
 		for (let i = 0; i < targetColor.length; i++) {
 			targetColor[i].set(new THREE.Color(Math.random(), Math.random(), Math.random()));
-		}
+		};
 	}
 };
 
@@ -139,7 +139,7 @@ function createSphere(radius) {
 function animate() {
 	const time = Date.now() * 0.001;
 
-	//// Move spheres
+	//// Move spheres simplex noise style
 	spheres.forEach((sphere, index) => {
 		sphere.position.x += (simplex.noise3D(index, time, 0)) * settings.speed;
 		sphere.position.y += (simplex.noise3D(index, time, 1)) * settings.speed;
