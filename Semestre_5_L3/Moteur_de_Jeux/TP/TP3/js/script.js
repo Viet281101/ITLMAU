@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 
 const simplex = new SimplexNoise();
+const originalColor = [];
 
 
 //// Scene and Camera
@@ -33,6 +34,7 @@ for (let i = 0; i < 50; i++) {
 	sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
 	scene.add(sphere);
 	spheres.push(sphere);
+	originalColor.push(sphereMaterial.color.clone());
 }
 
 //// Orbit Controls
@@ -46,7 +48,8 @@ const settings = {
 	numSpheres: 50,
 	color: '#5fcde4',
 	emissiveIntensity: 0.5,
-	flicker: false
+	flicker: false,
+	colorChange: false,
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -85,6 +88,7 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 		sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
 		scene.add(sphere);
 		spheres.push(sphere);
+		originalColor.push(sphereMaterial.color.clone());
 	}
 });
 gui.addColor(settings, 'color').onChange(function(e) {
@@ -96,6 +100,7 @@ gui.add(settings, 'emissiveIntensity', 0, 10, 0.01).onChange(function(e) {
 	});
 });
 gui.add(settings, 'flicker');
+gui.add(settings, 'colorChange');
 
 
 //// Flicker Effect
@@ -106,14 +111,32 @@ function flickerSpheres() {
 		});
 	}
 	requestAnimationFrame(flickerSpheres);
-}
+};
+
+//// Color Change Effect
+function changeSphereColors() {
+	if (settings.colorChange) {
+		spheres.forEach(sphere => {
+			const color = new THREE.Color(
+			Math.random(),
+			Math.random(),
+			Math.random()
+			);
+			sphere.material.color.set(color);
+		});
+	} else {
+		spheres.forEach((sphere, index) => {
+			sphere.material.color.set(originalColor[index]);
+		});
+	}
+};
   
 
 
 function animate() {
-
 	const time = Date.now() * 0.001;
 
+	//// Move spheres
 	spheres.forEach((sphere, index) => {
 		sphere.position.x += (simplex.noise3D(index, time, 0)) * settings.speed;
 		sphere.position.y += (simplex.noise3D(index, time, 1)) * settings.speed;
@@ -121,6 +144,7 @@ function animate() {
 	});
 
 	flickerSpheres();
+	changeSphereColors();
 
 	controls.update();
 	renderer.render(scene, camera);
