@@ -1,0 +1,24 @@
+### Starting build.
+# Target: test.ml.depends, tags: { extension:ml, file:test.ml, ocaml, ocamldep, quiet }
+/home/dwi/.opam/default/bin/ocamldep.opt -modules test.ml > test.ml.depends # cached
+# Target: Ast.ml.depends, tags: { extension:ml, file:Ast.ml, ocaml, ocamldep, quiet }
+/home/dwi/.opam/default/bin/ocamldep.opt -modules Ast.ml > Ast.ml.depends
+# Target: baselib.ml.depends, tags: { extension:ml, file:baselib.ml, ocaml, ocamldep, quiet }
+/home/dwi/.opam/default/bin/ocamldep.opt -modules baselib.ml > baselib.ml.depends # cached
+# Target: baselib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:baselib.cmo, file:baselib.ml, implem, ocaml, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt -c -o baselib.cmo baselib.ml # cached
+# Target: interp.ml.depends, tags: { extension:ml, file:interp.ml, ocaml, ocamldep, quiet }
+/home/dwi/.opam/default/bin/ocamldep.opt -modules interp.ml > interp.ml.depends # cached
+# Target: Ast.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:Ast.cmo, file:Ast.ml, implem, ocaml, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt -c -o Ast.cmo Ast.ml
+# Target: print.ml.depends, tags: { extension:ml, file:print.ml, ocaml, ocamldep, quiet }
+/home/dwi/.opam/default/bin/ocamldep.opt -modules print.ml > print.ml.depends # cached
+# Target: interp.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:interp.cmo, file:interp.ml, implem, ocaml, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt -c -o interp.cmo interp.ml
+# Target: print.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:print.cmo, file:print.ml, implem, ocaml, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt -c -o print.cmo print.ml
+# Target: test.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:test.cmo, file:test.ml, implem, ocaml, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt -c -o test.cmo test.ml
+# Target: test.byte, tags: { byte, dont_link_with, extension:byte, file:test.byte, link, ocaml, program, quiet }
+/home/dwi/.opam/default/bin/ocamlc.opt baselib.cmo Ast.cmo interp.cmo print.cmo test.cmo -o test.byte
+# Compilation successful.

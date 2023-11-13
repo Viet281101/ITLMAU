@@ -1,0 +1,22 @@
+(** @canonical Dune__exe.Ast *)
+module Ast = Dune__exe__Ast
+
+
+(** @canonical Dune__exe.Baselib *)
+module Baselib = Dune__exe__Baselib
+
+
+(** @canonical Dune__exe.Compiler *)
+module Compiler = Dune__exe__Compiler
+
+
+(** @canonical Dune__exe.Mips *)
+module Mips = Dune__exe__Mips
+
+
+(** @canonical Dune__exe.Simplifier *)
+module Simplifier = Dune__exe__Simplifier
+
+
+(** @canonical Dune__exe.Test *)
+module Test = Dune__exe__Test
