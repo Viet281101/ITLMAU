@@ -6,7 +6,10 @@ let collect_constant_strings code =
     | V1.Nil    -> V2.Nil, []
     | V1.Bool b -> V2.Bool b, []
     | V1.Int n  -> V2.Int n, []
-    | V1.Str s -> V2.Data s, []
+    | V1.Str s -> 
+      let label = "str" ^ string_of_int !counter in 
+      incr counter;
+      V2.Data label, [(label, s)]
   in
   let rec ccs_expr = function
     | IR1.Value v ->
@@ -66,3 +69,7 @@ let collect_constant_strings code =
 
 let simplify code =
   collect_constant_strings code
+
+let output_data_section collected_strings =
+   ".data\n" ^
+   (collected_strings |> List.map (fun (label, s) -> label ^ " : .asciiz \"" ^ s ^ "\"\n") |> String.concat "")
