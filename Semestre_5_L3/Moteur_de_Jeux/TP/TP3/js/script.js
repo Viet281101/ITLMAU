@@ -2,6 +2,9 @@
 //////// Import
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 
 const simplex = new SimplexNoise();
@@ -33,6 +36,13 @@ for (let i = 0; i < 50; i++) {
 	createSphere(0.5);
 };
 
+//// Post Processing - Bloom
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+composer.addPass(bloomPass);
+
 //// Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -47,6 +57,8 @@ const settings = {
 	flicker: false,
 	colorChange: false,
 	lerpSpeed: 0.05,
+	bloomStrength: 1.5,
+	bloomRadius: 0.85
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -56,7 +68,7 @@ gui.add(settings, 'radius', 0.01, 1, 0.01).onChange(function(e) {
 	});
 });
 gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
-	//////////// Add or remove spheres solution 1
+	////////////*  Add/remove spheres solution 1	*////////////
 	// if (e > spheres.length) {
 	// 	for (let i = spheres.length; i < e; i++) {
 	// 		createSphere(settings.radius);
@@ -68,7 +80,7 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 	// 	}
 	// }
 
-	//////////// Add or remove spheres solution 2
+	////////////*  Add/remove spheres solution 2	*////////////
 	spheres.forEach(sphere => {
 		scene.remove(sphere);
 		sphere.geometry.dispose();
@@ -86,6 +98,12 @@ gui.add(settings, 'emissiveIntensity', 0, 10, 0.01).onChange(function(e) {
 	spheres.forEach(sphere => {
 		sphere.material.emissive.set(settings.color).multiplyScalar(e);
 	});
+});
+gui.add(settings, 'bloomStrength', 0, 3, 0.01).onChange(function(e) {
+	bloomPass.strength = e;
+});
+gui.add(settings, 'bloomRadius', 0, 1, 0.01).onChange(function(e) {
+	bloomPass.radius = e;
 });
 gui.add(settings, 'flicker');
 gui.add(settings, 'colorChange');
@@ -151,6 +169,7 @@ function animate() {
 
 	controls.update();
 	renderer.render(scene, camera);
+	composer.render();
 
 
 	requestAnimationFrame(animate);
