@@ -62,6 +62,7 @@ const settings = {
 	lerpSpeed: 0.05,
 	bloomStrength: 1.5,
 	bloomRadius: 0.85,
+	collision: false,
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -78,16 +79,13 @@ gui.add(settings, 'numSpheres', 0, 200, 1).onChange(function(e) {
 	// 	}
 	// } else {
 	// 	for (let i = spheres.length; i > e; i--) {
-	// 		scene.remove(spheres[i-1]);
-	// 		spheres.pop();
+	// 		removeSphere(spheres[i - 1]);
 	// 	}
 	// }
 
 	////////////////////////*  Add/remove spheres solution 2	*////////////////////////
 	spheres.forEach(sphere => {
-		scene.remove(sphere);
-		sphere.geometry.dispose();
-		sphere.material.dispose();
+		removeSphere(sphere);
 	});
 	spheres.length = 0;
 	for (let i = 0; i < e; i++) {
@@ -112,6 +110,13 @@ gui.add(settings, 'flicker');
 gui.add(settings, 'colorChange');
 gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
 gui.add(scene.fog, 'density', 0, 0.1, 0.001).name('fog density');
+gui.add(settings, 'collision');
+
+function updateGui() {
+	gui.__controllers.forEach(controller => {
+		controller.updateDisplay();
+	});
+};
 
 
 //////// Flicker Effect
@@ -148,16 +153,57 @@ function updateTargetColors() {
 
 
 //////// Create Sphere
-function createSphere(radius) {
+function createSphere(radius, position) {
 	const sphereGeometry = new THREE.SphereGeometry(radius, 30, 30);
 	const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-	sphere.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+	sphere.position.copy(position || new THREE.Vector3(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5));
 	scene.add(sphere);
 	spheres.push(sphere);
 	originalColor.push(sphereMaterial.color.clone());
 	targetColor.push(new THREE.Color(Math.random(), Math.random(), Math.random()));
 };
-  
+
+
+//////// Remove Sphere
+function removeSphere(sphere) {
+	scene.remove(sphere);
+	sphere.geometry.dispose();
+	sphere.material.dispose();
+	spheres.splice(spheres.indexOf(sphere), 1);
+	originalColor.splice(originalColor.indexOf(sphere.material.color), 1);
+	targetColor.splice(targetColor.indexOf(targetColor[spheres.indexOf(sphere)]), 1);
+	settings.numSpheres = spheres.length;
+	updateGui();
+};
+
+
+
+//////// Collision
+function checkCollision() {
+	for (let i = 0; i < spheres.length; i++) {
+		for (let j = i + 1; j < spheres.length; j++) {
+			const sphere1 = spheres[i];
+			const sphere2 = spheres[j];
+			const distance = sphere1.position.distanceTo(sphere2.position);
+			const combineRadius = sphere1.geometry.parameters.radius + sphere2.geometry.parameters.radius;
+
+			if (distance < combineRadius) {
+				handleCollision(sphere1, sphere2);
+			}
+		}
+	}
+};
+function handleCollision(sphere1, sphere2) {
+	const collisionPoint = new THREE.Vector3().addVectors(sphere1.position, sphere2.position).multiplyScalar(0.5);
+	// console.log('collision');
+
+	const newRadius = settings.radius * Math.sqrt(2);
+	createSphere(newRadius, collisionPoint);
+
+	removeSphere(sphere1);
+	removeSphere(sphere2);
+};
+
 
 
 function animate() {
@@ -172,6 +218,9 @@ function animate() {
 
 	flickerSpheres();
 	changeSphereColors();
+	if (settings.collision) {
+		checkCollision();
+	}
 
 	controls.update();
 	renderer.render(scene, camera);

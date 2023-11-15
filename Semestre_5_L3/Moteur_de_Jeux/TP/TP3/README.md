@@ -1,5 +1,5 @@
 
-# 3D Démo -- Beautiful Animation (Fireflies & Effects)
+# 3D Demo -- Beautiful Animation (Fireflies & Effects)
 
 A demo on graphic effects and pretty animated in 3D with the 3D JavaScript game engine (Three.js)
 
@@ -12,6 +12,8 @@ python3 -m http.server 5501
 ```
 
 --------
+
+# 3D Démo -- Jolie Animée (Lucioles & Effets)
 
 Une démo sur le graphique effets et jolie animée en 3D avec le moteur de jeu JavaScript en 3D (Three.js)
 
