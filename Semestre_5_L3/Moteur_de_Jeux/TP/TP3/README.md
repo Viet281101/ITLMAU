@@ -3,6 +3,14 @@
 
 A demo on graphic effects and pretty animated in 3D with the 3D JavaScript game engine (Three.js)
 
+![alt text](Screenshot_démo/Screenshot_2.png)
+
+
+To run it, enter this command in this démo folder path :
+``` 
+python3 -m http.server 5501 
+```
+
 --------
 
 Une démo sur le graphique effets et jolie animée en 3D avec le moteur de jeu JavaScript en 3D (Three.js)
