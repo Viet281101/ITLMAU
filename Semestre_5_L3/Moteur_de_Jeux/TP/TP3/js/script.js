@@ -12,41 +12,41 @@ const originalColor = [];
 const targetColor = [];
 
 
-//// Scene & Camera
+//////// Scene & Camera
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 5;
 
-//// Renderer
+//////// Renderer
 const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas')});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-//// Lighting
+//////// Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(0, 1, 1);
 scene.add(directionalLight);
 
-//// Spheres
+//////// Spheres
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x5fcde4 });
 const spheres = [];
 for (let i = 0; i < 50; i++) {
 	createSphere(0.5);
 };
 
-//// Post Processing - Bloom
+//////// Post Processing - Bloom
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
 composer.addPass(bloomPass);
 
-//// Orbit Controls
+//////// Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
-//// dat.GUI
+//////// dat.GUI
 const gui = new dat.GUI();
 const settings = {
 	speed: 0.5,
@@ -68,7 +68,7 @@ gui.add(settings, 'radius', 0.01, 1, 0.01).onChange(function(e) {
 	});
 });
 gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
-	////////////*  Add/remove spheres solution 1	*////////////
+	////////////////////////*  Add/remove spheres solution 1	*////////////////////////
 	// if (e > spheres.length) {
 	// 	for (let i = spheres.length; i < e; i++) {
 	// 		createSphere(settings.radius);
@@ -80,7 +80,7 @@ gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
 	// 	}
 	// }
 
-	////////////*  Add/remove spheres solution 2	*////////////
+	////////////////////////*  Add/remove spheres solution 2	*////////////////////////
 	spheres.forEach(sphere => {
 		scene.remove(sphere);
 		sphere.geometry.dispose();
@@ -110,7 +110,7 @@ gui.add(settings, 'colorChange');
 gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
 
 
-//// Flicker Effect
+//////// Flicker Effect
 function flickerSpheres() {
 	if (settings.flicker) {
 		spheres.forEach(sphere => {
@@ -120,15 +120,17 @@ function flickerSpheres() {
 	requestAnimationFrame(flickerSpheres);
 };
 
-//// Color Change Effect
+//////// Color Change Effect
 function changeSphereColors() {
 	if (settings.colorChange) {
 		spheres.forEach((sphere, index) => {
 			sphere.material.color.lerp(targetColor[index], settings.lerpSpeed);
+			sphere.material.emissive.copy(sphere.material.color);
 		});
 	} else {
 		spheres.forEach((sphere, index) => {
 			sphere.material.color.set(originalColor[index]);
+			sphere.material.emissive.set(originalColor[index]);
 		});
 	}
 };
@@ -141,7 +143,7 @@ function updateTargetColors() {
 };
 
 
-//// Create Sphere
+//////// Create Sphere
 function createSphere(radius) {
 	const sphereGeometry = new THREE.SphereGeometry(radius, 30, 30);
 	const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -157,7 +159,7 @@ function createSphere(radius) {
 function animate() {
 	const time = Date.now() * 0.001;
 
-	//// Move spheres simplex noise style
+	//////// Move spheres simplex noise style
 	spheres.forEach((sphere, index) => {
 		sphere.position.x += (simplex.noise3D(index, time, 0)) * settings.speed;
 		sphere.position.y += (simplex.noise3D(index, time, 1)) * settings.speed;
