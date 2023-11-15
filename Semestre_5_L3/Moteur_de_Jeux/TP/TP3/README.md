@@ -24,8 +24,12 @@ Une démo sur le graphique effets et jolie animée en 3D avec le moteur de jeu J
   - [OrbitControls.js](https://unpkg.com/browse/three@0.153.0/examples/jsm/controls/OrbitControls.js) de contrôler le camera avec souris.
   - [EffectComposer.js](https://unpkg.com/browse/three@0.153.0/examples/jsm/postprocessing/EffectComposer.js)
   - [RenderPass.js](https://unpkg.com/browse/three@0.153.0/examples/jsm/postprocessing/RenderPass.js)
-  - [UnrealBloomPass.js](https://unpkg.com/browse/three@0.153.0/examples/jsm/postprocessing/UnrealBloomPass.js)
+  - [UnrealBloomPass.js](https://unpkg.com/browse/three@0.153.0/examples/jsm/postprocessing/UnrealBloomPass.js) de effectue une couverture lumineuse autour de l'objets.
 
 - [simplex-noise.js](https://github.com/jwagner/simplex-noise.js/blob/main/simplex-noise.ts) sur github : https://github.com/jwagner/simplex-noise.js
 
 - [dat.gui.js](https://github.com/dataarts/dat.gui/blob/master/build/dat.gui.js) sur github : https://github.com/dataarts/dat.gui
+
+
+
+Auteur: _Viet NGUYEN 20006303_

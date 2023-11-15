@@ -79,13 +79,16 @@ gui.add(settings, 'numSpheres', 0, 200, 1).onChange(function(e) {
 	// 	}
 	// } else {
 	// 	for (let i = spheres.length; i > e; i--) {
-	// 		removeSphere(spheres[i - 1]);
+	// 		scene.remove(spheres[i-1]);
+	// 		spheres.pop();
 	// 	}
 	// }
 
 	////////////////////////*  Add/remove spheres solution 2	*////////////////////////
 	spheres.forEach(sphere => {
-		removeSphere(sphere);
+		scene.remove(sphere);
+		sphere.geometry.dispose();
+		sphere.material.dispose();
 	});
 	spheres.length = 0;
 	for (let i = 0; i < e; i++) {
@@ -111,12 +114,6 @@ gui.add(settings, 'colorChange');
 gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
 gui.add(scene.fog, 'density', 0, 0.1, 0.001).name('fog density');
 gui.add(settings, 'collision');
-
-function updateGui() {
-	gui.__controllers.forEach(controller => {
-		controller.updateDisplay();
-	});
-};
 
 
 //////// Flicker Effect
@@ -164,20 +161,6 @@ function createSphere(radius, position) {
 };
 
 
-//////// Remove Sphere
-function removeSphere(sphere) {
-	scene.remove(sphere);
-	sphere.geometry.dispose();
-	sphere.material.dispose();
-	spheres.splice(spheres.indexOf(sphere), 1);
-	originalColor.splice(originalColor.indexOf(sphere.material.color), 1);
-	targetColor.splice(targetColor.indexOf(targetColor[spheres.indexOf(sphere)]), 1);
-	settings.numSpheres = spheres.length;
-	updateGui();
-};
-
-
-
 //////// Collision
 function checkCollision() {
 	for (let i = 0; i < spheres.length; i++) {
@@ -194,14 +177,7 @@ function checkCollision() {
 	}
 };
 function handleCollision(sphere1, sphere2) {
-	const collisionPoint = new THREE.Vector3().addVectors(sphere1.position, sphere2.position).multiplyScalar(0.5);
-	// console.log('collision');
-
-	const newRadius = settings.radius * Math.sqrt(2);
-	createSphere(newRadius, collisionPoint);
-
-	removeSphere(sphere1);
-	removeSphere(sphere2);
+	console.log('collision');
 };
 
 

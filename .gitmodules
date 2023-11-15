@@ -1,3 +1,7 @@
 [submodule "PavagesPolyominosJS"]
 	path = Semestre_5_L3/ProjetTuto/PavagesPolyominosJS
 	url = https://github.com/Viet281101/PavagesPolyominosJS
+
+[submodule "Semestre_5_L3/Moteur_de_Jeux/Projet"]
+	path = Semestre_5_L3/Moteur_de_Jeux/Projet
+	url = https://github.com/Viet281101/CastlevaniaJS
