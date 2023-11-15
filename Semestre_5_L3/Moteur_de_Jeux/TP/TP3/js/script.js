@@ -32,7 +32,7 @@ scene.add(directionalLight);
 //////// Spheres
 const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x5fcde4 });
 const spheres = [];
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 70; i++) {
 	createSphere(0.5);
 };
 
@@ -43,6 +43,9 @@ composer.addPass(new RenderPass(scene, camera));
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
 composer.addPass(bloomPass);
 
+//////// Fog
+scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
 //////// Orbit Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -51,14 +54,14 @@ const gui = new dat.GUI();
 const settings = {
 	speed: 0.5,
 	radius: 0.5,
-	numSpheres: 50,
+	numSpheres: 70,
 	color: '#5fcde4',
 	emissiveIntensity: 0.5,
 	flicker: false,
 	colorChange: false,
 	lerpSpeed: 0.05,
 	bloomStrength: 1.5,
-	bloomRadius: 0.85
+	bloomRadius: 0.85,
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -67,7 +70,7 @@ gui.add(settings, 'radius', 0.01, 1, 0.01).onChange(function(e) {
 		sphere.geometry = new THREE.SphereGeometry(e, 30, 30);
 	});
 });
-gui.add(settings, 'numSpheres', 0, 150, 1).onChange(function(e) {
+gui.add(settings, 'numSpheres', 0, 200, 1).onChange(function(e) {
 	////////////////////////*  Add/remove spheres solution 1	*////////////////////////
 	// if (e > spheres.length) {
 	// 	for (let i = spheres.length; i < e; i++) {
@@ -108,6 +111,7 @@ gui.add(settings, 'bloomRadius', 0, 1, 0.01).onChange(function(e) {
 gui.add(settings, 'flicker');
 gui.add(settings, 'colorChange');
 gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
+gui.add(scene.fog, 'density', 0, 0.1, 0.001).name('fog density');
 
 
 //////// Flicker Effect
