@@ -63,6 +63,9 @@ const settings = {
 	bloomStrength: 1.5,
 	bloomRadius: 0.85,
 	collision: false,
+	trail: false,
+	trailLength: 10,
+	trailWidth: 4,
 };
 
 gui.add(settings, 'speed', 0, 1, 0.01);
@@ -114,6 +117,40 @@ gui.add(settings, 'colorChange');
 gui.add(settings, 'lerpSpeed', 0, 1, 0.01);
 gui.add(scene.fog, 'density', 0, 0.1, 0.001).name('fog density');
 gui.add(settings, 'collision');
+gui.add(settings, 'trail');
+gui.add(settings, 'trailLength', 10, 200, 1);
+gui.add(settings, 'trailWidth', 1, 5, 0.1);
+
+
+//////// Trail Effect
+function createTrail(sphere) {
+	const trailGeometry = new THREE.BufferGeometry();
+	const trailPositions = new Float32Array(settings.trailLength * 3);
+	trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+  
+	const trailMaterial = new THREE.LineBasicMaterial({ 
+		color: sphere.material.color, 
+		linewidth: settings.trailWidth 
+	});
+  
+	const trail = new THREE.Line(trailGeometry, trailMaterial);
+	scene.add(trail);
+	return trail;
+};
+
+function updateTrail(trail, sphere) {
+	const positions = trail.geometry.attributes.position.array;
+	for (let i = settings.trailLength - 1; i > 0; i--) {
+		positions[i * 3] = positions[(i - 1) * 3];
+		positions[i * 3 + 1] = positions[(i - 1) * 3 + 1];
+		positions[i * 3 + 2] = positions[(i - 1) * 3 + 2];
+	}
+	positions[0] = sphere.position.x;
+	positions[1] = sphere.position.y;
+	positions[2] = sphere.position.z;
+  
+	trail.geometry.attributes.position.needsUpdate = true;
+};
 
 
 //////// Flicker Effect
@@ -196,6 +233,15 @@ function animate() {
 	changeSphereColors();
 	if (settings.collision) {
 		checkCollision();
+	}
+
+	if (settings.trail) {
+		spheres.forEach((sphere, index) => {
+			if (!sphere.trail) {
+				sphere.trail = createTrail(sphere);
+			}
+			updateTrail(sphere.trail, sphere);
+		});
 	}
 
 	controls.update();
