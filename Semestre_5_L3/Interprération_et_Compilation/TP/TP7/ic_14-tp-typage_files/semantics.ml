@@ -20,7 +20,26 @@ let errt expected given pos =
 
 (* analyse sémantique *)
 
-let env = ref Env.empty
+let initialize_env () =
+  let initial_env = Env.empty in
+  let add_func name typ env = Env.add name typ env in
+  let env_with_funcs = List.fold_right (fun (name, typ) env ->
+    add_func name typ env) 
+    [ ("%add", Func_t (Int_t, [ Int_t ; Int_t ]))
+    ; ("%sub", Func_t (Int_t, [ Int_t ; Int_t ]))
+    ; ("%mul", Func_t (Int_t, [ Int_t ; Int_t ]))
+    ; ("%div", Func_t (Int_t, [ Int_t ; Int_t ]))
+    ; ("%eq",  Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ; ("%neq", Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ; ("%lt",  Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ; ("%gt",  Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ; ("%lte", Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ; ("%gte", Func_t (Bool_t, [ Int_t ; Int_t ]))
+    ] initial_env in
+  env_with_funcs
+
+let env = ref (initialize_env ())
+let assigned = ref Env.empty
 
 let check_type expected actual pos =
   if expected <> actual then
@@ -39,6 +58,8 @@ let rec analyze_expr expr =
   | Syntax.Var v ->
       if Env.mem v.name !env then
         let typ = Env.find v.name !env in
+        if not (Env.mem v.name !assigned) then
+          raise (Error ("Unassigned variable: " ^ v.name, v.pos));
         typ, Var v.name
       else
         raise (Error ("Unbound variable: " ^ v.name, v.pos))
@@ -65,12 +86,14 @@ let analyze_instr instr =
   match instr with
   | Syntax.Decl d ->
      env := Env.add d.name d.type_t !env;
+     assigned := Env.add d.name false !assigned;
      Decl d.name
   | Syntax.Assign a ->
      if Env.mem a.var !env then
        let expected_typ = Env.find a.var !env in
        let actual_typ, ae = analyze_expr a.expr in
        check_type expected_typ actual_typ (expr_pos a.expr);
+       assigned := Env.add a.var true !assigned;
        Assign (a.var, ae)
      else
        raise (Error ("Unbound variable: " ^ a.var, expr_pos a.expr))
@@ -84,3 +107,4 @@ let rec analyze_block block =
 
 let analyze parsed =
   analyze_block parsed
+
