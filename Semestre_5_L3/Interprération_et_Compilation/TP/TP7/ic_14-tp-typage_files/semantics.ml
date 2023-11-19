@@ -22,11 +22,11 @@ let errt expected given pos =
 
 let analyze_value value =
   match value with
-  | Syntax.Bool b -> Bool b, Bool_t
-  | Syntax.Int n  -> Int n, Int_t
+  | Syntax.Bool b -> Bool b
+  | Syntax.Int n  -> Int n
 
 let rec analyze_expr expr =
-  match expr with(* Decl d.name *)
+  match expr with
   | Syntax.Value v ->
      Value (analyze_value v.value)
   | Syntax.Var v ->
@@ -35,32 +35,27 @@ let rec analyze_expr expr =
      let args = List.map analyze_expr c.args in
      Call (c.func, args)
 
-let analyze_instr instr env =
+let env = ref Env.empty
+
+let analyze_instr instr =
   match instr with
   | Syntax.Decl d ->
-     (* Decl d.name *)
-     (* compléter en ajoutant la variables déclarée *)
-     Decl d.name, Env.add d.name, d.type_t , env
+     env := Env.add d.name () !env;
+     Decl d.name
   | Syntax.Assign a ->
-      (* vérification que a.var existe ? *)
-      if Env.mem a.var env then
-        let ae, et = analyze_expr a.expr env in
-        let vt = Env.find a.var env in
-        if vt = et then 
-          Assign (a.var, ae), env
-        else
-          errt vt et (expr.pos a.expr)
-      else
-        raise (Error (Printf.sprintf "unbound variable '%s'" a.var, a.pos) )
-     (* let ae = analyze_expr a.expr in
-     Assign (a.var, ae) *)
+     let ae = analyze_expr a.expr in
+     if Env.mem a.var !env then
+       Assign (a.var, ae)
+     else
+       let var_pos = { pos = a.pos } in
+       raise (Error ("Unassigned variable: " ^ a.var, expr_pos (Syntax.Var var_pos)))
 
-let rec analyze_block block env =
+let rec analyze_block block =
   match block with
   | [] -> []
   | instr :: rest ->
-     let ai, new_env = analyze_instr instr env in
-     ai :: (analyze_block rest new_env)
+     let ai = analyze_instr instr in
+     ai :: (analyze_block rest)
 
 let analyze parsed =
-  analyze_block parsed Baselib._types_
+  analyze_block parsed
