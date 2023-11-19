@@ -37,7 +37,6 @@ let rec analyze_expr expr =
      let args = List.map analyze_expr c.args in
      Call (c.func, args)
 
-
 let analyze_instr instr =
   match instr with
   | Syntax.Decl d ->
