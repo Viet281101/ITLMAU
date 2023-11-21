@@ -56,13 +56,14 @@ let rec analyze_expr expr =
      let typ, val' = analyze_value v.value in
      typ, Value val'
   | Syntax.Var v ->
-      if Env.mem v.name !env then
-        let typ = Env.find v.name !env in
-        if not (Env.mem v.name !assigned) then
-          raise (Error ("Unassigned variable: " ^ v.name, v.pos));
-        typ, Var v.name
-      else
-        raise (Error ("Unbound variable: " ^ v.name, v.pos))
+    if Env.mem v.name !env then
+      let typ = Env.find v.name !env in
+      if Env.mem v.name !assigned && not (Env.find v.name !assigned) then
+        Printf.eprintf "Warning on line %d col %d: Unassigned variable '%s'.\n"
+          v.pos.pos_lnum (v.pos.pos_cnum - v.pos.pos_bol) v.name;
+      typ, Var v.name
+    else
+      raise (Error ("Unbound variable: " ^ v.name, v.pos))
   | Syntax.Call c ->
     if Env.mem c.func !env then
       let arg_types, args = List.fold_right (fun arg (typs, aexprs) ->
@@ -89,14 +90,14 @@ let analyze_instr instr =
      assigned := Env.add d.name false !assigned;
      Decl d.name
   | Syntax.Assign a ->
-     if Env.mem a.var !env then
-       let expected_typ = Env.find a.var !env in
-       let actual_typ, ae = analyze_expr a.expr in
-       check_type expected_typ actual_typ (expr_pos a.expr);
-       assigned := Env.add a.var true !assigned;
-       Assign (a.var, ae)
-     else
-       raise (Error ("Unbound variable: " ^ a.var, expr_pos a.expr))
+    if Env.mem a.var !env then
+      let expected_typ = Env.find a.var !env in
+      let actual_typ, ae = analyze_expr a.expr in
+      check_type expected_typ actual_typ (expr_pos a.expr);
+      assigned := Env.add a.var true !assigned;
+      Assign (a.var, ae)
+    else
+      raise (Error ("Unbound variable: " ^ a.var, expr_pos a.expr))
 
 let rec analyze_block block =
   match block with
