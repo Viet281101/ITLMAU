@@ -37,6 +37,6 @@ void swap_blue_red(Image *image);
 //// RLE ////
 void sortColors (GLubyte* image, int width, int height, GLubyte* sortedColors);
 void compressRLE(GLubyte* data, int size, GLubyte** compressedData, int* compressedSize);
-void decompressRLE (GLubyte* compressedData, int size, GLubyte* decompressedData);
+void decompressRLE(GLubyte* compressedData, int compressedSize, GLubyte** decompressedData, int* decompressedSize);
 void reconstructImage (GLubyte* sortedColors, int width, int height, GLubyte* image);
 

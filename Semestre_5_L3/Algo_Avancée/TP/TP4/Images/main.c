@@ -9,6 +9,10 @@ Image *image;
 
 #define ESCAPE 27
 
+GLubyte* compressedData = NULL;
+int compressedSize = 0;
+
+
 void Keyboard(unsigned char key, int x, int y)  {
   switch(key){
   case ESCAPE :
@@ -160,6 +164,22 @@ void menuFunc(int item) {
         printf("Original size: %ld, Compressed size: %d, Compression ratio: %.2f\n", image->sizeX * image->sizeY * 3, compressedSize, (float)compressedSize / (image->sizeX * image->sizeY * 3));
         
         free(compressedData);
+        compressedData = NULL;
+      }
+
+      Display();
+      break;
+    }
+  case 11:
+    {
+      GLubyte* decompressedData = NULL;
+      int decompressedSize = 0;
+
+      decompressRLE(compressedData, compressedSize, &decompressedData, &decompressedSize);
+
+      if (decompressedData != NULL) {
+        memcpy(image->data, decompressedData, decompressedSize * 3);
+        free(decompressedData);
       }
 
       Display();
@@ -197,6 +217,7 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Infos", 8);
   glutAddMenuEntry("Sort colors", 9);
   glutAddMenuEntry("Compress RLE", 10);
+  glutAddMenuEntry("Decompress RLE", 11);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  
