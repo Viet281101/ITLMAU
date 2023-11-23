@@ -146,35 +146,34 @@ void menuFunc(int item) {
     }
   case 10:
     {
-      GLubyte* compressedData = NULL;
-      int compressedSize = 0;
-
-      compressRLE(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
-
       if (compressedData != NULL) {
-        FILE *file = fopen("compressed_image.rle", "wb");
-        if (file != NULL) {
-          fwrite(compressedData, sizeof(GLubyte), compressedSize, file);
-          fclose(file);
-          printf("Compressed image saved to 'compressed_image.rle'\n");
-        } else {
-          fprintf(stderr, "Unable to open file 'compressed_image.rle'\n");
-        }
-
-        printf("Original size: %ld, Compressed size: %d, Compression ratio: %.2f\n", image->sizeX * image->sizeY * 3, compressedSize, (float)compressedSize / (image->sizeX * image->sizeY * 3));
-        
         free(compressedData);
         compressedData = NULL;
       }
 
-      Display();
+      compressRLE(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
+      printf("Original size: %ld, Compressed size: %d, Compression ratio: %.2f\n", image->sizeX * image->sizeY * 3, compressedSize, (float)compressedSize / (image->sizeX * image->sizeY * 3));
+
+      FILE *file = fopen("compressed_image.rle", "wb");
+      if (file != NULL) {
+        fwrite(compressedData, sizeof(GLubyte), compressedSize, file);
+        fclose(file);
+        printf("Compressed image saved to 'compressed_image.rle'\n");
+      } else {
+        fprintf(stderr, "Unable to open file 'compressed_image.rle'\n");
+      }
+
       break;
     }
   case 11:
     {
+      if (compressedData == NULL) {
+        printf("No compressed data available.\n");
+        break;
+      }
+
       GLubyte* decompressedData = NULL;
       int decompressedSize = 0;
-
       decompressRLE(compressedData, compressedSize, &decompressedData, &decompressedSize);
 
       if (decompressedData != NULL) {
