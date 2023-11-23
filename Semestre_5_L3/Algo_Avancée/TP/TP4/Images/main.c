@@ -121,6 +121,10 @@ void menuFunc(int item) {
   case 8:
     printf("Taille de l image : %d %d\n", (int) image->sizeX, (int) image->sizeY);
     break;
+  case 9:
+    sortColors(image->data, image->sizeX, image->sizeY, image->data);
+    Display();
+    break;
   default:
     break;
   }
@@ -151,6 +155,7 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Swap B and R", 6);
   glutAddMenuEntry("Save", 7);
   glutAddMenuEntry("Infos", 8);
+  glutAddMenuEntry("Sort colors", 9);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  
