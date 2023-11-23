@@ -27,9 +27,9 @@ LDFLAGS = -lm $(GL_LDFLAGS)
 #definition des fichiers et dossiers
 PROGNAME = palette
 HEADERS = ima.h
-SOURCES = main.c ppm.c modif.c rle.c
-#SOURCES = main.c ppm.c modif.c rgb_hls.c
+SOURCES = main.c ppm.c modif.c rgb_hls.c
 OBJ = $(SOURCES:.c=.o)
+DELPROG = compressed_image.rle
 
 all: $(PROGNAME)
 
@@ -41,3 +41,4 @@ $(PROGNAME): $(OBJ)
 
 clean:
 	@$(RM) $(PROGNAME) $(OBJ) *~ gmon.out core.*
+	@$(RM) $(DELPROG)

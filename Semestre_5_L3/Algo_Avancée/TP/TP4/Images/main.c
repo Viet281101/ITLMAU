@@ -1,7 +1,9 @@
-#include <unistd.h>     
+#include <unistd.h>
 #include <math.h>
 #include "ima.h"
 #include <string.h>
+#include <stdlib.h>
+
 
 Image *image;
 
@@ -146,6 +148,17 @@ void menuFunc(int item) {
       compressRLE(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
 
       if (compressedData != NULL) {
+        FILE *file = fopen("compressed_image.rle", "wb");
+        if (file != NULL) {
+          fwrite(compressedData, sizeof(GLubyte), compressedSize, file);
+          fclose(file);
+          printf("Compressed image saved to 'compressed_image.rle'\n");
+        } else {
+          fprintf(stderr, "Unable to open file 'compressed_image.rle'\n");
+        }
+
+        printf("Original size: %ld, Compressed size: %d, Compression ratio: %.2f\n", image->sizeX * image->sizeY * 3, compressedSize, (float)compressedSize / (image->sizeX * image->sizeY * 3));
+        
         free(compressedData);
       }
 
