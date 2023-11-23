@@ -4,6 +4,9 @@
 #include "ima.h"
 
 
+#define INT_MAX 2147483647
+
+
 /*Écrire une fonction qui permet de construire la C-LUT : on utilisera une structure
 Color pour construire un tableau de couleurs.*/
 void buildCLUT (GLubyte* image, int width, int height, Color** clut, int* clutSize) {
@@ -62,23 +65,23 @@ void sortCLUT (Color* clut, int clutSize) {
 et qui remplace chaque pixel de l'image par un pixel de la couleur la plus proche
 parmi celles sélectionnées. On testera le résultat pro duit pour différentes valeurs de k.
 */
-void reduceColors (GLubyte* image, int width, int height, Color* clut, int clutSize, int k) {
+void reduceColors(GLubyte* image, int width, int height, Color* clut, int clutSize, int k) {
     int nb_pixels = width * height;
-    int i, j;
-    int minDistance, distance, minIndex;
-    int red, green, blue;
+    k = (k > clutSize) ? clutSize : k;
 
-    for (i = 0; i < nb_pixels; i++) {
-        red = image[i * 3];
-        green = image[i * 3 + 1];
-        blue = image[i * 3 + 2];
+    for (int i = 0; i < nb_pixels; i++) {
+        int red = image[i * 3];
+        int green = image[i * 3 + 1];
+        int blue = image[i * 3 + 2];
 
-        minDistance = 255 * 255 * 3 + 1;
-        minIndex = 0;
-        for (j = 0; j < k; j++) {
-            distance = (red - clut[j].red) * (red - clut[j].red) +
-                       (green - clut[j].green) * (green - clut[j].green) +
-                       (blue - clut[j].blue) * (blue - clut[j].blue);
+        int minDistance = INT_MAX;
+        int minIndex = 0;
+
+        for (int j = 0; j < k; j++) {
+            int dr = red - clut[j].red;
+            int dg = green - clut[j].green;
+            int db = blue - clut[j].blue;
+            int distance = dr * dr + dg * dg + db * db;
             if (distance < minDistance) {
                 minDistance = distance;
                 minIndex = j;

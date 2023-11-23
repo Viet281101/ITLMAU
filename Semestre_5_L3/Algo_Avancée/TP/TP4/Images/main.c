@@ -192,9 +192,20 @@ void menuFunc(int item) {
     {
       Color* clut = NULL;
       int clutSize = 0;
+      int k = 16;
+
       buildCLUT(image->data, image->sizeX, image->sizeY, &clut, &clutSize);
-      sortCLUT(clut, clutSize);
-      reduceColors(image->data, image->sizeX, image->sizeY, clut, clutSize, 16);
+      if (clutSize > 0) {
+        sortCLUT(clut, clutSize);
+        reduceColors(image->data, image->sizeX, image->sizeY, clut, clutSize, k);
+      } else {
+        fprintf(stderr, "CLUT is empty or failed to build.\n");
+      }
+
+      if (clut != NULL) {
+        free(clut);
+      }
+
       Display();
       break;
     }
