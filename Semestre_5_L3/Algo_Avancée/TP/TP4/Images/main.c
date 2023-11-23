@@ -1,6 +1,7 @@
 #include <unistd.h>     
 #include <math.h>
 #include "ima.h"
+#include <string.h>
 
 Image *image;
 
@@ -122,9 +123,35 @@ void menuFunc(int item) {
     printf("Taille de l image : %d %d\n", (int) image->sizeX, (int) image->sizeY);
     break;
   case 9:
-    sortColors(image->data, image->sizeX, image->sizeY, image->data);
-    Display();
-    break;
+    {
+      GLubyte* sortedColors = (GLubyte*)malloc(image->sizeX * image->sizeY * 3 * sizeof(GLubyte));
+      if (sortedColors == NULL) {
+        fprintf(stderr, "Out of memory for sortedColors\n");
+        break;
+      }
+
+      sortColors(image->data, image->sizeX, image->sizeY, sortedColors);
+
+      memcpy(image->data, sortedColors, image->sizeX * image->sizeY * 3);
+
+      free(sortedColors);
+      Display();
+      break;
+    }
+  case 10:
+    {
+      GLubyte* compressedData = NULL;
+      int compressedSize = 0;
+
+      compressRLE(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
+
+      if (compressedData != NULL) {
+        free(compressedData);
+      }
+
+      Display();
+      break;
+    }
   default:
     break;
   }
@@ -156,6 +183,7 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Save", 7);
   glutAddMenuEntry("Infos", 8);
   glutAddMenuEntry("Sort colors", 9);
+  glutAddMenuEntry("Compress RLE", 10);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  
