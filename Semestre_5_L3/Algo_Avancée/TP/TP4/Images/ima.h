@@ -11,7 +11,12 @@
 // #include <GLUT/glut.h>
 
 
-
+typedef struct {
+    GLubyte red;
+    GLubyte green;
+    GLubyte blue;
+    int frequency;
+} Color;
 
 struct Image {
     unsigned long sizeX;
@@ -38,5 +43,11 @@ void swap_blue_red(Image *image);
 void sortColors (GLubyte* image, int width, int height, GLubyte* sortedColors);
 void compressRLE(GLubyte* data, int size, GLubyte** compressedData, int* compressedSize);
 void decompressRLE(GLubyte* compressedData, int compressedSize, GLubyte** decompressedData, int* decompressedSize);
-void reconstructImage (GLubyte* sortedColors, int width, int height, GLubyte* image);
 
+void compressRLE2(GLubyte* data, int size, GLubyte** compressedData, int* compressedSize);
+void decompressRLE2(GLubyte* compressedData, int compressedSize, GLubyte** decompressedData, int* decompressedSize);
+
+//// C-LUT ////
+void buildCLUT (GLubyte* image, int width, int height, Color** clut, int* clutSize);
+void sortCLUT (Color* clut, int clutSize);
+void reduceColors (GLubyte* image, int width, int height, Color* clut, int clutSize, int k);

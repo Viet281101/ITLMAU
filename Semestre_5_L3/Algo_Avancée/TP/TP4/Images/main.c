@@ -151,7 +151,7 @@ void menuFunc(int item) {
         compressedData = NULL;
       }
 
-      compressRLE(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
+      compressRLE2(image->data, image->sizeX * image->sizeY * 3, &compressedData, &compressedSize);
       printf("Original size: %ld, Compressed size: %d, Compression ratio: %.2f\n", image->sizeX * image->sizeY * 3, compressedSize, (float)compressedSize / (image->sizeX * image->sizeY * 3));
 
       FILE *file = fopen("compressed_image.rle", "wb");
@@ -174,13 +174,27 @@ void menuFunc(int item) {
 
       GLubyte* decompressedData = NULL;
       int decompressedSize = 0;
-      decompressRLE(compressedData, compressedSize, &decompressedData, &decompressedSize);
+      decompressRLE2(compressedData, compressedSize, &decompressedData, &decompressedSize);
 
       if (decompressedData != NULL) {
-        memcpy(image->data, decompressedData, decompressedSize * 3);
+        if (decompressedSize * 3 <= image->sizeX * image->sizeY * 3) {
+          memcpy(image->data, decompressedData, decompressedSize * 3);
+        } else {
+          fprintf(stderr, "Decompressed data is larger than original image.\n");
+        }
         free(decompressedData);
       }
 
+      Display();
+      break;
+    }
+  case 12:
+    {
+      Color* clut = NULL;
+      int clutSize = 0;
+      buildCLUT(image->data, image->sizeX, image->sizeY, &clut, &clutSize);
+      sortCLUT(clut, clutSize);
+      reduceColors(image->data, image->sizeX, image->sizeY, clut, clutSize, 16);
       Display();
       break;
     }
@@ -217,6 +231,7 @@ int main(int argc, char **argv) {
   glutAddMenuEntry("Sort colors", 9);
   glutAddMenuEntry("Compress RLE", 10);
   glutAddMenuEntry("Decompress RLE", 11);
+  glutAddMenuEntry("Reduce colors", 12);
   glutAttachMenu(GLUT_LEFT_BUTTON);
 
   glutDisplayFunc(Display);  

@@ -1,6 +1,7 @@
 
 #include "ima.h"
 #include <string.h>
+#include <stdlib.h>
 
 
 /*Écrire une fonction qui p ermet de trier les 3 couleurs d'une image : on sto ckera
@@ -75,12 +76,68 @@ void compressRLE(GLubyte* data, int size, GLubyte** compressedData, int* compres
     }
 }
 
+
+void compressRLE2(GLubyte* data, int size, GLubyte** compressedData, int* compressedSize) {
+    int i = 0;
+    int capacity = 100;
+
+    *compressedData = (GLubyte*)malloc(capacity * sizeof(GLubyte));
+    if (*compressedData == NULL) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return;
+    }
+
+    *compressedSize = 0;
+    while (i < size) {
+        int count = 1;
+
+        while (i + count < size && data[i] == data[i + count] && count < 127) {
+            count++;
+        }
+
+        if (count > 1 || (i + count < size && data[i] != data[i + count])) {
+            if (*compressedSize + 2 > capacity) {
+                capacity *= 2;
+                *compressedData = (GLubyte*)realloc(*compressedData, capacity * sizeof(GLubyte));
+                if (*compressedData == NULL) {
+                    fprintf(stderr, "Memory reallocation failed.\n");
+                    return;
+                }
+            }
+
+            (*compressedData)[(*compressedSize)++] = count;
+            (*compressedData)[(*compressedSize)++] = data[i];
+
+            i += count;
+        } else {
+            int start = i;
+            while (i < size && (i == start || data[i] != data[i - 1]) && i - start < 127) {
+                i++;
+            }
+
+            if (*compressedSize + 1 + i - start > capacity) {
+                capacity = capacity + i - start + 1;
+                *compressedData = (GLubyte*)realloc(*compressedData, capacity * sizeof(GLubyte));
+                if (*compressedData == NULL) {
+                    fprintf(stderr, "Memory reallocation failed.\n");
+                    return;
+                }
+            }
+
+            (*compressedData)[(*compressedSize)++] = -(i - start);
+            for (int j = start; j < i; j++) {
+                (*compressedData)[(*compressedSize)++] = data[j];
+            }
+        }
+    }
+}
+
+
 /*Écrire une fonction qui décompresse un tableau de GLubyte, puis une fonction qui
 reconstitue l'image à partir du tableau trié de couleurs.*/
 void decompressRLE(GLubyte* compressedData, int compressedSize, GLubyte** decompressedData, int* decompressedSize) {
     int i = 0, pos = 0;
     int capacity = 100;
-
     *decompressedData = (GLubyte*)malloc(capacity * sizeof(GLubyte) * 3);
     if (*decompressedData == NULL) {
         fprintf(stderr, "Memory allocation failed.\n");
@@ -91,8 +148,8 @@ void decompressRLE(GLubyte* compressedData, int compressedSize, GLubyte** decomp
         int count = compressedData[i++];
         GLubyte value = compressedData[i++];
 
-        if (pos + count > capacity) {
-            capacity += count;
+        while (pos + count > capacity) {
+            capacity *= 2;
             *decompressedData = (GLubyte*)realloc(*decompressedData, capacity * sizeof(GLubyte) * 3);
             if (*decompressedData == NULL) {
                 fprintf(stderr, "Memory reallocation failed.\n");
@@ -108,20 +165,47 @@ void decompressRLE(GLubyte* compressedData, int compressedSize, GLubyte** decomp
         }
     }
     *decompressedSize = pos;
+
+    printf("Decompressed size: %d\n", *decompressedSize);
+    // for (int i = 0; i < *decompressedSize; i++) {
+    //     printf("%d ", (*decompressedData)[i]);
+    // }
+    printf("\n");
 }
 
 
-/*Écrire une version améliorée de cet algorithme en a joutant dans la compression
-l'amélioration vue en cours avec les multiplicateurs négatifs.
-*/
-void reconstructImage (GLubyte* sortedColors, int width, int height, GLubyte* image) {
-    int i, j, k;
-    int nb_pixels = width * height;
-    for (i = 0; i < nb_pixels; i++) {
-        for (j = 0; j < 3; j++) {
-            for (k = 0; k < 3; k++) {
-                image[i * 3 + j * width * 3 + k] = sortedColors[i * 9 + j * 3 + k];
+void decompressRLE2(GLubyte* compressedData, int compressedSize, GLubyte** decompressedData, int* decompressedSize) {
+    int i = 0, pos = 0;
+    int capacity = 100;
+
+    *decompressedData = (GLubyte*)malloc(capacity * sizeof(GLubyte) * 3);
+    if (*decompressedData == NULL) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return;
+    }
+
+    while (i < compressedSize) {
+        int count = compressedData[i++];
+
+        if (count >= 0) {
+            // GLubyte value = compressedData[i++];
+            while (pos + count > capacity) {
+                capacity *= 2;
+                *decompressedData = (GLubyte*)realloc(*decompressedData, capacity * sizeof(GLubyte) * 3);
+                if (*decompressedData == NULL) {
+                    fprintf(stderr, "Memory reallocation failed.\n");
+                    return;
+                }
+            }
+        } else {
+            count = -count;
+            for (int j = 0; j < count; j++) {
+                (*decompressedData)[pos++] = compressedData[i++];
             }
         }
     }
+
+    *decompressedSize = pos;
+    printf("Decompressed size: %d\n", *decompressedSize);
 }
+
