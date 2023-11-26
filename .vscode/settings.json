@@ -6,7 +6,8 @@
         "heap.h": "c",
         "fifo.h": "c",
         "ima.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "cstdlib": "c"
     },
 
     "editor.tokenColorCustomizations": {
