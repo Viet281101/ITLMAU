@@ -16,8 +16,8 @@ CFLAGS = -Wall -Wno-sequence-point
 LDFLAGS = -lm $(GL_LDFLAGS)
 #definition des fichiers et dossiers
 PROGNAME = othello
-HEADERS = 
-SOURCES = main.c
+HEADERS = game.h
+SOURCES = main.c move.c
 OBJ = $(SOURCES:.c=.o)
 DELPROG = compressed_image.rle
 
