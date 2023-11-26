@@ -1,23 +1,28 @@
 
 # IA pour le jeu d'Othello
 
+Un jeu d'Othello avec l'IA en utilse le langage C et openGL GLUT
 
 ## Compilation
 
-  ### Prérequis :
+### Prérequis :
   
-    ```sudo apt-get install make```
+    ```
+    sudo apt-get install make
+    ```
     et
-    ```sudo apt-get install libglut3-dev```
+    ```
+    sudo apt-get install libglut3-dev
+    ```
   
-  ### Dans le dossier du jeu :
-    
-  - compilation :
-  
-    ### Pour compiler le jeu :
+### Pour compiler le jeu :
 
-    ```make```
+    ```
+    make
+    ```
 
 ## Lancement :
-    ```./othello```
+    ```
+    ./othello
+    ```
 
