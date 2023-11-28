@@ -158,8 +158,10 @@ int check(char *board){
                         board[temp[j]] = '!';
                 else if (space+have == need+1)
                     for (j = 0; j < space-1; j++)
-                        for (k = j+1; k < space; k++) {
-                            if (board[temp[j]+temp[k]-i] == ' ') {
+                        for (k = j+1; k < space; k++) 
+                        {
+                            if (board[temp[j]+temp[k]-i] == ' ') 
+                            {
                                 changed = 1;
                                 board[temp[j]+temp[k]-i] = '!';
                             }

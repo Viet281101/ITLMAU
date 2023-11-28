@@ -21,14 +21,89 @@ state init_state(){
     return s;
 }
 
-void print_board(board b);
-board copy_board(board b);
-void print_lights(state s);
-void fill_board(board *b,state *s);
-void add_light(state *s,int pos);
-int check(board *b, state *s);
-int is_solved(board *b, state *s);
-int solve(board *b,state *s);
+void print_board(board b) {
+    int i;
+    for (i = 0; i < b.rows*(b.cols+1)+1; i++) {
+        if (b.game[i] == '!')
+            printf("%2c", 'x');
+        else if (b.game[i] == '+')
+            printf("%2c", '!');
+        else if (b.game[i] == ' ')
+            printf("%2c", '.');
+        else if (b.game[i] == '/')
+            printf("%2c", '#');
+        else if (b.game[i] == '*')
+            printf("%2c", ' ');
+        else
+            printf("%2c", b.game[i]);
+        if (i % b.cols == b.cols-1)
+            puts("");
+    }
+};
+board copy_board(board b) {
+    board c;
+    c.rows=b.rows;
+    c.cols=b.cols;
+    c.game=malloc((c.rows*(c.cols+1)+1)*sizeof(char));
+    int i;
+    for (i = 0; i < c.rows*(c.cols+1)+1; i++)
+        c.game[i] = b.game[i];
+    return c;
+};
+void print_lights(state s) {
+    int i;
+    for (i = 0; i < s.nb_light; i++)
+        printf("%d ", s.light_pos[i]);
+    puts("");
+};
+void fill_board(board *b,state *s) {
+    int i;
+    for (i = 0; i < b->rows*(b->cols+1)+1; i++) {
+        if (b->game[i] == '!')
+            add_light(s,i);
+    }
+};
+void add_light(state *s,int pos) {
+    s->nb_light++;
+    s->light_pos = realloc(s->light_pos, s->nb_light * sizeof(int));
+    s->light_pos[s->nb_light-1] = pos;
+};
+int check(board *b, state *s) {
+    int i;
+    for (i = 0; i < s->nb_light; i++) {
+        if (!check_light(b,s,s->light_pos[i]))
+            return 0;
+    }
+
+    return 1;
+};
+int is_solved(board *b, state *s) {
+    int i;
+    for (i = 0; i < b->rows*(b->cols+1)+1; i++) {
+        if (b->game[i] == ' ' || b->game[i] == '+')
+            return 0;
+    }
+    return 1;
+};
+int solve(board *b,state *s) {
+    int i;
+    if (is_solved(b,s)) {
+        print_board(*b);
+        return 1;
+    }
+    for (i = 0; i < b->rows*(b->cols+1)+1; i++) {
+        if (b->game[i] == ' ') {
+            board c = copy_board(*b);
+            state t = init_state();
+            fill_board(&c,&t);
+            add_light(&t,i);
+            c.game[i] = '!';
+            if (check(&c,&t) && solve(&c,&t))
+                return 1;
+        }
+    }
+    return 0;
+};
 
 int main(int argc, char *argv[]){
     board b;
