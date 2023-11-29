@@ -32,5 +32,5 @@ expr:
   | n = Lint {
     Int { value = n; pos = $startpos }
   }
-  
+
 ;
