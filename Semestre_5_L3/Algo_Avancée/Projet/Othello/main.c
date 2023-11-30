@@ -5,24 +5,54 @@ int board[BOARD_SIZE][BOARD_SIZE];
 int currentPlayer = 1; //// 1 = white, 2 = black
 
 
+void drawStableCorners() {
+    glColor3f(0.0, 0.0, 0.0);
+    float radius = CELL_SIZE * 0.05;
+    float offset = CELL_SIZE * 2.0;
+    float corners[4][2] = {
+        {offset, offset},
+        {BOARD_SIZE * CELL_SIZE - offset, offset},
+        {offset, BOARD_SIZE * CELL_SIZE - offset},
+        {BOARD_SIZE * CELL_SIZE - offset, BOARD_SIZE * CELL_SIZE - offset}
+    };
+
+    for (int i = 0; i < 4; i++) {
+        glBegin(GL_POLYGON);
+        for (int j = 0; j < 360; j++) {
+            float degInRad = j * DEG2RAD;
+            glVertex2f(cos(degInRad) * radius + corners[i][0], sin(degInRad) * radius + corners[i][1]);
+        }
+        glEnd();
+    }
+};
+
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Draw the Othello board with a single color (#009067)
+    glColor3f(0.0, 0.56, 0.4); // Dark green using the hex color #009067
     for (int x = 0; x < BOARD_SIZE; x++) {
         for (int y = 0; y < BOARD_SIZE; y++) {
-            //// Choose colors for board
-            if ((x + y) % 2 == 0) {
-                glColor3f(1.0, 1.0, 1.0); //// White
-            } else {
-                glColor3f(0.0, 0.0, 0.0); //// Black
-            }
-
-            //// Draw the chessboard squares
             glRecti(x * CELL_SIZE, y * CELL_SIZE, (x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE);
         }
     }
 
-    //// draw othello chess pieces
+    // Draw the grid lines
+    glColor3f(0.0, 0.0, 0.0); // Black color for the lines
+    glBegin(GL_LINES);
+    for (int i = 0; i <= BOARD_SIZE; i++) {
+        // Vertical lines
+        glVertex2f(i * CELL_SIZE, 0);
+        glVertex2f(i * CELL_SIZE, BOARD_SIZE * CELL_SIZE);
+        // Horizontal lines
+        glVertex2f(0, i * CELL_SIZE);
+        glVertex2f(BOARD_SIZE * CELL_SIZE, i * CELL_SIZE);
+    }
+    glEnd();
+
+	// Draw the stable corners
+	drawStableCorners();
 
     glFlush();
 };
