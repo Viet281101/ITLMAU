@@ -1,0 +1,3 @@
+/home/viet/Downloads/adventure/adventure14/CMakeFiles/adventure14.dir
+/home/viet/Downloads/adventure/adventure14/CMakeFiles/edit_cache.dir
+/home/viet/Downloads/adventure/adventure14/CMakeFiles/rebuild_cache.dir
