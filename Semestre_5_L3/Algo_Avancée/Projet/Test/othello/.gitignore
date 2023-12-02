@@ -1,0 +1,12 @@
+*.o
+othello
+
+report/*
+!report/*.tex
+
+!report/imgs
+report/imgs/*.png
+
+!report/presentation
+report/presentation/*
+!report/presentation/*.tex
