@@ -32,5 +32,7 @@ expr:
   | n = Lint {
     Int { value = n; pos = $startpos }
   }
-
+  | e1 = expr; Lmul; e2 = expr {
+    Mul { expr1 = e1; expr2 = e2; pos = $startpos(e1) }
+  }
 ;

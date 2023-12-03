@@ -14,6 +14,7 @@ rule token = parse
 | [ ' ' '\t' ]    { token lexbuf }
 | '\n'            { Lexing.new_line lexbuf; token lexbuf }
 | '#'             { comment lexbuf }
+| '*'             { Lmul }
 | ';'             { Lsc }
 | "return"        { Lreturn }
 | num+ as n       { Lint (int_of_string n) }

@@ -21,6 +21,9 @@ module Syntax = struct
     | Call of { func: ident
               ; args: expr list
               ; pos: Lexing.position }
+    | Mul  of { expr1: expr
+              ; expr2: expr
+              ; pos: Lexing.position }
   type instr =
     | Assign of { var: ident
                 ; expr: expr

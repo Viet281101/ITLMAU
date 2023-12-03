@@ -11,6 +11,7 @@ let expr_pos expr =
   | Syntax.Int n  -> n.pos
   | Syntax.Var v  -> v.pos
   | Syntax.Call c -> c.pos
+  | Syntax.Mul m  -> m.pos
 
 let errt expected given pos =
   raise (Error (Printf.sprintf "expected %s but given %s"
@@ -44,6 +45,13 @@ let rec analyze_expr expr env =
                                c.pos))
      | None -> raise (Error (Printf.sprintf "undefined function '%s'" c.func,
                              c.pos))
+  | Syntax.Mul m ->
+     let e1, t1 = analyze_expr m.expr1 env in
+     let e2, t2 = analyze_expr m.expr2 env in
+     if t1 = Int_t && t2 = Int_t then
+       Mul (e1, e2), Int_t
+     else
+       raise (Error ("Type error in multiplication", m.pos))
 
 let analyze_instr instr env =
   match instr with
