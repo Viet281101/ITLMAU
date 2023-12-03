@@ -49,9 +49,23 @@ expr:
         pos = $startpos(e1)
       }
     }
+  | e1 = expr; Ldiv; e2 = expr {
+      Call {
+        func = "%div";
+        args = [e1; e2];
+        pos = $startpos(e1)
+      }
+    }
   | e1 = expr; Ladd; e2 = expr {
       Call {
         func = "%add";
+        args = [e1; e2];
+        pos = $startpos(e1)
+      }
+    }
+  | e1 = expr; Lsub; e2 = expr {
+      Call {
+        func = "%sub";
         args = [e1; e2];
         pos = $startpos(e1)
       }

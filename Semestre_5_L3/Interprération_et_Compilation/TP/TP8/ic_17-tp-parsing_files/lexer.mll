@@ -17,6 +17,8 @@ rule token = parse
 | "return"         { Lreturn }
 | '*'              { Lmul }
 | '+'              { Ladd }
+| '-'              { Lsub }
+| '/'              { Ldiv }
 | ';'              { Lsc }
 | identifier as id { Lvar id }
 | '='              { Lassign }
