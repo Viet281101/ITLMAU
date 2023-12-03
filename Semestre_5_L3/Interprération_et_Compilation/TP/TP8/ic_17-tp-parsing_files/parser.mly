@@ -36,7 +36,12 @@ instr:
 ;
 
 expr:
-  | n = Lint { Int { value = n; pos = $startpos } }
+  | n = Lint {
+      Int { value = n; pos = $startpos }
+    }
+  | v = Lvar {
+      Var { name = v; pos = $startpos(v) }
+    }
   | e1 = expr; Lmul; e2 = expr {
       Call {
         func = "%mul";
