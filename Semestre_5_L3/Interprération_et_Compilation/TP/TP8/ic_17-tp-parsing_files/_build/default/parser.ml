@@ -109,11 +109,15 @@ let rec _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Sy
         let ((_menhir_stack, _menhir_s, (e1 : (Ast.Syntax.expr)), _startpos_e1_), _, (e2 : (Ast.Syntax.expr)), _startpos_e2_) = _menhir_stack in
         let _startpos = _startpos_e1_ in
         let _v : (Ast.Syntax.expr) = 
-# 35 "parser.mly"
+# 33 "parser.mly"
                                (
-    Mul { expr1 = e1; expr2 = e2; pos = _startpos_e1_ }
-  )
-# 117 "parser.ml"
+      Call {
+        func = "%mul";
+        args = [e1; e2];
+        pos = _startpos_e1_
+      }
+    )
+# 121 "parser.ml"
          in
         _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
     | _ ->
@@ -127,7 +131,7 @@ and _menhir_fail : unit -> 'a =
 and _menhir_run2 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 6 "parser.mly"
        (int)
-# 131 "parser.ml"
+# 135 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -135,17 +139,15 @@ and _menhir_run2 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (n : (
 # 6 "parser.mly"
        (int)
-# 139 "parser.ml"
+# 143 "parser.ml"
     )) = _v in
     let _startpos_n_ = _startpos in
     let _startpos = _startpos_n_ in
     let _v : (Ast.Syntax.expr) = let _startpos = _startpos_n_ in
     
 # 32 "parser.mly"
-             (
-    Int { value = n; pos = _startpos }
-  )
-# 149 "parser.ml"
+             ( Int { value = n; pos = _startpos } )
+# 151 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
 
@@ -160,7 +162,7 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
         let _v : (Ast.Syntax.block) = 
 # 22 "parser.mly"
                           ( i :: b )
-# 164 "parser.ml"
+# 166 "parser.ml"
          in
         _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
     | MenhirState0 ->
@@ -209,7 +211,7 @@ and _menhir_run7 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
     let _v : (Ast.Syntax.block) = 
 # 21 "parser.mly"
          ( [] )
-# 213 "parser.ml"
+# 215 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
@@ -249,4 +251,4 @@ and block : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.Syntax.block) =
 # 269 "<standard.mly>"
   
 
-# 253 "parser.ml"
+# 255 "parser.ml"
