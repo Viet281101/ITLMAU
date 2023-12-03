@@ -2,10 +2,10 @@
 # OCAMLPARAM: unset
 # Workspace root:
 # "/home/viet/Documents/ITLMAU/Semestre_5_L3/Interpr\195\169ration_et_Compilation/TP/TP8/ic_17-tp-parsing_files"
-$ /usr/bin/nproc > /tmp/dune064f1a.output 2> /dev/null
+$ /usr/bin/nproc > /tmp/dune896f70.output 2> /dev/null
 # Auto-detected concurrency: 4
 # disable binary cache
-$ /usr/bin/ocamlc.opt -config > /tmp/dune302dab.output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune32c6f5.output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -159,8 +159,6 @@ $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl ast.ml) > _build/de
 $ (cd _build/default && /usr/bin/ocamllex -q -o lexer.ml lexer.mll)
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl baselib.ml) > _build/default/.test.eobjs/baselib.ml.d
 $ (cd _build/default && /usr/bin/menhir parser.mly --base parser --infer-write-query parser__mock.ml.mock)
-> File "parser.mly", line 8, characters 7-11:
-> Warning: the token Ladd is unused.
 > File "parser.mly", line 8, characters 33-38:
 > Warning: the token Lcpar is unused.
 > File "parser.mly", line 8, characters 22-26:
@@ -169,9 +167,9 @@ $ (cd _build/default && /usr/bin/menhir parser.mly --base parser --infer-write-q
 > Warning: the token Lopar is unused.
 > File "parser.mly", line 8, characters 12-16:
 > Warning: the token Lsub is unused.
+$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl test.ml) > _build/default/.test.eobjs/test.ml.d
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl semantics.ml) > _build/default/.test.eobjs/semantics.ml.d
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl lexer.ml) > _build/default/.test.eobjs/lexer.ml.d
-$ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl test.ml) > _build/default/.test.eobjs/test.ml.d
 $ (cd _build/default && /usr/bin/ocamldep.opt -modules -impl parser__mock.ml.mock) > _build/default/.test.eobjs/parser__mock.ml.mock.d
 $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I .test.eobjs/byte -no-alias-deps -opaque -o .test.eobjs/byte/dune__exe.cmo -c -impl .test.eobjs/dune__exe.ml-gen)
 $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I .test.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/byte/dune__exe__Ast.cmo -c -impl ast.ml)
@@ -179,8 +177,6 @@ $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..
 > File "parser.mly", line 2, characters 2-10:
 > Warning 33 [unused-open]: unused open Dune__exe.Ast.
 $ (cd _build/default && /usr/bin/menhir parser.mly --base parser --infer-read-reply parser__mock.mli.inferred)
-> File "parser.mly", line 11, characters 0-5:
-> Warning: the precedence level assigned to Ladd is never useful.
 > File "parser.mly", line 12, characters 0-5:
 > Warning: the precedence level assigned to Ldiv is never useful.
 > File "parser.mly", line 11, characters 0-5:
@@ -194,8 +190,8 @@ $ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49
 $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I .test.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/byte/dune__exe__Lexer.cmo -c -impl lexer.ml)
 > File "lexer.mll", line 2, characters 2-13:
 > Warning 33 [unused-open]: unused open Stdlib.Lexing.
-$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Baselib.cmx -c -impl baselib.ml)
 $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I .test.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/byte/dune__exe__Semantics.cmo -c -impl semantics.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Baselib.cmx -c -impl baselib.ml)
 $ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Parser.cmx -c -impl parser.ml)
 > File "parser.mly", line 2, characters 2-10:
 > Warning 33 [unused-open]: unused open Dune__exe.Ast.
@@ -203,6 +199,6 @@ $ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..
 $ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Lexer.cmx -c -impl lexer.ml)
 > File "lexer.mll", line 2, characters 2-13:
 > Warning 33 [unused-open]: unused open Stdlib.Lexing.
-$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Semantics.cmx -c -impl semantics.ml)
 $ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Test.cmx -c -impl test.ml)
+$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .test.eobjs/byte -I .test.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .test.eobjs/native/dune__exe__Semantics.cmx -c -impl semantics.ml)
 $ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -o test.exe .test.eobjs/native/dune__exe.cmx .test.eobjs/native/dune__exe__Ast.cmx .test.eobjs/native/dune__exe__Baselib.cmx .test.eobjs/native/dune__exe__Parser.cmx .test.eobjs/native/dune__exe__Lexer.cmx .test.eobjs/native/dune__exe__Semantics.cmx .test.eobjs/native/dune__exe__Test.cmx)

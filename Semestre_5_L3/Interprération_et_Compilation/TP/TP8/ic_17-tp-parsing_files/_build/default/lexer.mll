@@ -16,6 +16,7 @@ rule token = parse
 | '#'              { comment lexbuf }
 | "return"         { Lreturn }
 | '*'              { Lmul }
+| '+'              { Ladd }
 | ';'              { Lsc }
 | identifier as id { Lvar id }
 | '='              { Lassign }
