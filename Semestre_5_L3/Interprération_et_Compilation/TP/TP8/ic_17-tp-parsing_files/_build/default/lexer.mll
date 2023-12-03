@@ -10,15 +10,17 @@ let num = ['0'-'9']
 let identifier = alpha (alpha | num | '-' | '_')*
 
 rule token = parse
-| eof             { Lend }
-| [ ' ' '\t' ]    { token lexbuf }
-| '\n'            { Lexing.new_line lexbuf; token lexbuf }
-| '#'             { comment lexbuf }
-| '*'             { Lmul }
-| ';'             { Lsc }
-| "return"        { Lreturn }
-| num+ as n       { Lint (int_of_string n) }
-| _ as c          { raise (Error c) }
+| eof              { Lend }
+| [ ' ' '\t' ]     { token lexbuf }
+| '\n'             { Lexing.new_line lexbuf; token lexbuf }
+| '#'              { comment lexbuf }
+| '*'              { Lmul }
+| ';'              { Lsc }
+| '='              { Lassign }
+| identifier as id { Lvar id }
+| "return"         { Lreturn }
+| num+ as n        { Lint (int_of_string n) }
+| _ as c           { raise (Error c) }
 
 and comment = parse
 | eof  { Lend }

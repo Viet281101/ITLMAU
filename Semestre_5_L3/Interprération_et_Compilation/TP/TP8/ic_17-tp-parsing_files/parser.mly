@@ -23,6 +23,13 @@ block:
 ;
 
 instr:
+  | v = Lvar; Lassign; e = expr; Lsc {
+      Assign {
+        var = v;
+        expr = e;
+        pos = $startpos(v)
+      }
+    }
   | Lreturn; e = expr; Lsc { 
     Return { expr = e; pos = $startpos($1) } 
   }
