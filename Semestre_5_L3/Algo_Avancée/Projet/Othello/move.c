@@ -1,236 +1,70 @@
 
 #include "game.h"
 
-int isValidMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player) {
-    //// Check if the cell is empty
-    if (board[x][y] != 0) {
-        return 0;
-    }
 
-    //// Check if the move is valid
-    int valid = 0;
+/*
+*@param (flag) check a line in a direction (dx, dy) to see if it is valid or not
+*/
+bool checkDirection(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int dx, int dy, int player) {
+	int opponent = player == 1 ? 2 : 1;
+	int count = 0;
 
-    //// Check the right
-    for (int i = x + 1; i < BOARD_SIZE; i++) {
-        if (board[i][y] == 0) {
-            break;
-        }
+	while (true) {
+		x += dx;
+		y += dy;
 
-        if (board[i][y] == player) {
-            valid = 1;
-            break;
-        }
-    }
+		if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) return false;
 
-    //// Check the left
-    for (int i = x - 1; i >= 0; i--) {
-        if (board[i][y] == 0) {
-            break;
-        }
-
-        if (board[i][y] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the top
-    for (int i = y + 1; i < BOARD_SIZE; i++) {
-        if (board[x][i] == 0) {
-            break;
-        }
-
-        if (board[x][i] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the bottom
-    for (int i = y - 1; i >= 0; i--) {
-        if (board[x][i] == 0) {
-            break;
-        }
-
-        if (board[x][i] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the top right
-    for (int i = x + 1, j = y + 1; i < BOARD_SIZE && j < BOARD_SIZE; i++, j++) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the top left
-    for (int i = x - 1, j = y + 1; i >= 0 && j < BOARD_SIZE; i--, j++) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the bottom right
-    for (int i = x + 1, j = y - 1; i < BOARD_SIZE && j >= 0; i++, j--) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    //// Check the bottom left
-    for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            valid = 1;
-            break;
-        }
-    }
-
-    return valid;
+		if (board[x][y] == opponent) {
+			count++;
+		} else if (board[x][y] == player) {
+			return count > 0;
+		} else {
+			return false;
+		}
+	}
 };
 
+/*
+*@param (flag) check if the move is valid or not (return true/false)
+*/
+bool isValidMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player) {
+    if (board[x][y] != 0) return false;
+
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue;
+
+            if (checkDirection(board, x, y, dx, dy, player)) return true;
+        }
+    }
+
+    return false;
+};
+
+/*
+*@param (flag) make the move on the board
+*/
 void makeMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player) {
-    //// Check the right
-    for (int i = x + 1; i < BOARD_SIZE; i++) {
-        if (board[i][y] == 0) {
-            break;
-        }
+	board[x][y] = player;
 
-        if (board[i][y] == player) {
-            for (int j = x + 1; j < i; j++) {
-                board[j][y] = player;
-            }
+	for (int dx = -1; dx <= 1; dx++) {
+		for (int dy = -1; dy <= 1; dy++) {
+			if (dx == 0 && dy == 0) continue;
 
-            break;
-        }
-    }
+			if (checkDirection(board, x, y, dx, dy, player)) {
+				int opponent = player == 1 ? 2 : 1;
 
-    //// Check the left
-    for (int i = x - 1; i >= 0; i--) {
-        if (board[i][y] == 0) {
-            break;
-        }
+				int i = x + dx;
+				int j = y + dy;
 
-        if (board[i][y] == player) {
-            for (int j = x - 1; j > i; j--) {
-                board[j][y] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the top
-    for (int i = y + 1; i < BOARD_SIZE; i++) {
-        if (board[x][i] == 0) {
-            break;
-        }
-
-        if (board[x][i] == player) {
-            for (int j = y + 1; j < i; j++) {
-                board[x][j] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the bottom
-    for (int i = y - 1; i >= 0; i--) {
-        if (board[x][i] == 0) {
-            break;
-        }
-
-        if (board[x][i] == player) {
-            for (int j = y - 1; j > i; j--) {
-                board[x][j] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the top right
-    for (int i = x + 1, j = y + 1; i < BOARD_SIZE && j < BOARD_SIZE; i++, j++) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            for (int k = x + 1, l = y + 1; k < i && l < j; k++, l++) {
-                board[k][l] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the top left
-    for (int i = x - 1, j = y + 1; i >= 0 && j < BOARD_SIZE; i--, j++) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            for (int k = x - 1, l = y + 1; k > i && l < j; k--, l++) {
-                board[k][l] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the bottom right
-    for (int i = x + 1, j = y - 1; i < BOARD_SIZE && j >= 0; i++, j--) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            for (int k = x + 1, l = y - 1; k < i && l > j; k++, l--) {
-                board[k][l] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Check the bottom left
-    for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
-        if (board[i][j] == 0) {
-            break;
-        }
-
-        if (board[i][j] == player) {
-            for (int k = x - 1, l = y - 1; k > i && l > j; k--, l--) {
-                board[k][l] = player;
-            }
-
-            break;
-        }
-    }
-
-    //// Place the piece on the board
-    board[x][y] = player;
+				while (board[i][j] == opponent) {
+					board[i][j] = player;
+					i += dx;
+					j += dy;
+				}
+			}
+		}
+	}
 };
 

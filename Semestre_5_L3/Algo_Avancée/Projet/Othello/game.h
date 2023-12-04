@@ -5,6 +5,8 @@
 #include <GL/freeglut.h>  
 
 #include <math.h>
+#include <string.h>
+#include <stdbool.h>
 
 /* pour Mac */
 // #include <GLUT/glut.h>
@@ -13,5 +15,10 @@
 #define CELL_SIZE 80
 #define DEG2RAD (3.14159/180.0)
 
-int isValidMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player);
+//// draw.c
+void drawStableCorners();
+void drawPiece(int x, int y, int player);
+
+//// move.c
+bool isValidMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player);
 void makeMove(int board[BOARD_SIZE][BOARD_SIZE], int x, int y, int player);
