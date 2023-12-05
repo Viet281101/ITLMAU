@@ -1,0 +1,11 @@
+_build
+*.conflicts
+
+*.byte
+*.cmi
+
+*.s
+
+# Menhir
+parser.ml
+parser.mli

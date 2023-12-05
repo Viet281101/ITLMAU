@@ -1,0 +1,7 @@
+int foo (int a, int b) {
+    return a + b;
+}
+
+void main () {
+    foo(42); # Error on line 6 col 4: Expected 2 arguments but given 1.
+}

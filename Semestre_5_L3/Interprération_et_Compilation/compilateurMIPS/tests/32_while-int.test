@@ -1,0 +1,5 @@
+void main () {
+    while (1) { # Comme les conditions, les int sont autorisés
+        return;
+    }
+}
