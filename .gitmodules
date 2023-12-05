@@ -12,7 +12,7 @@
 
 [submodule "Semestre_5_L3/Algo_Avancée/Projet/Othello"]
 	path = Semestre_5_L3/Algo_Avancée/Projet/Othello
-	url = https://github.com/Viet281101/OthelloAI
+	url = https://github.com/Viet281101/OthelloAI.git
 
 [submodule "Semestre_3_L2/Algo_Prog_Graphic_L2/GL4Dummies"]
 	path = Semestre_3_L2/Algo_Prog_Graphic_L2/GL4Dummies
