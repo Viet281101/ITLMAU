@@ -1,0 +1,18 @@
+void foo3() { print_str("3eme fonction"); }
+void foo2() { print_str("2eme fonction"); print_nl(); foo3(); }
+void foo()  { print_str("1ere fonction"); print_nl(); foo2(); }
+
+void main(){
+    foo(); print_nl();
+
+    int n;
+
+    print_str("Veuillez choisir un nombre entre 0 et 10 : ");
+    n = scanf();
+
+    if (n >= 0 && n <= 10){
+        print_str("good");
+    } else {
+        print_str("no");
+    }
+}

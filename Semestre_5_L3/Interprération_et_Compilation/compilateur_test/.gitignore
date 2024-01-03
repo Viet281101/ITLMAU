@@ -1,0 +1,14 @@
+_build/*
+*.swp
+*.sw
+*~
+*.mli
+*.cmx
+*.cmi
+*.o
+*.exe
+ppurs
+*.aux
+*.fdb_latexmk
+*.fls
+*.log

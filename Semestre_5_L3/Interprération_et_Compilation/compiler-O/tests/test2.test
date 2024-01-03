@@ -1,0 +1,6 @@
+/*
+ * Pas de fonction main
+ */
+void foo(){
+	int a;
+}

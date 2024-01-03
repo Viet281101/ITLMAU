@@ -1,0 +1,42 @@
+type token =
+    Lwhile
+  | Ltypevoid
+  | Ltypestr
+  | Ltypeint
+  | Ltypebool
+  | Ltrue of bool
+  | Lsuppeq
+  | Lsupp
+  | Lsub
+  | Lstring of string
+  | Lstar
+  | Lsc
+  | Lreturn
+  | Lopar
+  | Lobracket
+  | Lneq
+  | Lint of int
+  | Linfeq
+  | Linf
+  | Lif
+  | Lident of string
+  | Lfalse of bool
+  | Leq
+  | Lend
+  | Lelse
+  | Ldiv
+  | Ldeq
+  | Lcpar
+  | Lcomma
+  | Lcbracket
+  | Ladd
+val menhir_begin_marker : int
+val xv_value : Ast.Syntax.value
+val xv_separated_nonempty_list_Lcomma_expr_ : Ast.Syntax.expr list
+val xv_separated_list_Lcomma_expr_ : Ast.Syntax.expr list
+val xv_prog : Ast.Syntax.block
+val xv_loption_separated_nonempty_list_Lcomma_expr__ : Ast.Syntax.expr list
+val xv_instr : Ast.Syntax.block
+val xv_expr : Ast.Syntax.expr
+val xv_block : Ast.Syntax.block
+val menhir_end_marker : int

@@ -1,0 +1,21 @@
+void main(){
+	int a;
+	int b;
+	a = 15;
+	b = 6;
+	// Op
+	print_int(a); print_str(" + "); print_int(b); print_str(" = ");
+	print_int(a + b); print_nl();
+	print_int(a); print_str(" - "); print_int(b); print_str(" = ");
+	print_int(a - b); print_nl();
+	print_int(a); print_str(" * "); print_int(b); print_str(" = ");
+	print_int(a * b); print_nl();
+	print_int(a); print_str(" / "); print_int(b); print_str(" = ");
+	print_int(a / b); print_nl();
+	print_int(a); print_str(" % "); print_int(b); print_str(" = ");
+	print_int(a % b); print_nl();
+	print_int(a); print_str(" << "); print_int(b); print_str(" = ");
+	print_int(a << b); print_nl();
+	print_int(a); print_str(" >> "); print_int(b); print_str(" = ");
+	print_int(a >> b); print_nl();
+}
