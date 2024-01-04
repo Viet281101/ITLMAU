@@ -1,0 +1,16 @@
+void foo(){
+    int random;
+    int v;
+    random = 12;
+    v = 0;
+
+    while(random != v){
+        print_str("Nombre a deviner : ");
+        v = scanf();
+    }
+    /* Le while fonctionne bien cependant la valeur v n'est pas modifiée */
+}
+
+void main(){
+    foo();
+}

@@ -1,0 +1,15 @@
+
+void foo(int a) {
+    int res;
+    res = a * 100 + 20 - 8;
+
+    print_nl();
+    print_int(res * 2 / 2);
+    print_nl();
+}
+
+void main() {
+    int nbr;
+    nbr = 13;
+    foo(nbr);
+}

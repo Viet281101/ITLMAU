@@ -21,7 +21,7 @@ let () =
     let parsed = Parser.prog Lexer.token buf in
     close_in f;
     let ast = Semantics.analyze parsed in
-    let sim = Simplifier.simplify ast in
+    let sim = Semantics.simplify ast in
     let asm = Compiler.compile sim in
     let oc = open_out file in
     Mips.emit oc asm;
