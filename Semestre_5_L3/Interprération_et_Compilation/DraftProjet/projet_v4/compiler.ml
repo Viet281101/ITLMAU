@@ -39,9 +39,7 @@ let rec compile_expr e env =
 let rec compile_instr i info env=
   match i with
   | Decl v ->
-    let mem_loc = Mem (FP, -info.fpo) in
-    let new_env = Env.add v mem_loc info.env in
-    { info with env = new_env; fpo = info.fpo + 4; code = info.code @ [Sw (V0, mem_loc)] }
+    { info with env = Env.add v (Mem (FP, -info.fpo)) info.env; fpo = info.fpo + 4 }
   | Return e ->
     { info with code = info.code
                      @ compile_expr e info.env 

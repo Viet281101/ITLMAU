@@ -1,0 +1,7 @@
+void main() {
+    int a = 1312;
+
+    print_nl();
+    print_int(a);
+    print_nl();
+}

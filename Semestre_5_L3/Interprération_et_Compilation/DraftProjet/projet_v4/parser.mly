@@ -7,7 +7,7 @@
 %token Lgt Lgte Llt Llte Leq Lneq Land Lor Lxor Lnot Lsll Lsrl
 
 (*Punctuations*)
-%token Lsc Lopar Lcpar Locbra Lccbra Lcomma Lequal
+%token Lsc Lopar Lcpar Locbra Lccbra Lcomma
 
 (*Keywords*)
 %token Lreturn Lend Lprint_int Lprint_str Lprint_bool Lprint_nl Lprintf Lscanf Lexit
@@ -80,22 +80,6 @@ instrs:
 | Lend         { [] }
 ;
 
-var_decl:
-| Lvar { [$1] }
-| Lvar; Lcomma; var_decl { $1 :: $3 }
-
-decl_instr:
-| Ltype var_decl Lsc {
-    List.map (fun v -> Decl { name=v; type_t=$1; init=None; pos=$startpos($1) }) $2
-}
-| Ltype var_decl Lequal expr Lsc {
-    match $2 with
-    | v :: vs -> 
-        [Decl { name=v; type_t=$1; init=Some $4; pos=$startpos($1) }]
-        @ (List.map (fun v -> Decl { name=v; type_t=$1; init=None; pos=$startpos($1) }) vs)
-    | [] -> raise (Failure "Empty variable declaration list")
-}
-
 (*Instruction*)
 instr:
 | Lreturn; expr; Lsc; {
@@ -119,8 +103,6 @@ instr:
 | Lwhile; Lopar; expr; Lcpar; Locbra; instrs; Lccbra {
     While { test=$3 ; block=$6 ; pos=$startpos($1) }
 }
-| Lvar Lassign expr Lsc { Assign { var=$1; expr=$3; pos=$startpos($1) } }
-| decl_instr { Block $1 }
 ;
 
 (*Expression*)

@@ -1,0 +1,7 @@
+void main() {
+    str a = "hello world";
+
+    print_nl();
+    print_str(a);
+    print_nl();
+}

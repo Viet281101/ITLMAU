@@ -1,0 +1,14 @@
+
+void main(){
+    int n;
+
+    print_nl();
+    printf("Veuillez choisir un nombre entre 0 et 10 : ");
+    n = scanf();
+
+    if (n >= 0 && n <= 10){
+        printf("good \n");
+    } else {
+        printf("no \n");
+    }
+}

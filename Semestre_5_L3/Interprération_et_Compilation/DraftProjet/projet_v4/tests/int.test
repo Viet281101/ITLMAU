@@ -1,0 +1,4 @@
+void main() {
+    int a = 1312;
+    // int b, c, d;
+}

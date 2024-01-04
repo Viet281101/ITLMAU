@@ -19,6 +19,7 @@ rule token = parse
 | '"'             { Lstring (String.concat "" (string_r lexbuf))}
 | ";"             { Lsc }
 | ','             { Lcomma }
+| '='             { Lequal }
 
 | "true"          { Lbool true }
 | "false"         { Lbool false }

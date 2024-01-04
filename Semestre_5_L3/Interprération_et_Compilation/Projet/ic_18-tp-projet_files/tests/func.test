@@ -1,0 +1,9 @@
+
+void foo3() { printf("3eme fonction"); }
+void foo2() { printf("2eme fonction"); print_nl(); foo3(); }
+void foo()  { printf("1ere fonction"); print_nl(); foo2(); }
+
+void main(){
+    print_nl();
+    foo(); print_nl();
+}

@@ -1,0 +1,27 @@
+void main(){
+	int a;
+	int b;
+	a = 6;
+	b = 3;
+	
+	print_int(a); printf(" + "); print_int(b); printf(" = ");
+	print_int(a + b); print_nl();
+
+	print_int(a); printf(" - "); print_int(b); printf(" = ");
+	print_int(a - b); print_nl();
+
+	print_int(a); printf(" * "); print_int(b); printf(" = ");
+	print_int(a * b); print_nl();
+
+	print_int(a); printf(" / "); print_int(b); printf(" = ");
+	print_int(a / b); print_nl();
+
+	print_int(a); printf(" % "); print_int(b); printf(" = ");
+	print_int(a % b); print_nl();
+
+	print_int(a); printf(" << "); print_int(b); printf(" = ");
+	print_int(a << b); print_nl();
+	
+	print_int(a); printf(" >> "); print_int(b); printf(" = ");
+	print_int(a >> b); print_nl();
+}

@@ -58,7 +58,6 @@ module Syntax = struct
     | While  of { test: expr
                 ; block: block
                 ; pos: Lexing.position }
-    | Block of instr list
   and block = instr list
   type def =
     | Func   of { type_t : type_t 

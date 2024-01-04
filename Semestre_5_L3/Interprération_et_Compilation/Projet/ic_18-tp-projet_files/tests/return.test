@@ -1,0 +1,10 @@
+int foo(int a){
+    return a + 10;
+}
+void main() {
+    int nbr = 10;
+    
+    print_nl();
+    print_int(foo(nbr));
+    print_nl();
+}

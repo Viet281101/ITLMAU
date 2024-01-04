@@ -35,7 +35,7 @@ let rec analyze_expr expr env =
      if Env.mem v.name env then
        IR1.Var v.name, Env.find v.name env
      else
-       raise (Error (Printf.sprintf "Unbound variable '%s' !!" v.name,
+       raise (Error (Printf.sprintf "Unbound variable '%s'" v.name,
                      v.pos))
   | Syntax.Value v ->  
     let a, b = (analyze_value v.value env) in
@@ -44,16 +44,16 @@ let rec analyze_expr expr env =
       match Env.find_opt c.func env with
       | Some (Func_t (rt, at)) ->
         if List.length at != List.length c.args then
-          raise (Error (Printf.sprintf "Expected %d arguments but given %d !!"
+          raise (Error (Printf.sprintf "Expected %d arguments but given %d"
                           (List.length at) (List.length c.args), c.pos)) ;
         let args = List.map2 (fun eat a -> let aa, at = analyze_expr a env
                                            in if at = eat then aa
                                               else errt eat at (expr_pos a))
                      at c.args in
         IR1.Call (c.func, args), rt
-      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function !!" c.func,
+      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function" c.func,
                           c.pos))
-      | None -> raise (Error (Printf.sprintf "Undefined function '%s' !!" c.func,
+      | None -> raise (Error (Printf.sprintf "Undefined function '%s'" c.func,
                         c.pos))
 
 let rec analyze_instr instr env pile =
@@ -76,9 +76,6 @@ let rec analyze_instr instr env pile =
           (IR1.Block [decl_instr; IR1.Assign (d.name, ae)], new_env)
         else
           errt d.type_t et d.pos)
-  | Syntax.Block instrs ->
-    let block_instrs, new_env = analyze_block instrs env pile in
-    (IR1.Block block_instrs, new_env)
   | Syntax.Assign a ->
     if (Env.mem a.var env) then
       let ae, et = analyze_expr a.expr env in
@@ -89,7 +86,7 @@ let rec analyze_instr instr env pile =
         errt vt et a.pos
       else
         raise (Error 
-          (Printf.sprintf "Unbound variable %s !!" 
+          (Printf.sprintf "Unbound variable %s" 
             a.var, a.pos ) )
   | Syntax.Expr e ->
      let ae, et = analyze_expr e.expr env in
@@ -120,7 +117,7 @@ let analyze_func func env pile =
     let block, new_env = analyze_block f.block args_env pile in
     IR1.Func (f.type_t, f.name, f.args, block),
     if (Env.mem f.name env) then
-      raise (Error ("Function '" ^ f.name ^ "' already exists !!", f.pos))
+      raise (Error ("Function '" ^ f.name ^ "' already exists", f.pos))
     else
       Env.add f.name (Func_t (f.type_t, List.map (fun (t, _) -> t) f.args)) env
 
