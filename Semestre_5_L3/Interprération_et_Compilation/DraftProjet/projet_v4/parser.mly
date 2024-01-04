@@ -88,15 +88,16 @@ instr:
 | Lvar; Lassign; expr; Lsc {
     Assign { var=$1 ; expr=$3 ; pos=$startpos($1) }
 }
-| Ltype Lvar Lsc {
+| Ltype; Lvar; Lsc {
     Decl { name=$2; type_t=$1; init=None; pos=$startpos($2) }
 }
-| Ltype Lvar Lassign expr Lsc {
+| Ltype; Lvar; Lassign; expr; Lsc {
     Decl { name=$2; type_t=$1; init=Some $4; pos=$startpos($2) }
 }
 | expr; Lsc { 
     Expr { expr=$1 ; pos=$startpos($1) }
 }
+| decl_instr { Block $1 }
 | Lif; Lopar; expr; Lcpar; Locbra; instrs; Lccbra; Lelse; Locbra; instrs; Lccbra {
     Cond { test=$3 ; tblock=$6 ; fblock=$10 ; pos=$startpos($1) }
 }
@@ -124,6 +125,23 @@ expr_list:
   { [] }
 | expr { [$1] }
 | expr ; Lcomma ; expr_list { $1 :: $3 }
+
+(* Declaration variables*)
+var_decl:
+| Lvar { [$1] }
+| Lvar; Lcomma; var_decl { $1 :: $3 }
+
+decl_instr:
+| Ltype; var_decl; Lsc {
+    List.map (fun v -> Decl { name=v; type_t=$1; init=None; pos=$startpos($1) }) $2
+}
+| Ltype; var_decl; Lassign; expr; Lsc {
+    match $2 with
+    | v :: vs -> 
+        [Decl { name=v; type_t=$1; init=Some $4; pos=$startpos($1) }]
+        @ (List.map (fun v -> Decl { name=v; type_t=$1; init=None; pos=$startpos($1) }) vs)
+    | [] -> raise (Failure "Empty variable declaration list")
+}
 
 (*Operators*)
 operator:

@@ -77,7 +77,10 @@ let rec analyze_instr instr env pile =
         else
           errt d.type_t et d.pos)
   | Syntax.Block instrs ->
-    let block_instrs, new_env = analyze_block instrs env pile in
+    let (block_instrs, new_env) = List.fold_left (fun (acc_instrs, acc_env) instr ->
+      let (ai, new_env) = analyze_instr instr acc_env pile in
+      (acc_instrs @ [ai], new_env)
+    ) ([], env) instrs in
     (IR1.Block block_instrs, new_env)
   | Syntax.Assign a ->
     if (Env.mem a.var env) then
