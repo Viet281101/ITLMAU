@@ -44,6 +44,7 @@ module Syntax = struct
                 ; pos: Lexing.position}
     | Decl   of { name: ident
                 ; type_t: type_t
+                ; init: expr option
                 ; pos: Lexing.position }
     | Assign of { var: ident
                 ; expr: expr
@@ -57,11 +58,12 @@ module Syntax = struct
     | While  of { test: expr
                 ; block: block
                 ; pos: Lexing.position }
+    | Block of instr list
   and block = instr list
   type def =
     | Func   of { type_t : type_t 
                 ; name: ident
-                ; args: ident list
+                ; args: (type_t * ident) list
                 ; block : block
                 ; pos: Lexing.position }
   type prog = def list
@@ -97,9 +99,10 @@ module IR (P : Parameters) = struct
     | Assign of ident * expr
     | Cond   of expr * block * block
     | While  of expr * block
+    | Block  of instr list
   and block = instr list
   type def =
-    | Func of type_t * ident * ident list * block
+    | Func of type_t * ident * (type_t * ident) list * block
   type prog = def list
 end
 

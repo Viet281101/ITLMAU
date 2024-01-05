@@ -1,10 +1,14 @@
 # Démarrage projet compiler
 
 ### Build & Compiler:
- - Utiliser dune buile :
+ - Utiliser dune buile (Attention la version dune dans les fichiers **"dune"** et **"dune-projet"** ) :
 
 ```
 dune buile main.exe
+```
+ou
+```
+ocamlbuild -use-menhir main.byte
 ```
 
 - Compiler (essayer avec les tests/), par exemple avec __"int.test"__:
@@ -45,7 +49,7 @@ spim -file result.asm
 	- [X] un bloc est une séquence d’instructions;
 
 - [X] un programme est une liste de définitions de fonctions (dont une s’appelle main) :
-	- [ ] une fonction déclare son nom, les noms et types de ses arguments, son type de retour, et son corps,
+	- [X] une fonction déclare son nom, les noms et types de ses arguments, son type de retour, et son corps,
 	- [X] le corps d’une fonction est un bloc.
 
 

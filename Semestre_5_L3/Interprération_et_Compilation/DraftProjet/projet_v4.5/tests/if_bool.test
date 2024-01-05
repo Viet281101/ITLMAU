@@ -1,0 +1,16 @@
+void main(){
+    bool a, b;
+    a = true;
+    b = false;
+
+    print_nl();
+    if (!b && a) {
+        printf("a is true\n");
+        printf("b is false\n");
+    }
+    else {
+        printf("a is false\n");
+        printf("b is true\n");
+    }
+    print_nl();
+}

@@ -44,6 +44,13 @@ let collect_constant_strings code =
       let t2, ccs_t = ccs_expr t in
       let e2, ccs_e = ccs_block e in
       IR2.While (t2, e2), List.flatten [ ccs_t; ccs_e ]
+    | IR1.Block instrs ->
+    let instrs2, ccs = List.fold_right (fun instr (instrs_acc, ccs_acc) ->
+      let instr2, ccs_instr = ccs_instr instr in
+      (instr2 :: instrs_acc, ccs_instr @ ccs_acc)
+    ) instrs ([], [])
+    in
+    IR2.Block instrs2, ccs
   and ccs_block = function
     | [] -> [], []
     | i :: r ->

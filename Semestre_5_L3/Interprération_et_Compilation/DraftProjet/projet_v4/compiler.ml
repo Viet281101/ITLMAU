@@ -39,9 +39,7 @@ let rec compile_expr e env =
 let rec compile_instr i info env=
   match i with
   | Decl v ->
-    let mem_loc = Mem (FP, -info.fpo) in
-    let new_env = Env.add v mem_loc info.env in
-    { info with env = new_env; fpo = info.fpo + 4; code = info.code @ [Sw (V0, mem_loc)] }
+    { info with env = Env.add v (Mem (FP, -info.fpo)) info.env; fpo = info.fpo + 4 }
   | Return e ->
     { info with code = info.code
                      @ compile_expr e info.env 
@@ -85,8 +83,6 @@ let rec compile_instr i info env=
         @ [ Label ("endwhile" ^ uniq) ]
     ; counter = ct.counter
     }
-  | Block instrs ->
-    List.fold_left (fun acc_info instr -> compile_instr instr acc_info env) info instrs
 
 and compile_block b info env=
   match b with
@@ -94,16 +90,17 @@ and compile_block b info env=
   | i :: r -> compile_block r (compile_instr i info env) env
 ;;
 
-let compile_def (Func (type_t, name, args, b)) counter env =
+let compile_def (Func (type_t,name, args, b)) counter env =
   if (Env.mem "main" env) then
     let cb =
       compile_block
         b
         { code = []
-        ; env = List.fold_left
-        (fun acc (arg_name, idx) -> Env.add arg_name (Mem (FP, 4 * idx)) acc)
-        Env.empty
-        (List.mapi (fun idx (arg_type, arg_name) -> (arg_name, idx + 2)) args)
+        ; env =
+            List.fold_left
+              (fun e (i, a) -> Env.add a (Mem (FP, 4 * i)) e)
+              Env.empty
+              (List.mapi (fun i a -> i + 1, a) args)
         ; fpo = 8
         ; counter = counter + 1
         ; return = "ret" ^ string_of_int counter

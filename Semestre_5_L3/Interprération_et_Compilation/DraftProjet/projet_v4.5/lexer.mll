@@ -18,6 +18,7 @@ rule token = parse
 | "/*"            { long_comment lexbuf }
 | '"'             { Lstring (String.concat "" (string_r lexbuf))}
 | ";"             { Lsc }
+| ','             { Lcomma }
 
 | "true"          { Lbool true }
 | "false"         { Lbool false }

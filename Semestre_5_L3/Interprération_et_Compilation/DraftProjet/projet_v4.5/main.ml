@@ -8,7 +8,7 @@ let file = "result.asm"
 
 
 let err msg pos =
-  Printf.eprintf "Error on line %d col %d: %s.\n"
+  Printf.eprintf "Error on line %d col %d: %s !!\n"
     pos.pos_lnum (pos.pos_cnum - pos.pos_bol) msg ;
   exit 1
 
@@ -23,18 +23,22 @@ let () =
     let parsed = Parser.start Lexer.token buf in
     close_in f ;
     Printf.eprintf "Analyze Syntax ...\n" ;
+
     let ast, env = Semantics.analyze parsed in
     Printf.eprintf "Constructed Semantics ...\n" ;
+
     let simplified = Simplifier.simplify ast in
     Printf.eprintf "Optimization ...\n" ;
+
     let asm = Compiler.compile simplified env in
     Printf.eprintf "Compiler loaded ...\n" ;
+
     let oc =  open_out file in
     Mips.emit oc asm ;
-    Printf.eprintf "Built Successfully !\n" ;
+    Printf.eprintf "Built Successfully !!\n" ;
   with
   | Lexer.Error c ->
-     err (Printf.sprintf "Unrecognized char '%c'" c) (Lexing.lexeme_start_p buf)
+     err (Printf.sprintf "Unrecognized char '%c' !!" c) (Lexing.lexeme_start_p buf)
   | Parser.Error ->
      err "Syntax Error" (Lexing.lexeme_start_p buf)
   | Semantics.Error (msg, pos) ->
