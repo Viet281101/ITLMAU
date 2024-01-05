@@ -105,6 +105,18 @@ instr:
 | Lwhile; Lopar; expr; Lcpar; Locbra; instrs; Lccbra {
     While { test=$3 ; block=$6 ; pos=$startpos($1) }
 }
+| Lvar; Ladd_assign; expr; Lsc {
+    AddAssign { var=$1 ; expr=$3 ; pos=$startpos($1) }
+}
+| Lvar; Lsub_assign; expr; Lsc {
+    SubAssign { var=$1 ; expr=$3 ; pos=$startpos($1) }
+}
+| Lvar; Lmul_assign; expr; Lsc {
+    MulAssign { var=$1 ; expr=$3 ; pos=$startpos($1) }
+}
+| Lvar; Ldiv_assign; expr; Lsc {
+    DivAssign { var=$1 ; expr=$3 ; pos=$startpos($1) }
+}
 ;
 
 (*** Expression ***)

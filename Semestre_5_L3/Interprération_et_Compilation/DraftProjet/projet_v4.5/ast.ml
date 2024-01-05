@@ -59,6 +59,10 @@ module Syntax = struct
                 ; block: block
                 ; pos: Lexing.position }
     | Block of instr list
+    | AddAssign of { var: ident; expr: expr; pos: Lexing.position }
+    | SubAssign of { var: ident; expr: expr; pos: Lexing.position }
+    | MulAssign of { var: ident; expr: expr; pos: Lexing.position }
+    | DivAssign of { var: ident; expr: expr; pos: Lexing.position }
   and block = instr list
   type def =
     | Func   of { type_t : type_t 
@@ -100,6 +104,10 @@ module IR (P : Parameters) = struct
     | Cond   of expr * block * block
     | While  of expr * block
     | Block  of instr list
+    | AddAssign of ident * expr
+    | SubAssign of ident * expr
+    | MulAssign of ident * expr
+    | DivAssign of ident * expr
   and block = instr list
   type def =
     | Func of type_t * ident * (type_t * ident) list * block

@@ -35,7 +35,7 @@ let rec compile_expr e env =
     in
     List.flatten ca @ [ Jal f; Addi (SP, SP, 4 * List.length args) ]
   | Call ("_not", [arg]) ->
-    compile_expr arg env @ [Seq (V0, V0, Zero)]
+      compile_expr arg env @ [Seq (V0, V0, Zero)]
 ;;
 
 let rec compile_instr i info env=
@@ -89,6 +89,34 @@ let rec compile_instr i info env=
     }
   | Block instrs ->
     List.fold_left (fun acc_info instr -> compile_instr instr acc_info env) info instrs
+  | AddAssign (var, expr) ->
+    let code_expr = compile_expr expr info.env in
+    let var_loc = Env.find var info.env in
+    { info with
+      code = info.code @ code_expr
+             @ [Lw (T0, var_loc); Add (V0, T0, V0); Sw (V0, var_loc)]
+    }
+  | SubAssign (var, expr) ->
+    let code_expr = compile_expr expr info.env in
+    let var_loc = Env.find var info.env in
+    { info with
+      code = info.code @ code_expr
+            @ [Lw (T0, var_loc); Sub (V0, T0, V0); Sw (V0, var_loc)]
+    }
+  | MulAssign (var, expr) ->
+    let code_expr = compile_expr expr info.env in
+    let var_loc = Env.find var info.env in
+    { info with
+      code = info.code @ code_expr
+            @ [Lw (T0, var_loc); Mul (V0, T0, V0); Sw (V0, var_loc)]
+    }
+  | DivAssign (var, expr) ->
+    let code_expr = compile_expr expr info.env in
+    let var_loc = Env.find var info.env in
+    { info with
+      code = info.code @ code_expr
+            @ [Lw (T0, var_loc); Div (V0, T0, V0); Sw (V0, var_loc)]
+    }
 
 and compile_block b info env=
   match b with

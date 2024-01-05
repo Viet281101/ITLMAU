@@ -113,6 +113,46 @@ let rec analyze_instr instr env pile =
      let t, et  = analyze_expr w.test env in
      let e, et2 = analyze_block w.block env pile in
      IR1.While (t, e), et2
+  | Syntax.AddAssign { var; expr; pos } ->
+    if Env.mem var env then
+        let ae, et = analyze_expr expr env in
+        let vt = Env.find var env in
+        if et = Int_t && vt = Int_t then 
+            IR1.AddAssign (var, ae), env
+        else
+            errt Int_t et pos
+    else
+        raise (Error (Printf.sprintf "Unbound variable '%s' !!" var, pos))
+  | Syntax.SubAssign { var; expr; pos } ->
+    if Env.mem var env then
+        let ae, et = analyze_expr expr env in
+        let vt = Env.find var env in
+        if et = Int_t && vt = Int_t then 
+            IR1.SubAssign (var, ae), env
+        else
+            errt Int_t et pos
+    else
+        raise (Error (Printf.sprintf "Unbound variable '%s' !!" var, pos))
+  | Syntax.MulAssign { var; expr; pos } ->
+    if Env.mem var env then
+        let ae, et = analyze_expr expr env in
+        let vt = Env.find var env in
+        if et = Int_t && vt = Int_t then 
+            IR1.MulAssign (var, ae), env
+        else
+            errt Int_t et pos
+    else
+        raise (Error (Printf.sprintf "Unbound variable '%s' !!" var, pos))
+  | Syntax.DivAssign { var; expr; pos } ->
+    if Env.mem var env then
+        let ae, et = analyze_expr expr env in
+        let vt = Env.find var env in
+        if et = Int_t && vt = Int_t then 
+            IR1.DivAssign (var, ae), env
+        else
+            errt Int_t et pos
+    else
+        raise (Error (Printf.sprintf "Unbound variable '%s' !!" var, pos))
 
 and analyze_block block env pile =
   match block with

@@ -1,0 +1,18 @@
+void countdown (int n) {
+    if (n != 0) {
+        print_int(n);
+        print_nl();
+        countdown(n - 1);
+    }
+    else {
+        printf("BOUM!\n");
+    }
+}
+
+int main () {
+    int nbr;
+    nbr = scanf();
+
+    printf("Count from? ");
+    countdown(nbr);
+}

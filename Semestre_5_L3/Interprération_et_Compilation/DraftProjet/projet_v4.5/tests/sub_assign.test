@@ -1,0 +1,20 @@
+void main() {
+    int a, b, c;
+    c = 100;
+    a = 5;
+    b = 200;
+    
+    while (b > c) {
+        
+        if (b > c) {
+            b -= a;
+
+            print_nl();
+            print_int(b);
+            print_nl();
+        }
+        else {
+            exit();
+        }
+    }
+}
