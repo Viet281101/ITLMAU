@@ -3,7 +3,8 @@
 %}
 
 (*** Operators ***)
-%token Ladd Lsub Lmul Ldiv Lmod Lassign Lif Lelse Lwhile
+%token Ladd Lsub Lmul Ldiv Lmod Lassign Lif Lelse Lwhile 
+%token Ladd_assign Lsub_assign Lmul_assign Ldiv_assign
 %token Lgt Lgte Llt Llte Leq Lneq Land Lor Lxor Lnot Lsll Lsrl
 
 (*** Punctuations ***)

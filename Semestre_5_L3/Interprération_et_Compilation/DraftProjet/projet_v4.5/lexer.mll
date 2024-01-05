@@ -32,6 +32,11 @@ rule token = parse
 | "/"             { Ldiv }
 | "%"             { Lmod }
 
+| "+="            { Ladd_assign }
+| "-="            { Lsub_assign }
+| "*="            { Lmul_assign }
+| "/="            { Ldiv_assign }
+
 | ">"             { Lgt }
 | ">="            { Lgte }
 | "<"             { Llt }
