@@ -124,13 +124,21 @@ expr:
 | value{
     Value { value=$1 ; pos=$startpos($1) }
 }
-| Lnot; expr { Call { func="_not"; args=[$2]; pos=$startpos($1) } }
+| Lnot; expr { 
+    Call { func="_not"; args=[$2]; pos=$startpos($1) } 
+}
 | operator { $1 }
 | Lvar { 
     Var { name=$1; pos=$startpos($1) }
 }
 | Lvar Lopar expr_list Lcpar {
     Call { func=$1; args=$3; pos=$startpos($1) }
+}
+| Lscanf; Lopar; Lint; Lcpar { 
+    Call { func="scanf_int"; args=[]; pos=$startpos($1) } 
+}
+| Lscanf; Lopar; Lstring; Lcpar { 
+    Call { func="scanf_str"; args=[]; pos=$startpos($1) } 
 }
 ;
 expr_list:

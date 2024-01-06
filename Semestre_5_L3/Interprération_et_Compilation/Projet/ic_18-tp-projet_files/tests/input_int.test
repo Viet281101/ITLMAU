@@ -4,7 +4,7 @@ int foo(int a){
 void main() {
     int nbr;
     
-    printf("\nVeuillez entrer un nombre: ");
+    printf("\nEnter a number: ");
     nbr = scanf();
     
     print_nl();

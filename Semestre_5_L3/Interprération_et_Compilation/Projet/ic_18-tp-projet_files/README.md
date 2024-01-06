@@ -6,12 +6,14 @@
 ```
 dune buile main.exe
 ```
+
 ou
+
 ```
 ocamlbuild -use-menhir main.byte
 ```
 
-- Compiler (essayer avec les tests/), par exemple avec __"int.test"__:
+- Compiler (essayer avec les tests/) en utilisant **main.exe** ou **main.byte**, par exemple avec __"int.test"__:
 
 ```
 ./main.exe tests/int.test
@@ -20,7 +22,7 @@ ocamlbuild -use-menhir main.byte
 puis
 
 ```
-spim -file result.asm
+spim -file result.s
 ```
 
 

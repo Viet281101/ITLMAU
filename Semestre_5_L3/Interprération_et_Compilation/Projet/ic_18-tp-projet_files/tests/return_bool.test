@@ -1,0 +1,15 @@
+bool foo(bool a){
+    return a;
+}
+void main() {
+    bool s = true;
+    
+    print_nl();
+    if (foo(s)) {
+        printf("True\n");
+    }
+    else
+    {
+        printf("False\n");
+    }
+}

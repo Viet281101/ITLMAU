@@ -4,7 +4,7 @@ open Lexing
 (* open Baselib *)
 
 
-let file = "result.asm"
+let file = "result.s"
 
 
 let err msg pos =

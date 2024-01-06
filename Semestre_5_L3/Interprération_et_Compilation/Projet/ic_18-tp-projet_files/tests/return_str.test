@@ -1,0 +1,9 @@
+str foo(str a){
+    return a;
+}
+void main() {
+    str s = "Hello\n";
+    
+    print_nl();
+    printf( foo(s) );
+}

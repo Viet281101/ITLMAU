@@ -5,7 +5,7 @@ open Ast.V2
 
 module Env = Map.Make (String)
 exception Error of string
-
+let buffer_size = 256
 
 type cinfo =
   { code : Mips.instr list
@@ -27,15 +27,33 @@ let rec compile_expr e env =
   match e with
   | Value v -> compile_value v
   | Var v -> [ Lw (V0, Env.find v env) ]
-  | Call (f, args) ->
-    let ca =
-      List.map
-        (fun a -> compile_expr a env @ [ Addi (SP, SP, -4); Sw (V0, Mem (SP, 0)) ])
-        args
-    in
-    List.flatten ca @ [ Jal f; Addi (SP, SP, 4 * List.length args) ]
-  | Call ("_not", [arg]) ->
-      compile_expr arg env @ [Seq (V0, V0, Zero)]
+  | Call (f, args) -> 
+    (
+      match f with
+      | "scanf_int" ->
+          [ Li (V0, Syscall.read_int)
+          ; Syscall
+          ; Sw (V0, Mem (SP, 0))
+          ; Addi (SP, SP, -4)
+          ]
+      | "scanf_str" ->
+          [ Li (V0, Syscall.read_str)
+          ; La (A0, Lbl "buffer")
+          ; Li (A1, buffer_size)
+          ; Syscall
+          ; Addi (SP, SP, -4)
+          ]
+      | "_not" ->
+          let arg = List.hd args in 
+          compile_expr arg env @ [Seq (V0, V0, Zero)]
+      | _ -> 
+          let ca =
+            List.map
+              (fun a -> compile_expr a env @ [ Addi (SP, SP, -4); Sw (V0, Mem (SP, 0)) ])
+              args
+          in
+          List.flatten ca @ [ Jal f; Addi (SP, SP, 4 * List.length args) ]
+    )
 ;;
 
 let rec compile_instr i info env=
@@ -141,20 +159,18 @@ let compile_def (Func (type_t, name, args, b)) counter env =
         env
     in
     ( cb.counter
-    , []
-      @ [ Label name
-        ; Addi (SP, SP, -cb.fpo)
-        ; Sw (RA, Mem (SP, cb.fpo - 4))
-        ; Sw (FP, Mem (SP, cb.fpo - 8))
-        ; Addi (FP, SP, cb.fpo - 4)
-        ]
+    , [Label name]
+      @ [Addi (SP, SP, -cb.fpo)]
+      @ [Sw (RA, Mem (SP, cb.fpo - 4))]
+      @ [Sw (FP, Mem (SP, cb.fpo - 8))]
+      @ [Addi (FP, SP, cb.fpo - 4)]
       @ cb.code
-      @ [ Label cb.return
-        ; Addi (SP, SP, cb.fpo)
-        ; Lw (RA, Mem (FP, 0))
-        ; Lw (FP, Mem (FP, -4))
-        ; Jr RA
-        ] )
+      @ [Label cb.return]
+      @ [Addi (SP, SP, cb.fpo)]
+      @ [Lw (RA, Mem (FP, 0))]
+      @ [Lw (FP, Mem (FP, -4))]
+      @ [Jr RA]
+    )
   else
     raise (Error (Printf.sprintf "main not found"))
 ;;
@@ -169,6 +185,6 @@ let rec compile_prog p counter env=
 
 let compile (code, data) env =
   { text = compile_prog code 0 env @ Baselib.builtins
-  ; data = List.map (fun (l, s) -> l, Asciiz s) data
+  ; data = List.map (fun (l, s) -> l, Asciiz s) data @ [("buffer", Asciiz (String.make buffer_size '\000'))]
   }
 ;;

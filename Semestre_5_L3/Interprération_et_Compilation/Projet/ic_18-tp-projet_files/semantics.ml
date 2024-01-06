@@ -47,6 +47,14 @@ let rec analyze_expr expr env =
         if arg_type != Bool_t then
             raise (Error ("'_not' expects a boolean argument !!", c.pos));
         IR1.Call ("_not", [arg]), Bool_t
+      | "scanf_int" ->
+          if List.length c.args != 0 then
+              raise (Error ("'scanf_int' expects no arguments", c.pos));
+          IR1.Call ("scanf_int", []), Int_t
+      | "scanf_str" ->
+          if List.length c.args != 0 then
+              raise (Error ("'scanf_str' expects no arguments", c.pos));
+          IR1.Call ("scanf_str", []), Str_t
       | _ ->
         match Env.find_opt c.func env with
           | Some (Func_t (rt, at)) ->
