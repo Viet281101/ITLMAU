@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <title>Castlevania</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header>
+      <img src="img/logo3.png" />
+    </header>
+
+    <main>
+      <form>
+        <h2>Campanha de Castlevania</h2>
+        <hr>
+        <div>Este gerador foi criado para suportar a campanha de ChatQuest de Castlevania no Flecha Mágica. Jogue com a gente e assista <a target="_blank" href="https://www.youtube.com/watch?v=-CUU1Q-hwcQ&list=PL0U_wHxzKZ5w0e-phZPps5SdBp-86tXwh">clicando aqui</a>.</div>
+        <br>
+        <div class="videowrapper">
+          <iframe src="https://www.youtube.com/embed/-CUU1Q-hwcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </form>
+    </main>
+
+    <nav>
+      <button type="button" id="botao_menu_rolagens">
+        <img src="img/menu_v2.png">
+        <span>Rolagens</span>
+      </button>
+      <button type="button" class="direita" id="botao_menu_inventario">
+        <img src="img/menu_v1.png">
+        <span>Inventário</span>
+      </button>
+    </nav>
+
+    <main id="menu_inventario">
+      <h1 class="maior cifras">
+        Cifras (Máximo: <input type="number" id="maximo_cifras" value="1">)
+      </h1>
+      <div class="lista" id="itens_cifras">
+      </div>
+
+      <h1 class="maior">Itens Equipados</h1>
+      <div class="lista" id="itens_equipados">
+      </div>
+
+      <h1 class="maior">Inventário</h1>
+      <div class="lista" id="itens_iventario">
+      </div>
+    </main>
+
+    <main id="menu_rolagens">
+
+      <form id="rolar">
+        <h2>Rolagens de Itens</h2>
+        <hr>
+        <div>Os sorteios dos itens são baseadas no Cypher System, adaptado ao cenário de Castlevania. O <b>grau</b> dos itens representa o grau do personagem. Personagens de maior grau podem encontrar itens melhores. A <b>quantidade</b> define o total de itens retornados por seção. As <b>Relíquias</b> e <b>Poções</b> são consideradas cifras para efeito mecânico.</div>
+        <br>
+        <div>
+          <span>Grau dos Itens:</span>
+          <select id="grau">
+            <option value="1">Grau 1</option>
+            <option value="2">Grau 2</option>
+            <option value="3">Grau 3</option>
+            <option value="4">Grau 4</option>
+            <option value="5">Grau 5</option>
+            <option value="6">Grau 6</option>
+          </select>
+        </div>
+        <div>
+          <span>Quantidade de Armas:</span>
+          <input id="quantidade_armas" type="number" min="0" value="3">
+        </div>
+        <div>
+          <span>Quantidade de Escudos:</span>
+          <input id="quantidade_escudos" type="number" min="0" value="3">
+        </div>
+        <div>
+          <span>Quantidade de Armaduras:</span>
+          <input id="quantidade_armaduras" type="number" min="0" value="3">
+        </div>
+        <div>
+          <span>Quantidade de Relíquias:</span>
+          <input id="quantidade_reliquias" type="number" min="0" value="3">
+        </div>
+        <div>
+          <span>Quantidade de Poções:</span>
+          <input id="quantidade_pocoes" type="number" min="0" value="3">
+        </div>
+        <br>
+        <button type="submit">
+          <img src="img/dice-256.png">
+          <span>Rolar Itens</span>
+        </button>
+        <br><br>
+        <hr>
+      </form>
+
+      <h1>Armas</h1>
+      <div class="lista" id="armas">
+      </div>
+
+      <h1>Escudos</h1>
+      <div class="lista" id="escudos">
+      </div>
+
+      <h1>Armaduras</h1>
+      <div class="lista" id="armaduras">
+      </div>
+
+      <h1 class="maior">Relíquias (cifras)</h1>
+      <div class="lista" id="reliquias">
+      </div>
+
+      <h1 class="maior">Poções (cifras)</h1>
+      <div class="lista" id="pocoes">
+      </div>
+
+    </main>
+
+    <span class="final">
+
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+    <script type="text/javascript" src="js/banco.js"></script>
+    <script type="text/javascript" src="js/dados.js"></script>
+    <script type="text/javascript" src="js/sortear.js"></script>
+    <script type="text/javascript" src="js/render.js"></script>    
+  </body>
+</html>

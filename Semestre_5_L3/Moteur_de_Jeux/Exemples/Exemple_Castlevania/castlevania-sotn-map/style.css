@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+}
+
+#map_1 {
+  background-color: black;
+  height: 100%;
+  image-rendering: pixelated;
+}

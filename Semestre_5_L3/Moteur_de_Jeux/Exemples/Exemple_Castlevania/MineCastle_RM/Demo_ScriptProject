@@ -1,0 +1,36 @@
+<NotepadPlus>
+    <Project name="DemoScript">
+        <Folder name="libs">
+            <File name="js\libs\fpsmeter.js" />
+            <File name="js\libs\lz-string.js" />
+            <File name="js\libs\pixi.js" />
+        </Folder>
+        <Folder name="plugins">
+            <File name="js\plugins\AltMenuScreen.js" />
+            <File name="js\plugins\AltSaveScreen.js" />
+            <File name="js\plugins\EnemyBook.js" />
+            <File name="js\plugins\ItemBook.js" />
+            <File name="js\plugins\SimpleMsgSideView.js" />
+            <File name="js\plugins\TitleCommandPosition.js" />
+            <File name="js\plugins\WeaponSkill.js" />
+            <File name="js\plugins\FB_MapHUD.js" />
+            <File name="js\plugins\FB_CommandWindow.js" />
+            <File name="js\plugins\FB_CharacterShadow.js" />
+            <File name="js\plugins\FB_SkillLearning.js" />
+            <File name="js\plugins\FB_ArtNumber.js" />
+            <File name="js\plugins\MrLiu_AutoBalloon.js" />
+            <File name="js\plugins\FB_BaseWidgets.js" />
+            <File name="js\plugins\FB_WindowReform.js" />
+            <File name="js\plugins\CVMap.js" />
+            <File name="js\plugins\StringDictionary.js" />
+        </Folder>
+        <File name="js\main.js" />
+        <File name="js\plugins.js" />
+        <File name="js\rpg_core.js" />
+        <File name="js\rpg_managers.js" />
+        <File name="js\rpg_objects.js" />
+        <File name="js\rpg_scenes.js" />
+        <File name="js\rpg_sprites.js" />
+        <File name="js\rpg_windows.js" />
+    </Project>
+</NotepadPlus>
