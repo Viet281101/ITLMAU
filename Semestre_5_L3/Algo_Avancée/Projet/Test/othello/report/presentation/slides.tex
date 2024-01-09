@@ -1,0 +1,373 @@
+\documentclass{beamer}
+
+% Metropolis + barre de progression + numéro de page
+\usetheme[progressbar=frametitle, numbering=fraction]{metropolis}
+
+\setbeamertemplate{frame footer}{\insertsection \hfill\hspace{-4em} \insertshorttitle} % texte footer
+\setbeamerfont{page number in head/foot}{size=\tiny} % taille police footer
+\setbeamercolor{footline}{fg=gray} % couleur footer
+
+\setbeamertemplate{section in toc}[sections numbered] % enumerate au lieu d'itemize
+
+\usepackage[T1]{fontenc} % encodage
+\usepackage[french]{babel} % langue
+
+\usepackage{etoolbox} % on inverse le titre court et le titre long dans le plan
+\makeatletter
+\patchcmd{\beamer@section}{{#2}{\the\c@page}}{{#1}{\the\c@page}}{}{}
+\patchcmd{\beamer@section}{{\the\c@section}{\secname}}{{\the\c@section}{#1}}{}{}
+\makeatother
+
+\usepackage{hyperref} % liens cliquable
+\usepackage{multicol} % liste sur plusieurs colonnes
+\usepackage[figurename=]{caption} % nom des images
+
+\usepackage{minted} % intégration code
+\usemintedstyle{emacs}
+\newminted[pseudocode]{python}{autogobble,linenos,fontsize=\scriptsize,escapeinside=!!}
+
+\title[IA pour Othello]{\href{https://jj.up8.site/AA/ProjetsAA.pdf}{Projet} - IA pour le jeu d'Othello}
+\author{\href{mailto:anri.kennel@etud.univ-paris8.fr}{Anri Kennel} | L3-A}
+\institute{Algorithmique avancée $\cdot$ Université Paris 8}
+\date{Année universitaire 2022-2023}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[t,plain]{Plan}
+    \tableofcontents
+\end{frame}
+
+\section{Projet}
+\begin{frame}{Projet}
+    \begin{columns}[onlytextwidth]
+        \def\rcolumn{50mm} % taille colonne de droite
+        \column{\linewidth-\rcolumn-1mm} % colonne de gauche
+        Jeu d'Othello :
+        \begin{itemize}
+            \item Jeu de plateau 8x8
+            \item<2-> 2 joueurs
+            \item<3-> Prendre en sandwich l'adversaire
+        \end{itemize}
+        \column{\rcolumn} % colonne de droite
+        \only<1>{
+            \begin{figure}
+                \includegraphics[width=\rcolumn]{../imgs/othello_othellier.png}
+                \caption*{Othellier}
+            \end{figure}
+        }
+        \only<2>{
+            \begin{figure}
+                \includegraphics[width=\rcolumn]{../imgs/othello_init.png}
+                \caption*{Début du jeu}
+            \end{figure}
+        }
+        \only<3->{
+            \begin{figure}
+                \includegraphics[width=\rcolumn]{../imgs/othello_premiercoup.png}
+                \caption*{Premier coup}
+            \end{figure}
+        }
+    \end{columns}
+\end{frame}
+
+\section{Implémentation}
+\subsection*{Othello}
+\begin{frame}{Jeu d'Othello}
+    \only<1>{
+        \begin{figure}
+            \includegraphics[width=0.9\textwidth]{../imgs/othello_impl_hh.png}
+            \caption*{Jeu : \texttt{./othello humain humain}}
+        \end{figure}
+    }
+    \only<2->{
+        \begin{figure}
+            \includegraphics[width=0.9\textwidth]{../imgs/othello_impl_ma.png}
+            \caption*{Jeu : \texttt{./othello minimax alphabeta}}
+        \end{figure}
+    }
+\end{frame}
+\begin{frame}[fragile]{Comment ?}
+    \begin{columns}[onlytextwidth]
+        \def\rcolumn{63mm} % taille colonne de droite
+        \column{\linewidth-\rcolumn-1mm} % colonne de gauche
+        \begin{itemize}
+            \item Liste chaînée
+            \item<3-> Coups
+            \item<4-> Propriétés
+            \item<5-> Jeu
+        \end{itemize}
+        \column{\rcolumn} % colonne de droite
+        \begin{overprint}
+            \onslide<1>
+            \begin{figure}
+                \vspace{25mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize,highlightlines={4}]{c}
+                    struct joueur {
+                        char *nom;
+                        int couleur;
+                        Liste *liste_jeton;
+                        int nb_jeton;
+                    };
+                \end{minted}
+                \caption*{Liste des jetons des joueurs}
+            \end{figure}
+            \onslide<2>
+            \begin{figure}
+                \vspace{27mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize,highlightlines={2}]{c}
+                    struct coups {
+                        Liste *coups;
+                        int taille_liste;
+                    };
+                \end{minted}
+                \caption*{Liste pour les coups possibles}
+            \end{figure}
+            \onslide<3>
+            \begin{figure}
+                \vspace{27mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize]{c}
+                    Coups *action_possible_joueur
+                        (Jeton *plateau[LONGEUR][LARGEUR],
+                         const int couleur);
+                \end{minted}
+                \caption*{Liste pour les coups possibles pour un joueur}
+            \end{figure}
+            \onslide<4>
+            \begin{figure}
+                \vspace{20mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize]{c}
+                    /* Une case est soit vide,
+                     * soit occupé par un des joueurs,
+                     * noir ou blanc */
+                    enum CASE { VIDE = ' ', BLANC = 'B',
+                                NOIR = 'N' };
+
+                    /* Propriété globale du jeu */
+                    enum PLATEAU { LONGEUR = 8, LARGEUR = 8 };
+
+                    /* Type de joueurs */
+                    enum PLAYER_TYPE { HUMAIN, MINIMAX, ALPHABETA };
+                \end{minted}
+                \caption*{Propriétés du jeu}
+            \end{figure}
+            \onslide<5>
+            \begin{figure}
+                \vspace{25mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize]{c}
+                    /* Gère le coup d'un joueur en faisant les
+                    changements nécessaire au jeu
+                    * Renvoie 0 en cas de coup illégal */
+                    int jeu_joueur(Jeu *jeu,
+                                   const int case_i,
+                                   const int case_j,
+                                   const int couleur);
+                \end{minted}
+                \caption*{Jeu d'un joueur}
+            \end{figure}
+        \end{overprint}
+    \end{columns}
+    \vspace{-1cm}
+    \onslide<3>{\hspace{3cm}Pour \textbf{tous} les joueurs}
+    \onslide<5>{\hspace{-45mm}Tous les joueurs s'en servent pour jouer}
+\end{frame}
+
+\subsection*{Minimax}
+\begin{frame}[fragile]{Algorithme minimax}
+    \begin{onlyenv}<3>
+        \begin{pseudocode}
+            def minimax(jeu, profondeur, joueur_actuel, gagnant, resultat):
+            !  !possibilites = recuperation_possibilites(jeu, joueur_actuel)
+            !  !if (possibilites == 0):
+            !  !    joueur_actuel = ennemi(joueur_actuel)
+            !  !    possibilites = recuperation_possibilites(jeu, joueur_actuel)
+            !  !    if (possiblites == 0):
+            !  !        return heuristique(jeu, gagnant)
+            !  !if (joueur_actuel == gagnant):
+            !  !    resultat = -INFINI
+            !  !else:
+            !  !    resultat = +INFINI
+            !  !profondeur = profondeur - 1
+            !  !resultat_tmp = resultat
+            !  !for (i in possibilites):
+            !  !    copie_jeu = jeu
+            !  !    joue_coup(i, joueur_actuel)
+            !  !    if (profondeur > 0):
+            !  !        minimax(copie_jeu, profondeur, ennemi(joueur_actuel), gagnant, resultat_tmp)
+            !  !    else:
+            !  !        resultat_tmp.score = heuristique(copie_jeu, gagnant)
+        \end{pseudocode}
+    \end{onlyenv}
+    \begin{onlyenv}<4>
+        \vspace{5mm}
+        \begin{pseudocode}
+            !  !# toujours dans la boucle...
+            !  !    if (joueur_actuel == gagnant): # MAX
+            !  !        if (resultat_tmp.score >= score):
+            !  !            resutat.score = resultat_tmp.score
+            !  !            resultat.position = i
+            !  !    else: # MIN
+            !  !        if (resultat_tmp.score <= score):
+            !  !            resultat.score = score
+            !  !            resultat.position = i
+        \end{pseudocode}
+        Notre heuristique ressemble à ceci :
+        \begin{pseudocode}
+            def heuristique(jeu, joueur):
+            !  !res = jeu.J1.nombre_jeton - jeu.J2.nombre_jeton
+            !  !if (jeu.J1 == joueur):
+            !  !    return res
+            !  !return -res
+        \end{pseudocode}
+    \end{onlyenv}
+    \begin{columns}[onlytextwidth]
+        \def\rcolumn{50mm} % taille colonne de droite
+        \column{\linewidth-\rcolumn-1cm} % colonne de gauche
+        \begin{itemize}
+            \item<1-2> Utilises les fonctions déjà définis
+            \item<2> Ressemble à la fonction pour les humains
+        \end{itemize}
+        \column{\rcolumn} % colonne de droite
+        \begin{overprint}
+            \onslide<2>
+            \begin{figure}
+                \vspace{15mm}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize]{c}
+                    void action_joueur_minimax
+                        (Jeu *jeu, const int couleur,
+                         const int profondeur);
+                \end{minted}
+                \vspace{1mm}
+                \begin{minted}[autogobble,linenos,firstnumber=last,fontsize=\scriptsize]{c}
+                    void action_joueur_humain
+                        (Jeu *jeu,
+                         const int couleur);
+                \end{minted}
+                \caption*{Définition de minimax comparé à celle pour les humains}
+            \end{figure}
+        \end{overprint}
+    \end{columns}
+    \onslide<2>{\hspace{25mm}$\Rightarrow$ Utilisation de fonctions auxiliaires}
+\end{frame}
+
+\subsection*{Alpha-bêta}
+\begin{frame}[fragile]{Algorithme alpha-bêta}
+    \begin{onlyenv}<2>
+        \begin{pseudocode}
+            def alphabeta(jeu, profondeur, joueur_actuel, gagnant, resultat, note, qui):
+            !  !possibilites = recuperation_possibilites(jeu, joueur_actuel)
+            !  !if (possibilites == 0):
+            !  !    joueur_actuel = ennemi(joueur_actuel)
+            !  !    possibilites = recuperation_possibilites(jeu, joueur_actuel)
+            !  !    if (possiblites == 0):
+            !  !        return heuristique(jeu, gagnant)
+            !  !if (joueur_actuel == gagnant):
+            !  !    resultat = -INFINI
+            !  !else:
+            !  !    resultat = +INFINI
+            !  !profondeur = profondeur - 1
+            !  !resultat_tmp = resultat
+            !  !coupure = false
+            !  !for (i in possibilites):
+            !  !    if (coupure):
+            !  !        return resultat_tmp
+        \end{pseudocode}
+    \end{onlyenv}
+    \begin{onlyenv}<3>
+        \begin{pseudocode}
+            !  !# toujours dans la boucle...
+            !  !    copie_jeu = jeu
+            !  !    joue_coup(i, joueur_actuel)
+            !  !    if (profondeur > 0):
+            !  !        alphabeta(copie_jeu, profondeur, ennemi(joueur_actuel), gagnant, resultat_tmp, resultat, joueur_actuel)
+            !  !    else:
+            !  !        resultat_tmp.score = heuristique(copie_jeu, gagnant)
+            !  !    if (joueur_actuel == gagnant):
+            !  !        if (qui == ennemi(gagnant) and score_tmp.score >= note):
+            !  !            coupure = true
+            !  !            resultat = +INFINI
+            !  !        else:
+            !  !            if (resultat_tmp.score >= resultat.score):
+            !  !                resutat.score = resultat_tmp.score
+            !  !                resultat.position = i
+            !  !                if (resultat.score == +INFINI):
+            !  !                    coupure = true
+        \end{pseudocode}
+    \end{onlyenv}
+    \begin{onlyenv}<4>
+        \vspace{10mm}
+        \begin{pseudocode}
+            !  !# toujours dans la boucle...
+            !  !    else:
+            !  !        if (qui == gagnant and score_tmp.score <= note):
+            !  !            coupure = true
+            !  !            resultat = -INFINI
+            !  !        else:
+            !  !            if (resultat_tmp.score <= resultat.score):
+            !  !                resutat.score = resultat_tmp.score
+            !  !                resultat.position = i
+            !  !                if (resultat.score == -INFINI):
+            !  !                    coupure = true
+        \end{pseudocode}
+        Avec la même heuristique que minimax
+    \end{onlyenv}
+    \begin{itemize}
+        \item<1> Ressemble à minimax, seule différence :
+            \begin{itemize}
+                \item argument \texttt{note} : score précédent
+                \item argument \texttt{qui} : joueur à qui la note appartient
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Comparaison}
+\begin{frame}[fragile]{Comparaison d'efficacité}
+    \only<3> {
+        \vspace{25mm}
+        \begin{itemize}
+            \item À profondeur égale:
+                  \begin{itemize}
+                      \item même taux de victoire
+                      \item alpha-bêta beaucoup plus rapide
+                  \end{itemize}
+        \end{itemize}
+
+        En temps raisonnable, minimax peut aller jusqu'à une profondeur de 5
+        alors qu'alpha-bêta peut aller jusqu'à 8.\\
+        $\Rightarrow$ Avantage pour alpha-bêta
+    }
+    \begin{columns}[onlytextwidth]
+        \def\rcolumn{60mm} % taille colonne de droite
+        \column{\linewidth-\rcolumn+1mm} % colonne de gauche
+        \begin{itemize}
+            \item<1-2> Implémentation dans \texttt{test.c}.
+            \item<2> Vitesse et victoires
+        \end{itemize}
+        \column{\rcolumn-5mm} % colonne de droite
+
+        \begin{overprint}
+            \onslide<1>
+            \begin{figure}
+                \includegraphics[width=\rcolumn]{../imgs/othello_impl_tests.png}
+                \caption*{Tests : \texttt{./othello --test}}
+            \end{figure}
+            \onslide<2>
+            \vspace{15mm}
+            \begin{figure}
+                \begin{minted}[autogobble,linenos,fontsize=\scriptsize]{c}
+                    void run_tests(void) {
+                        speed_test(6, 8);
+                        winrate_test(5, 7);
+                    }
+                \end{minted}
+                \caption*{Fonction lançant les tests}
+            \end{figure}
+        \end{overprint}
+    \end{columns}
+\end{frame}
+
+\appendix
+\section{\hspace{3cm} Merci}
+
+\end{document}

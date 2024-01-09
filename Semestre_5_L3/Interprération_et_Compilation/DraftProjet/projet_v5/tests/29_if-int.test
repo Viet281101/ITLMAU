@@ -1,0 +1,5 @@
+void main () {
+    if (1) { # Même les int peuvent fonctionner dans les conditions
+        return;
+    }
+}

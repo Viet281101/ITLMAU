@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>3D Démo Shoot'Em Up</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/style.css">
+		<!-- ICON -->
+		<link rel="shortcut icon" href="./assets/Vg_icon.svg.png">
+	</head>
+
+	<body>
+		<div id="control">MOVE &emsp; : Arrow Keys or WASD <br>
+			SHOOT &emsp;: Space <br>
+			BOOST &emsp;: Hold Shift <br> <br>
+			Reload page if not see any Spaceship <br> 
+			at first time execution !</div>
+		<canvas id="canvas"></canvas>
+		
+	    <!-- JS LIBRARIES -->
+		<script type="text/javascript" src="./js/lib/three.module.js"></script>
+		<script type="text/javascript" src="./js/lib/GLTFLoader.js"> </script>
+		<script type="text/javascript" src="./js/lib/dat.gui.js"></script>
+		
+	    <!-- JS FILES -->
+	    <script type="text/javascript" src="js/components/Bullet.js"></script>
+	    <script type="text/javascript" src="js/components/Enemy.js"></script>
+	    <script type="text/javascript" src="js/placeEnemies.js"></script>
+	    <script type="text/javascript" src="js/components/SpaceCube.js"></script>
+	    <script type="text/javascript" src="js/components/SpaceShip.js"></script>
+	    <script type="text/javascript" src="js/checkCollision.js"></script>
+	    <script type="text/javascript" src="js/SceneManager.js"></script>
+	    <script type="module" src="js/main.js"></script>
+	    
+	</body>
+</html>
+

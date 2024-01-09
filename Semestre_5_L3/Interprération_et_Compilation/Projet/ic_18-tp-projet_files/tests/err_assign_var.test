@@ -1,0 +1,10 @@
+void main() {
+    bool a = false;
+    int b;
+
+    int b = a;
+
+    print_nl();
+    print_int(b);
+    print_nl();
+}

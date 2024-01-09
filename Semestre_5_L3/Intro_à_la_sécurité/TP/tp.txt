@@ -1,0 +1,72 @@
+
+Exercise 1:
+1.
+2.  Famile          :   Chiffrement symétique
+    Construction    :   SPN
+    Taille bloc     :   4 bits
+    Taille clé      :   2 * 4 = 8 bits
+    Nombre de tours :   2 tours
+    Un tour = un xor entre l'entrée et la sous-clé puis un passage dans la boite S
+    Substitution ?  une lecture dans le tableau sbox
+    Permutation ? pas de Permutation
+
+==> Sur 4 bits il y a 16 valeurs de k0 à tester
+
+Exercice 2:
+2^8 clés différentes
+16 chiffrés potetiels
+256 clés potentiells
+
+Pour tous les clés k
+    Vérifié que:
+        pour tous les messages m,
+        le chiffré correspondant est le bon
+
+256 clés
+16 messages 
+2 tours à effectuer
+256 * 16 * 2 étapes
+2^8 * 2^4 * 2 = 2^13 = 8192
+
+
+L'idée est :
+
+for k0 in range(16):
+    "tester si k0 est la bonne valeur"
+trouver k1 grace à k0
+
+
+Exercice 3:
+from random import randint 
+a = randint(0, 15)
+
+def generate_paris(k, n):
+    L = []
+    for i in range(n):
+
+def compte_linearite():
+    """pourtout(mask1, mask0):calculer le nombre de X tels que l'équation est vérifiée."""
+    Tab = [0 ... 0]
+    Pour tous (mask1, mask0):
+        cpt = 0
+        Pour tout entrée X:
+            calculer la sortie Y
+            si partie (X, Y) = 0
+                cpt += 1
+        Tab (mask1, mask0) = cpt
+
+
+def partie(X, Y):
+"""calculer la partie du nombre de bits à 1 dans X et Y"""
+    res = 0
+    mask = 1
+    for i in range(0, 4):
+        x = X & mask
+        y = Y & mask
+        res = res ^ x ^ y
+        X = X >> 1
+        Y = Y >> 1
+    return res
+
+Exercice 4:
+

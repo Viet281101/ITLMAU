@@ -1,0 +1,19 @@
+vnguyen@belouga:~$ nano script.sh
+vnguyen@belouga:~$
+vnguyen@belouga:~$ cat script.sh
+#! /bin/bash
+# My First bash script: Hello World
+
+echo "Hello World"
+
+vnguyen@belouga:~$ ls -l script.sh
+-rw-r--r-- 1 vnguyen users 70 nov.  12 18:00 script.sh
+vnguyen@belouga:~$ bash script.sh
+Hello World
+vnguyen@belouga:~$ ~ /tp5/bin
+-bash: /home/vnguyen : est un dossier
+vnguyen@belouga:~$ cd tp5
+-bash: cd: tp5: Aucun fichier ou dossier de ce type
+vnguyen@belouga:~$ ll
+-bash: ll : commande introuvable
+vnguyen@belouga:~$

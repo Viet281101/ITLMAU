@@ -1,0 +1,31 @@
+void main(){
+    int a;
+	int b;
+	a = 2;
+	b = 5;
+
+    //test
+    print_int(a); print_str(" < "); print_int(b); print_str(" = ");
+    if (a < b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+
+    print_int(a); print_str(" > "); print_int(b); print_str(" = ");
+    if (a > b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+
+    print_int(a); print_str(" <= "); print_int(b); print_str(" = ");
+    if (a <= b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+
+    print_int(a); print_str(" >= "); print_int(b); print_str(" = ");
+    if (a >= b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+
+    print_int(a); print_str(" == "); print_int(b); print_str(" = ");
+    if (a == b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+
+    print_int(a); print_str(" != "); print_int(b); print_str(" = ");
+    if (a != b){ print_str("true");
+    } else { print_str("false"); } print_nl();
+}

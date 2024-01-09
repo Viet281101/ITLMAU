@@ -1,0 +1,29 @@
+/*4) Écrire un programme qui lit une valeur par ex : 124.567, et il décompose cette valeur en donnant le nbr de milliers, de centaines, de dizaines, des unités, etc …
+L’exécution pourrait donner :
+Entrez la valeur : 65438
+Il y a :
+65 millier(s): 65 * 1000
+4 centaine(s): 4 * 100
+3 dizaine(s): 3 * 10
+8 unités(s): 8 * 1
+*/
+
+
+
+#include <stdio.h>
+
+int main() {
+     int n, i, a, b, c;
+      printf("Donner la valeur n: ");
+      scanf("%d", &n);
+      i = n/1000;
+      a = ((n%1000/100));
+      b = ((n%100/10));
+      c = (n%10);
+      printf("- millier(s) de nbr: %d * 1000\n", i);
+      printf("- centaine(s) de nbr: %d * 100\n", a);
+      printf("- dizaine(s) de nbr: %d * 10\n", b);
+      printf("- unités(s): %d * 1", c);
+    
+    return 0;
+}

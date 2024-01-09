@@ -1,0 +1,5 @@
+void main() {
+    int a = 90;
+
+    return a; // Error on line 4 col 4: Expected void but given int !!
+}

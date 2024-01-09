@@ -1,0 +1,155 @@
+
+// Chapitre 2 : Destructeur, surcharge, fichier dépresser
+
+class maClasse_t{
+    
+};
+
+class Frac_t {
+    int n;
+    int d;
+    public: 
+    frac_t (int n, int d) // constructeur
+    {
+        (*this).n = n;
+        this -> d = d;
+    }
+}
+
+
+int main(void) {
+    maClasse_t o1;
+    maClasse_t o2;
+
+}
+
+
+////////////////// Destrusteur: 
+/*
+
+*/
+
+
+/*
+
+Surcharge de fonction: En C++ on définir plusieur fonctions possédant le meme identifiant à la condition que les "signatures" de ces fonctions soient différentes:
+La signature d'une fonction est: "son identifiant et la suite des types des paramètres de la fonction."
+
+*/ 
+
+//Exemple:
+void f (int a) {}; //f1
+
+void f (double a) {}; //f2 
+
+int f (void) {}; //f3 
+
+int main(void){
+    f(3); //appel à f1
+    f(); //appel à f3
+    f(1.7); //appel à f2
+}
+
+// on dit que f est une fonction surcharger 
+
+// Entre exemple:
+int g(int a){};
+
+void g(int a){}; //erreur les deux fonction y ont la meme signature
+
+
+/*
+
+Lorsqu'une fonction f est surchargée lors d'un appel à f le compilateur choisit en primitée la version de f qui 
+possède correspendant exacte entre les types des paramètres et les types des arguments associés, 
+si ce n'est pas possible alors le compilation met en place des conversion, s'il y a plusieur choix possibles alors erreur.
+
+*/
+
+// Exemple:
+void h(int a){}; //h1
+void t(long a){}; //t1
+void t(int a){}; //t2
+
+int main(void){
+    h(3); // appel de h1 sans conversion 
+    h(3.1); // conversion "double -> int" puis appel à h1
+    t(3); // appel à t2 sans connversion
+    t(3.1); // erreur compilation
+}
+
+
+
+/////////////////// Valeurs par défaut:
+/*
+
+Lors de la définition d'une fonction on peut spécifier des valeur par défaut à certains paramètres.
+Cependant tous ces paramètres doivent etre situé "à droite".
+
+*/
+
+// Exemple :
+void h(int a, int b = 2, int c = 3, int d = 4){
+
+};
+
+int main(){
+    h(5); // appel à équivalent à h(5, 2, 3, 4)
+    h(1, 7, 9); // appel à equivalent à h(1, 7, 9, 4)
+    //h() erreur quelle valeur donnée à "a"?
+}
+
+
+// Exemple:
+// void l(int a = 1, int b, int c = 2) // erreur
+
+
+///////// Compilation de classe séparée:
+/*
+
+Les "membres" d'une classe peuvent etre dfinit (attribute + methodes fonctions)
+"à l'intérieur" des accelades de la classe
+à l'exterieur des acceellades de la classe
+
+*/
+
+// Exemple (à l'intérieur):
+// fichier.hpp:
+class maClasse_t {
+    int b;
+    char m;
+    public: 
+    void methods(){};
+};
+
+
+// Exemple (à l'extérieur): 
+// fichier.hpp:
+
+#if ndef _MA_CLASEE_H_
+#define _MA_CLASSE_HPP_
+class maClasses_t {
+    int b;
+    char m;
+    public: 
+    void methode();
+}
+#endif
+
+// fichier.cpp:
+
+/*
+#include "fichier.hpp"
+void maClasse_t::method(){};
+*/
+
+
+// main.cpp:
+
+/*
+#include "fichier.hpp"
+int main(){}
+*/
+
+// $g++ main.cpp fichier.cpp
+

@@ -1,0 +1,103 @@
+//EX 1:
+#include <stdio.h>
+ 
+
+int main()
+{
+    int $i;
+    printf("Entrez $i: ");
+    scanf("&d", &$i);
+    printf("H - moins :\n ");
+    for($i=10; $i>0; $i--)
+    {
+        printf("%d!\n", $i);
+    }
+    printf("décollage !\n");
+    printf("\n");
+    
+    return 0;
+}
+
+
+//EX 2:
+//Création fonction récursive :
+/*Ecrire une fonction récursive sur le calcul de la somme de n premiers carrés. Par exemple si n=3
+alors vous calculez 1²+2²+3². Il faut que n>0.*/
+
+#include<stdio.h>
+
+int main()
+{
+    int i, n;
+    long S;
+    S = 0;
+    i = 1;
+    printf("\nEntrez n: ");
+    scanf("%d", &n);
+
+    while(i <= n)
+    {
+        S = S + i * i;
+        i++;
+    }
+    printf("i = %d", i);
+    printf("\nSomme 1^2 + 2^2 + ... + %d^2 est: %ld", n, S);
+
+    /*int n,i;
+    int somme=0;
+
+    printf("Entrez le n i.e. max : ");
+    scanf("%d",&n);
+
+    somme = (n * (n + 1) * (2 * n + 1 )) / 6;
+
+    printf("Somme de n premiers carrés: ");
+
+    for(i =1;i<=n;i++){
+         if (i != n)
+             printf("%d^2 + ",i);
+         else
+             printf("%d^2 = %d ",i,somme);
+    }
+    */
+
+
+    return 0;
+}
+
+
+
+## EX 3:
+#Codez la suite qui suit écrit en C (merci de corriger les erreurs) …. en Python
+
+somme=0
+produit=1
+
+somme=float(somme)
+produit=float(produit)
+
+nTermes = float(input("donnez le nombre de termes: "))
+print(nTermes)
+
+a=float(0.5); #U0 de la suite
+print("U0 = ",a)
+b=float(1.0); #U1 de la suite
+print("U1 = ",b)
+n=int(1)
+
+somme=somme+a+b
+produit=produit*a*b
+
+while True:
+    if (nTermes>n):
+        c=0.5*b+2*a
+        n+=1
+        print("U" + str(n) + " = " + str(c))
+        somme=somme+c
+        produit=produit*c
+        a=b
+        b=c
+    else: break
+
+print("le produit = " + str(produit))
+print("la somme = " + str(somme))

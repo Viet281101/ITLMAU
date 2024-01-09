@@ -1,0 +1,238 @@
+
+Viet NGUYEN L2X 20006303
+
+
+Système et réseaux
+2ème année licence informatique
+
+TD 3
+
+
+
+Exercice 1:
+
+1) 
+Le temps de transmission total d'un paquet de 10 octets de l'émetteur au récepteur peut etre calculé en utilisant la formule suivante:
+temps = (taille du transport / débit du lien le plus lent) + (temps de transmission entreles routeurs)
+
+Le débit du lien le plus lent est de 80 Mbps, donc:
+temps = (10 octets * 8 bits / octets) / 80 Mbps
+    = 10 * 8 / 80 * 10^6 bits/s
+    = 10^-5 secondes
+
+Le temps de transmission entre les routeurs est donné par:
+T = Q/D <=> temps de transmission = taille du paquet / débit total des routeurs
+
+Le débit total des routeurs est de 2 Gbps, donc:
+
+T = (10 octets * 8 bits / octets) / 2 Gbps
+    = 10 * 8 / 2 * 10^9 bits/s
+    = 4 * 10^-9 secondes
+
+Le temps total de transmission est donc:
+temps = 10^-5 + 4 * 10^-9 
+    = 10^-5 secondes
+
+Le temps total de transmission d'un paquet de 10 octets de l'émetteur au récepteur est d'environ 10^-5 secondes.
+
+
+
+2) 
+Le temps de propagation total peut etre calculé en utilisant la formule suivante:
+Tp = distance/vitesse de propagation
+
+La distance totale entre l'émetteur et le récepteur est de 15 km + 5 mètres = 15005 mètres.
+
+Le temps de propagation total est donc:
+Tp = 15005 mètres / 200000 km/s
+    = 15005 / (200000 * 10^3) secondes
+    = 7.5 * 10^-7 secondes
+
+Le temps de propagation total entre l'émetteur et le récepteur est d'environ 7.5 * 10^-7 secondes.
+
+
+
+3) 
+Temps d’aller-retour: 
+T = (transmission + propagation + traitements) * 2
+    = (10^-5 + 7.5*10^-7 + 0) * 2
+    = 2.15*10^(-5) = 0.0000215
+
+
+
+Exercice 2:
+
+1) 
+La distance d'acheminement d'un message de A à B peut etre déterminée en prenant en compte la distance aller-retour entre les deux stations 
+et le satelitte, ainsi que le temps nécessaire pour transmettre le d'un message à travers la voie.
+
+Le temps de transmission du message à travers le voie peut etre calculé en utilisant la formule suivante:
+T = (taille du message) / débit de la voie
+
+Le temps de transmission du message de 128 octets à travers la voie de 100 Mbps est donc:
+T = (128 octets * 8 bits / octets) / 100 Mbps
+    = 128 * 8 / 100 * 10^6 bits/s
+    = 0.0001024 secondes
+
+La distance totale parcourue par le message aller-retour est de 40000km * 2 = 80000km
+
+La distance d'acheminement d'un message de A à B est donc de 80000km + le temps de transmission du message à travers la voie, soit:
+distance d'acheminement d'un message = 80000 km + 0.0001024 secondes
+                                    = 80000 km
+
+==> La distance d'acheminement d'un message de A à B est d'environ 80000 km.
+
+
+
+2) 
+Vitesse de propagation : 300 000 000 m/s 
+Délai de transfert = Distance/Vitesse
+                    = (80000km) / (300000000 m/s)
+                    = 266.66 * 10^-6 secondes
+                    = environ 266.6666667 ms(microseconds)
+
+
+
+3) 
+Le délai entre deux envois successifs peut être calculé en prenant en compte le temps nécessaire pour transmettre le message de 128 octets de A à B, 
+le temps nécessaire pour transmettre l'acquittement de 64 octets de B à A, ainsi que le temps nécessaire pour le traitement des messages à chaque extrémité.
+
+Le temps de transmission du message de 128 octets de A à B et de l'acquittement de 64 octets de B à A peut être déterminé en utilisant la formule vue précédemment :
+temps = (taille du message) / débit de la voie
+
+Le temps de transmission du message de 128 octets à travers la voie de 100 Mbps est donc:
+temps = (128 octets * 8 bits / octet) / 100 Mbps 
+        = 128 * 8 / 100 * 10^6 bits/s 
+        = 0.000 1024 secondes
+
+Le temps de transmission de l'acquittement de 64 octets est de:
+temps = (64 octets * 8 bits / octet) / 100 Mbps 
+        = 64 * 8 / 100 * 10^6 bits/s 
+        = 0.000 512 secondes
+
+Le délai entre deux envois successifs est donc égal à la somme du temps de transmission des messages aller et retour, 
+ainsi que le temps nécessaire pour le traitement des messages à chaque extrémité, soit:
+délai = temps de transmission du message + temps de transmission de l'acquittement + temps de traitement
+
+Le temps de traitement peut varier en fonction de nombreux facteurs tels que la puissance de traitement des ordinateurs, la complexité de l'application, etc. 
+Par conséquent, il est difficile de fournir une réponse exacte sans connaître les détails supplémentaires.
+En général, on suppose que le temps de traitement est relativement faible et peut être négligé. 
+Dans ce cas, le délai entre deux envois successifs serait donc d'environ 0.000 1024 + 0.000 512 = 0.001536 secondes ou 1.536 millisecondes.
+
+
+
+Exercice 3:
+
+1) et 2)
+
+Le critère de Shannon stipule que la bande passante nécessaire D est donnée par : 
+D = 2B * log2(V)  
+avec B est la fréquence d'échantillonnage et V est le nombre de niveaux de quantification.
+
+Si la voix est quantifiée sur 256 niveaux, alors log2(256) = 8 bits sont nécessaires pour représenter chacun des niveaux.
+
+En utilisant le critère de Shannon, la fréquence d'échantillonnage minimale nécessaire pour reproduire une bande passante de 3400Hz est de double la bande passante, soit 68000 Hz.
+
+Ainsi, la bande passante nécessaire pour transmettre la voix quantifiée est de : D = 2 * 68000 * 8 = 544000
+
+Pour convertir cette bande passante en débit binaire, il suffit de diviser la bande passante par le nombre de bits utilisés pour représenter chaque échantillon (8 bits), 
+ce qui donne un débit binaire de 544 000 bits/seconde, ou 544 kbps.
+
+
+
+3)
+Le nombre total de pixels dans une image est de 450 * 500 = 225000 pixels.
+
+Si chaque pixel est quantifié sur 256 niveaux de gris, alors 8 bits sont nécessaires pour représenter chacun des niveaux.
+Et si chaque pixel est représenté par 3 octets, 
+alors le nombre total de bits nécessaires pour représenter une image est :
+225000 * 3 * 8 = 5400000 bits.
+
+Le nombre total de bits nécessaires pour transmettre 30 images/secondes est : 
+5400000 * 30 = 162000000 bits/secondes ou 162 Mbps.
+
+
+
+4) 
+Pour déterminer le débit maximal de cette voie, 
+nous pouvons utiliser la formule de Shannon 
+pour le débit maximal d'un canal de communication :
+
+D = B * log2(1 + S/N)
+
+Où :
+D est le débit maximal en (bits/seconde)
+B est la bande passante en Hz(Hertz)
+S/N est le rapport signal sur bruit en décibels (dB)
+
+Dans ce cas, nous avons :
+B = 4,5 MHz = 4 500 000 Hz
+S/N = 90 dB
+
+Donc :
+D = 4 500 000 * log2(1 + 10^(90/10))
+D = 4 500 000 * log2(10^9)
+D = 4 500 000 * 30
+D = 135 000 000 bits/s 
+
+==> Le débit maximal de cette voie est donc de 135 Mbps.
+
+
+
+Exercice 4:
+
+1) 
+11011000100
+
+2)
+- Avec le codage bipolaire:
+    1  1  0  1  1  0  0  0  1  0  0
+  |--|  |  |--|  |  |  |  |--|  |  |
+0 |  |  |--|  |  |--|--|--|  |--|--|
+  |  |--|  |  |--|  |  |  |  |  |  |
+
+
+- Avec le codage NRZ:
+    1  1  0  1  1  0  0  0  1  0  0
+  |--|--|  |--|--|  |  |  |--|  |  |
+0 |  |  |  |  |  |  |  |  |  |  |  |
+  |  |  |--|  |  |--|--|--|  |--|--|
+
+
+- Avec le codage Miller:
+    1  1  0  1  1  0  0  0  1  0  0
+  | -|- |  | -|- |--|  |--|- |  |--|
+0 |  |  |  |  |  |  |  |  |  |  |  |
+  |- | -|--|- | -|  |--|  | -|--|  |
+
+
+
+
+
+Exercice 5:
+
+1)
+La méthode de bit de parité paire ajoute un bit à la fin de chaque caractère pour faire un nombre total de bits pair. 
+Si le nombre de bits "1" dans le caractère est pair, 
+le bit de parité est mis à "0". 
+Sinon, le bit de parité est mis à "1".
+
+Exemple :
+10010110 (caractère original) : 100101100 (après l'ajout de bit de parité paire)
+11001000 (caractère original) : 110010000 (après l'ajout de bit de parité paire)
+01010001 (caractère original) : 010100011 (après l'ajout de bit de parité paire)
+
+
+2)
+Sur un réseau utilisant la méthode de parité impaire, 
+le bit de parité est ajouté pour faire un nombre total de bits impair. 
+Si le nombre de bits "1" dans le caractère est impair, 
+le bit de parité est mis à "0". Sinon, le bit de parité est mis à "1".
+
+10011010 (caractère reçu) : nombre de bits "1" = 5 (impair) ; bit de parité = 0
+10001100 (caractère reçu) : nombre de bits "1" = 4 (pair) ; bit de parité = 1
+
+Comme on peut voir, la parité des deux trames reçues ne correspond pas à la parité attendue, 
+c'est donc une erreur.
+
+

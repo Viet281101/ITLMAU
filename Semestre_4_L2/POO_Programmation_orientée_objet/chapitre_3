@@ -1,0 +1,167 @@
+
+
+// Chapitre 3: Varibles & méthodes de classe, malloc/free vs new/delete, fonction et classes amies
+
+/*
+
+Si A est une classe, à chaque définition d'une variables de type A 
+le compilatuer prévoit la reservation d'un espace de taille "size of(A)" sur la pile.
+
+
+Schéma/exemple:
+
+class A {int c1; char c2; ...};
+
+
+
+par défaut chaque "champs" déclaré dans la classe est un attribut d'instance "ils sont lié a un objet en particulier "
+
+Cependant on peut définir un champs commun à tous les objets (et meme à tous les membres) 
+de la classe en utilisant le mot-clé "static".
+
+Exemple:
+class A {
+    static int nboccurence; // varible de classe
+    ...
+}
+
+
+*/
+
+
+
+/*
+
+Méthodes de classe : Une méthodes de classe est une méthode qu'on peut appeler hors du contexte d'un objet.
+Elle est déclaré avec le mot-clé "static".
+
+Exemple :
+
+class A {
+    // methode de classe:
+    static void mamethode(...) {
+        ... 
+    }
+}
+
+Une methode de classe ne peut pas acceder aux attributs d'objets 
+ni aux méthodes d'objets mais elle peut acceder au méthode 
+et attribute de classe.
+
+*/
+
+
+
+/*
+
+Recapitulatif : 
+
+chaque membre est : 
+- soit privé (private)
+- soit publque (public)
+- soit protégé (protected)
+
+*/
+
+
+/*
+
+new et delete:
+
+new replace malloc
+
+delete raplace free
+
+
+
+Exemple:
+
+class A {
+    A(...) {...} // Construsteur
+    ~ A(...) {...} // destructeur
+}
+
+int main() {
+    A obj1;
+    A* pt1 = malloc(sizeof(A)); // pas d'appel au constructeur
+    A* pt2 = new A{...}; // reserve de la place dans le "tas"(heap)
+
+    delete pt2; 
+    free(pt1);
+}
+
+
+new et delete 
+
+*/
+
+
+
+
+/*
+
+Pour les tableaux:
+Pour creer un tableau d'objet de la classe A il faut que A possède un constructeur sans paramètres.
+C'est lui qui sera appelé sur chaque case du tableau lors de sa création (du tableau).
+
+Exemple:
+
+class A {
+    public:
+    A (int a){};
+    A(){}; // constructeur sans parametre.
+    ~A(){};
+};
+
+int main(){
+    A tab[10]; //erreur si A n'est pas de constructeur sans paramétre.
+                // sinon appel au constructeur sans parametre sur chaque case du tableau
+                // appel au destructeur sur chaque case mémoire du tableau.
+}
+
+int main2 (){
+    int n;
+    std::cin>>n;
+    A * ptrT = new A[n]; //erreur si A ne possède pas de constructeur sans paramètre
+                        // sinon le constructeur sans paramètre est appelé sur chaque case après l'allocation de la mémoire sur le tas.
+                    
+                
+            
+    delete [] ptrT; // appel du destructeur sur chaque case puis librération de la mémoire.
+}
+
+*/
+
+
+
+/*
+
+Pour appeler un constructeur de classe A sur une zone mémoire déjà allouée : 
+
+
+Exemple : 
+
+int main(){
+    A * ptr = malloc(sizeof(A));
+    new(ptr) A {...} ;
+
+    (*ptr).~A();
+
+    free(ptr);
+}
+
+
+
+*/
+
+
+
+/*
+
+Les fonctions et classes amies:
+
+Si A est une classe et f une fonction
+
+*/
+
+

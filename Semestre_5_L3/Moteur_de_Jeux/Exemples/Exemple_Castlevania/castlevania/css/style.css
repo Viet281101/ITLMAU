@@ -1,0 +1,392 @@
+* {
+  padding: 2px;
+}
+html {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  background-image: url('../img/background.jpg');
+}
+body {
+  margin: 0;
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+header {
+  width: 400px;
+  box-sizing: border-box;
+
+  display: block;
+  margin: 10px auto 0 auto;
+}
+header img {
+  max-width: 300px;
+  display: block;
+  margin: 0 auto 6px auto;
+}
+
+nav {
+  width: 400px;
+  border: 0;
+  padding: 0;
+
+  display: block;
+  margin: 0 auto 10px auto;
+}
+nav::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+nav > button[type=button] {
+  display: block;
+  float: left;
+  margin-right: 5px;
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid #212121;
+  border-left: 1px solid #212121;
+  border-bottom: 1px solid #515151;
+  border-right: 1px solid #515151;
+  box-shadow: 2px 2px 2px #000;
+  width: 190px;
+}
+
+nav > button[type=button].direita {
+  float: right;
+}
+
+nav > button[type=button]::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+nav > button[type=button] > span {
+  margin: 0 10px 0 10px;
+  line-height: 40px;
+  padding: 0;
+  border: 0;
+  font-size: 1.8em;
+  color: #212121;
+  font-weight: bold;
+  text-shadow: 1px;
+  display: block;
+  float: left;
+}
+
+nav > button[type=button] > img {
+  height: 40px;
+  margin: 0 0 0 5px;
+  padding: 0;
+  border: 0;
+  display: block;
+  float: left;
+}
+
+main {
+  width: 400px;
+  border: 0;
+  padding: 0;
+
+  display: block;
+  margin: 0 auto 10px auto;
+}
+main::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+main > div.lista {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+main > div.lista::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+main form {
+  width: 400px;
+  border: 1px solid #222;
+  background-image: linear-gradient(to bottom, #212121,  #313131);
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 4px;
+  color: #fff;
+  margin-top: 10px;
+  display: block;
+}
+
+main form::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+main div.arma {
+  width: 400px;
+  border: 1px solid #222;
+  background-image: linear-gradient(to bottom, #424242,  #525252);
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 4px;
+  color: #fff;
+  margin-top: 10px;
+
+  display: block;
+  float: left;
+
+  position: relative;
+  min-height: 170px;
+}
+
+main div.arma::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+main div.arma div.backpack {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+main div.arma div.backpack-salvar {
+  background-image: url('../img/backpack_salvar.png');
+  left: 32px;
+  top: 110px;
+}
+main div.arma div.backpack-remover {
+  background-image: url('../img/backpack_remover.png');
+  left: 7px;
+  top: 110px;
+}
+main div.arma div.backpack-remover-cifras {
+  background-image: url('../img/backpack_remover.png');
+  left: 32px;
+  top: 110px;
+}
+main div.arma div.hand-add {
+  background-image: url('../img/hand_add.png');
+  left: 57px;
+  top: 110px;
+}
+main div.arma div.hand-remove {
+  background-image: url('../img/hand_remove.png');
+  left: 57px;
+  top: 110px;
+}
+
+main div.arma > div.background-imagem {
+  width: 105px;
+  height: 105px;
+  float: left;
+  display: block;
+  background-image: url('../img/bloco_v1.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+main div.arma > div.background-imagem > span.img {
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+  display: block;
+}
+
+main div.arma > div.texto {
+  float: left;
+  display: block;
+  max-width: 270px;
+}
+main div.arma > div.texto > span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+main div.arma > div.texto > span.valor {
+  color: #85857d;
+  font-size: 1em;
+}
+main div.arma > div.texto > span.nome {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #babab2;
+  display: block;
+}
+main div.arma > div.texto > span.atributo {
+  font-size: 1em;
+  font-weight: bold;
+  color: #babab2;
+}
+main div.arma > div.texto > span.notas {
+  font-size: 1em;
+  margin-left: 10px;
+  display: block;
+  color: #85857d;
+}
+
+main h1 {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #babab2;
+  display: block;
+  margin: 5px 0 0 0;
+  background-image: url('../img/box.png');
+  background-repeat: no-repeat;
+  background-size: 200px;
+  background-position: center 0;
+  text-align: center;
+  height: 40px;
+  line-height: 35px;
+  margin-top: 30px;
+}
+
+main h1.maior {
+  background-image: url('../img/box2.png');
+  background-size: 360px;
+}
+
+main h1.cifras input[type=number] {
+  width: 40px;
+  font-size: 1em;
+  color: #babab2;
+  background-color: #090909;
+  border: 0;
+}
+
+main form > h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #babab2;
+  display: block;
+  margin: 0;
+  text-align: center;
+  line-height: 25px;
+}
+
+main form > hr {
+  padding: 0;
+  border: 0;
+  border-top: 1px solid #babab2;
+  margin: 5px;
+}
+
+main form > div {
+  padding: 0;
+  border: 0;
+  margin: 5px;
+}
+
+main form > div > span {
+  font-weight: bold;
+}
+
+main form > div > input[type=number] {
+  width: 40px;
+}
+
+main form > button[type=submit] {
+  display: block;
+  float: right;
+  margin-right: 5px;
+}
+
+main form > button[type=submit]::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+main form > button[type=submit] > span {
+  margin: 0 5px 0 5px;
+  line-height: 20px;
+  padding: 0;
+  border: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-shadow: 1px;
+  display: block;
+  float: right;
+}
+
+main form > button[type=submit] > img {
+  height: 20px;
+  margin: 0 0 0 5px;
+  padding: 0;
+  border: 0;
+  display: block;
+  float: left;
+}
+
+main form > div a {
+  color: #babab2;
+}
+
+main form > div.videowrapper {
+    float: none;
+    clear: both;
+    width: 375px;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+main form > div.videowrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+main div.lista div.mensagem {
+  width: 400px;
+  background: rgba(100, 100, 100, 0.3);
+  box-sizing: border-box;
+  padding: 4px;
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #202020;
+  line-height: 25px;
+}
+
+span.final {
+  height: 200px;
+  display: block;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}

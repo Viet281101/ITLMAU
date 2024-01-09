@@ -1,0 +1,10 @@
+void main() {
+    str t;
+    
+    printf("\nEnter some paragraphs: ");
+    t = scanf("str");
+    
+    print_nl();
+    printf(t);
+    print_nl();
+}

@@ -1,0 +1,10 @@
+void main(){
+    bool a = false;
+
+    bool b;
+    b = true;
+
+    bool c, d;
+    c = true;
+    d = false;
+}

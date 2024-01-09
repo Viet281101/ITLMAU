@@ -1,0 +1,15 @@
+int foo(int a){
+    return a + 10;
+}
+void main() {
+    int nbr;
+    
+    printf("\nVeuillez entrer un nombre: ");
+    nbr = scanf();
+    
+    print_nl();
+    print_int(nbr);
+    printf(" + 10 = ");
+    print_int(foo(nbr));
+    print_nl();
+}

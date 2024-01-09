@@ -1,0 +1,29 @@
+
+
+Chapitre 8 : Attribute constants et liste d'initialisation
+
+Illustration du problème:
+struct A{
+	int a;
+	const int b;
+	int1 r;
+	A (int pa, int * pt){
+		a = 0;
+		// b = 0 // erreur de compilation b est const 
+		// r = *pt; // erreur le référence r n'est pas initialisée
+}
+
+pour initialiser ces attributs constant il faut spécifier au 
+constructeur une liste d'initialisation.
+
+Exemple: 
+A (int pa, int * pt): b{pa}, r{*pt}
+{
+	a = 0;
+}
+Les constructeur des attribute sont appeles avant le constructeur A.
+
+
+
+
+

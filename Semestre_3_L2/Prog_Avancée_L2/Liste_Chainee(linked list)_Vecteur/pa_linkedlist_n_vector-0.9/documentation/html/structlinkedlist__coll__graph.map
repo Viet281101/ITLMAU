@@ -1,0 +1,4 @@
+<map id="linkedlist" name="linkedlist">
+<area shape="rect" id="node1" title="la structure de donnée stockant une &quot;liste chaînée&quot;. Afin d&#39;améliorer les performances d&#39;insertion au..." alt="" coords="5,109,79,136"/>
+<area shape="rect" id="node2" href="$structllnode.html" title="la structure de donnée stockant un noeud de liste chaînée : la donnée (ici un int) et le pointeur ver..." alt="" coords="13,5,71,32"/>
+</map>

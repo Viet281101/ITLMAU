@@ -1,0 +1,33 @@
+{
+    "ocaml.sandbox": {
+        "kind": "global"
+    },
+    "files.associations": {
+        "heap.h": "c",
+        "fifo.h": "c",
+        "ima.h": "c",
+        "limits.h": "c",
+        "cstdlib": "c",
+        "game.h": "c"
+    },
+
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "entity.name.todo.latex",
+                "settings": {
+                    "foreground": "#bd7829",
+                    "fontStyle": "italic",
+                }
+            },
+            {
+                "scope": "support.function.todo.latex",
+                "settings": {
+                    "foreground": "#bd7829",
+                    "fontStyle": "italic",
+                }
+            }
+        ],
+    },
+    "liveServer.settings.port": 5501
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>linkedlist_n_vector: Référence de la structure linkedlist</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">linkedlist_n_vector<span id="projectnumber">&#160;0.10</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.2 -->
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',false,false,'search.php','Recherche');
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Champs de données</a>  </div>
+  <div class="headertitle"><div class="title">Référence de la structure linkedlist</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>la structure de donnée stockant une "liste chaînée". Afin d'améliorer les performances d'insertion au début et à la fin d'une liste, nous considérons ici qu'il est préférable d'avoir un pointeur vers le début de la liste chaînée (<em>ie</em>. adresse du premier noeud s'il existe, NULL sinon) ainsi qu'un pointeur vers le dernier pointeur de la liste pour pouvoir ajouter directement à la fin. Ce second pointeur (de pointeur) pointe vers l'adresse du premier quand la liste est vide.  
+ <a href="structlinkedlist.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="linkedlist_8h_source.html">linkedlist.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe de collaboration de linkedlist:</div>
+<div class="dyncontent">
+<div class="center"><img src="structlinkedlist__coll__graph.png" border="0" usemap="#alinkedlist_coll__map" alt="Collaboration graph"/></div>
+<map name="alinkedlist_coll__map" id="alinkedlist_coll__map">
+<area shape="rect" title="la structure de donnée stockant une &quot;liste chaînée&quot;. Afin d&#39;améliorer les performances d&#39;insertion au..." alt="" coords="5,109,79,136"/>
+<area shape="rect" href="structllnode.html" title="la structure de donnée stockant un noeud de liste chaînée : la donnée (ici un int) et le pointeur ver..." alt="" coords="13,5,71,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">légende</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Champs de données</h2></td></tr>
+<tr class="memitem:a6d164c7781167868801de9c85a816ffe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="linkedlist_8h.html#ad3a7a95e2fafd24b23c60527790767f0">llnode_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlinkedlist.html#a6d164c7781167868801de9c85a816ffe">head</a></td></tr>
+<tr class="separator:a6d164c7781167868801de9c85a816ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e2beaeec83b371277f1898e249397f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="linkedlist_8h.html#ad3a7a95e2fafd24b23c60527790767f0">llnode_t</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlinkedlist.html#aa1e2beaeec83b371277f1898e249397f">tail</a></td></tr>
+<tr class="separator:aa1e2beaeec83b371277f1898e249397f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >la structure de donnée stockant une "liste chaînée". Afin d'améliorer les performances d'insertion au début et à la fin d'une liste, nous considérons ici qu'il est préférable d'avoir un pointeur vers le début de la liste chaînée (<em>ie</em>. adresse du premier noeud s'il existe, NULL sinon) ainsi qu'un pointeur vers le dernier pointeur de la liste pour pouvoir ajouter directement à la fin. Ce second pointeur (de pointeur) pointe vers l'adresse du premier quand la liste est vide. </p>
+</div><h2 class="groupheader">Documentation des champs</h2>
+<a id="a6d164c7781167868801de9c85a816ffe" name="a6d164c7781167868801de9c85a816ffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d164c7781167868801de9c85a816ffe">&#9670;&nbsp;</a></span>head</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="linkedlist_8h.html#ad3a7a95e2fafd24b23c60527790767f0">llnode_t</a>* linkedlist::head</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >pointeur vers le début de la liste chaînée (le premier noeud s'il existe, sinon NULL). </p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#afff2ea91cb7592fb0a6c81177f44a02a">find_ordered_pos_in_ll()</a>, <a class="el" href="linkedlist_8c.html#a7e043639853c2480a126b4b96a52b321">ll_clear()</a>, <a class="el" href="linkedlist_8c.html#a9c8a503b4fd6ad3fea2e7056c172b524">ll_new()</a>, <a class="el" href="linkedlist_8c.html#aa51b9fe8fba2e8e7bcb1e86499e839bf">ll_print()</a>, et <a class="el" href="linkedlist_8c.html#a70eb6b69065b13b41e3a18c1309b2e8b">ll_push_front()</a>.</p>
+
+</div>
+</div>
+<a id="aa1e2beaeec83b371277f1898e249397f" name="aa1e2beaeec83b371277f1898e249397f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e2beaeec83b371277f1898e249397f">&#9670;&nbsp;</a></span>tail</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="linkedlist_8h.html#ad3a7a95e2fafd24b23c60527790767f0">llnode_t</a>** linkedlist::tail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >pointeur vers le dernier pointeur de la liste pour pouvoir ajouter directement à la fin. Ce pointeur contient l'adresse de <em>head</em> quand ce dernier est NULL (<em>ie</em>. liste vide). </p>
+
+<p class="reference">Référencé par <a class="el" href="linkedlist_8c.html#a7e043639853c2480a126b4b96a52b321">ll_clear()</a>, <a class="el" href="linkedlist_8c.html#a9c8a503b4fd6ad3fea2e7056c172b524">ll_new()</a>, <a class="el" href="linkedlist_8c.html#acbc73c1d850201e9cb2435ad16382ee9">ll_push_back()</a>, <a class="el" href="linkedlist_8c.html#a70eb6b69065b13b41e3a18c1309b2e8b">ll_push_front()</a>, et <a class="el" href="test__them_8c.html#a57b3f4a127baf6138505317a903662f7">test_linkedlist()</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette structure a été générée à partir du fichier suivant :<ul>
+<li><a class="el" href="linkedlist_8h_source.html">linkedlist.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
+</body>
+</html>

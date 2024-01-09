@@ -1,0 +1,27 @@
+void main() {
+    int a = 1312;
+
+    int a;
+    a = 1312;
+
+    int b, c, d;
+    b = 1;
+    c = 2;
+    d = 3;
+
+    print_nl();
+    print_int(a);
+    print_nl();
+
+    print_nl();
+    print_int(b);
+    print_nl();
+
+    print_nl();
+    print_int(c);
+    print_nl();
+
+    print_nl();
+    print_int(d);
+    print_nl();
+}

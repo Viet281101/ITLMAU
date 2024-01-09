@@ -1,0 +1,14 @@
+
+int foo(){ //<--Comment
+	int a;
+	a = "ok"; //Erreur de type Assignreturn "okok"; //Erreur de type return en fonction du type de la fonction
+};
+
+int foo2(){
+	return "okok"; //Erreur de type return en fonction du type de la fonction
+};
+
+void main(){
+	foo(); 
+	foo2();
+};

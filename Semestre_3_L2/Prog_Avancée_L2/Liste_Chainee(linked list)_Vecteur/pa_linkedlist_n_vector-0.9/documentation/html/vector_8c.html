@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>linkedlist_n_vector: Référence du fichier vector.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">linkedlist_n_vector<span id="projectnumber">&#160;0.9</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.2 -->
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',false,false,'search.php','Recherche');
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier vector.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>fonctions d'une bibliothèque de gestion de vecteurs (tableaux dynamiques extensibles) d'entiers.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="vector_8h_source.html">vector.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de vector.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="vector_8c__incl.png" border="0" usemap="#avector_8c" alt=""/></div>
+<map name="avector_8c" id="avector_8c">
+<area shape="rect" title="fonctions d&#39;une bibliothèque de gestion de vecteurs (tableaux dynamiques extensibles) d&#39;entiers." alt="" coords="88,5,157,32"/>
+<area shape="rect" href="vector_8h.html" title="entête d&#39;une bibliothèque de gestion de vecteurs (tableaux dynamiques extensibles) d&#39;entiers." alt="" coords="88,80,157,107"/>
+<area shape="rect" title=" " alt="" coords="5,155,67,181"/>
+<area shape="rect" title=" " alt="" coords="91,155,155,181"/>
+<area shape="rect" title=" " alt="" coords="179,155,248,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:adf269dab7a48fb4a729e24883e0b9ca2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#adf269dab7a48fb4a729e24883e0b9ca2">vector_new</a> (void)</td></tr>
+<tr class="memdesc:adf269dab7a48fb4a729e24883e0b9ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">créé un vector en allouant (malloc) une structure <a class="el" href="structvector.html">vector</a> de <em>size</em> 0 et <em>max_size</em> égal à 1024. Pour le champ <em>data</em>, <em>max_size</em> éléments (ici des int) sont alloués.  <a href="vector_8c.html#adf269dab7a48fb4a729e24883e0b9ca2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adf269dab7a48fb4a729e24883e0b9ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3aad213b81a7ecbcebaaaca3143c595"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#ac3aad213b81a7ecbcebaaaca3143c595">vector_push_back</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *vec, int data)</td></tr>
+<tr class="memdesc:ac3aad213b81a7ecbcebaaaca3143c595"><td class="mdescLeft">&#160;</td><td class="mdescRight">ajoute un élément (le int <em>data</em>) à la fin du <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>.  <a href="vector_8c.html#ac3aad213b81a7ecbcebaaaca3143c595">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac3aad213b81a7ecbcebaaaca3143c595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b0cc519a7f1a3eb878b6765a9accda1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#a2b0cc519a7f1a3eb878b6765a9accda1">vector_size</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *vec)</td></tr>
+<tr class="memdesc:a2b0cc519a7f1a3eb878b6765a9accda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">donne la taille (nombre d'éléments stockés) du <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>.  <a href="vector_8c.html#a2b0cc519a7f1a3eb878b6765a9accda1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2b0cc519a7f1a3eb878b6765a9accda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a47457797bd05f0061e9efd31d107b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#a1a47457797bd05f0061e9efd31d107b6">vector_empty</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *vec)</td></tr>
+<tr class="memdesc:a1a47457797bd05f0061e9efd31d107b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">indique si le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em> est vide.  <a href="vector_8c.html#a1a47457797bd05f0061e9efd31d107b6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a47457797bd05f0061e9efd31d107b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0818b26d6be800c85648aa72091ba12c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#a0818b26d6be800c85648aa72091ba12c">vector_at</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *vec, int pos)</td></tr>
+<tr class="memdesc:a0818b26d6be800c85648aa72091ba12c"><td class="mdescLeft">&#160;</td><td class="mdescRight">retourne l'élément à l'indice <em>pos</em> dans le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>.  <a href="vector_8c.html#a0818b26d6be800c85648aa72091ba12c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0818b26d6be800c85648aa72091ba12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bec84111051f1d3e2e58092444d9120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#a9bec84111051f1d3e2e58092444d9120">vector_print</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *vec)</td></tr>
+<tr class="memdesc:a9bec84111051f1d3e2e58092444d9120"><td class="mdescLeft">&#160;</td><td class="mdescRight">affiche (à l'aide de <em>printf</em>) l'ensemble des éléments stockés dans le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>.  <a href="vector_8c.html#a9bec84111051f1d3e2e58092444d9120">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9bec84111051f1d3e2e58092444d9120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38aa9009f2e45b0e8747dc84fa7f2a60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8c.html#a38aa9009f2e45b0e8747dc84fa7f2a60">vector_delete</a> (<a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> **pvec)</td></tr>
+<tr class="memdesc:a38aa9009f2e45b0e8747dc84fa7f2a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">désalloue (à l'aide de <em>free</em>) l'ensemble des éléments stockés dans le <a class="el" href="structvector.html">vector</a> pointé par <em>*pvec</em> puis désalloue le pointeur lui-même. Enfin <em>*pvec</em> reçoit NULL.  <a href="vector_8c.html#a38aa9009f2e45b0e8747dc84fa7f2a60">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38aa9009f2e45b0e8747dc84fa7f2a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >fonctions d'une bibliothèque de gestion de vecteurs (tableaux dynamiques extensibles) d'entiers. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Revekka KYRIAKOGLOU, <a href="#" onclick="location.href='mai'+'lto:'+'kyr'+'ia'+'kog'+'lo'+'u@u'+'p8'+'.ed'+'u'; return false;">kyria<span style="display: none;">.nosp@m.</span>kogl<span style="display: none;">.nosp@m.</span>ou@up<span style="display: none;">.nosp@m.</span>8.ed<span style="display: none;">.nosp@m.</span>u</a> </dd>
+<dd>
+Farès BELHADJ, <a href="#" onclick="location.href='mai'+'lto:'+'ams'+'i@'+'up8'+'.e'+'du'; return false;">amsi@<span style="display: none;">.nosp@m.</span>up8.<span style="display: none;">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October 17 2022 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a0818b26d6be800c85648aa72091ba12c" name="a0818b26d6be800c85648aa72091ba12c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0818b26d6be800c85648aa72091ba12c">&#9670;&nbsp;</a></span>vector_at()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vector_at </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retourne l'élément à l'indice <em>pos</em> dans le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>le pointeur vers le vecteur. <br  />
+ </td></tr>
+    <tr><td class="paramname">pos</td><td>l'indice de l'élément à récupérer dans le vecteur. <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>retourne l'élément à l'indice <em>pos</em>. </dd></dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a1fced609f024872eca82ec9676e2115e">vector::data</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#a525802eba38aac7e20519cae5082ea1a">manually_print_vector()</a>.</p>
+
+</div>
+</div>
+<a id="a38aa9009f2e45b0e8747dc84fa7f2a60" name="a38aa9009f2e45b0e8747dc84fa7f2a60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38aa9009f2e45b0e8747dc84fa7f2a60">&#9670;&nbsp;</a></span>vector_delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vector_delete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> **&#160;</td>
+          <td class="paramname"><em>pvec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>désalloue (à l'aide de <em>free</em>) l'ensemble des éléments stockés dans le <a class="el" href="structvector.html">vector</a> pointé par <em>*pvec</em> puis désalloue le pointeur lui-même. Enfin <em>*pvec</em> reçoit NULL. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvec</td><td>pointeur vers le pointeur vers le vecteur à libérer (désallouer). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#ad00e013ba1dc911bcdfd9de952c4229e">test_vector()</a>.</p>
+
+</div>
+</div>
+<a id="a1a47457797bd05f0061e9efd31d107b6" name="a1a47457797bd05f0061e9efd31d107b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a47457797bd05f0061e9efd31d107b6">&#9670;&nbsp;</a></span>vector_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vector_empty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>indique si le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em> est vide. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>le pointeur vers le vecteur. <br  />
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>vrai (différent * de zéro) si le vecteur est vide, faux (zéro) sinon. </dd></dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a4200005b6949608d6a533db1a0d299c8">vector::size</a>.</p>
+
+</div>
+</div>
+<a id="adf269dab7a48fb4a729e24883e0b9ca2" name="adf269dab7a48fb4a729e24883e0b9ca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf269dab7a48fb4a729e24883e0b9ca2">&#9670;&nbsp;</a></span>vector_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> * vector_new </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>créé un vector en allouant (malloc) une structure <a class="el" href="structvector.html">vector</a> de <em>size</em> 0 et <em>max_size</em> égal à 1024. Pour le champ <em>data</em>, <em>max_size</em> éléments (ici des int) sont alloués. </p>
+<p >La fonction retourne le pointeur vers la nouvelle structure ainsi paramétrée. Ce pointeur de <a class="el" href="structvector.html">vector</a> doit être libéré à l'aide de <a class="el" href="vector_8h.html#a38aa9009f2e45b0e8747dc84fa7f2a60">vector_delete</a>.</p>
+<dl class="section return"><dt>Renvoie</dt><dd>le pointeur vers le nouveau <a class="el" href="structvector.html">vector</a> alloué et initialisé. </dd></dl>
+<dl class="section see"><dt>Voir également</dt><dd><a class="el" href="vector_8h.html#a38aa9009f2e45b0e8747dc84fa7f2a60" title="désalloue (à l&#39;aide de free) l&#39;ensemble des éléments stockés dans le vector pointé par *pvec puis dés...">vector_delete</a> </dd></dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a1fced609f024872eca82ec9676e2115e">vector::data</a>, <a class="el" href="structvector.html#ae0bab7637580c31cc936783bc416d9a8">vector::max_size</a>, et <a class="el" href="structvector.html#a4200005b6949608d6a533db1a0d299c8">vector::size</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#ad00e013ba1dc911bcdfd9de952c4229e">test_vector()</a>.</p>
+
+</div>
+</div>
+<a id="a9bec84111051f1d3e2e58092444d9120" name="a9bec84111051f1d3e2e58092444d9120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bec84111051f1d3e2e58092444d9120">&#9670;&nbsp;</a></span>vector_print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vector_print </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>affiche (à l'aide de <em>printf</em>) l'ensemble des éléments stockés dans le <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>le pointeur vers le vecteur à afficher. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a1fced609f024872eca82ec9676e2115e">vector::data</a>, et <a class="el" href="structvector.html#a4200005b6949608d6a533db1a0d299c8">vector::size</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#ad00e013ba1dc911bcdfd9de952c4229e">test_vector()</a>.</p>
+
+</div>
+</div>
+<a id="ac3aad213b81a7ecbcebaaaca3143c595" name="ac3aad213b81a7ecbcebaaaca3143c595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3aad213b81a7ecbcebaaaca3143c595">&#9670;&nbsp;</a></span>vector_push_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vector_push_back </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ajoute un élément (le int <em>data</em>) à la fin du <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>. </p>
+<p >Si le vecteur n'a plus assez d'espace de stackage (<em>size</em> == <em>max_size</em>), <em>max_size</em> est doublée et <em>data</em> est réallouée en conséquence.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>le pointeur vers le vecteur dans lequel le "push back" est effectué.</td></tr>
+    <tr><td class="paramname">data</td><td>l'élément (int) à ajouter à la fin du vecteur. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a1fced609f024872eca82ec9676e2115e">vector::data</a>, <a class="el" href="structvector.html#ae0bab7637580c31cc936783bc416d9a8">vector::max_size</a>, et <a class="el" href="structvector.html#a4200005b6949608d6a533db1a0d299c8">vector::size</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#ad00e013ba1dc911bcdfd9de952c4229e">test_vector()</a>.</p>
+
+</div>
+</div>
+<a id="a2b0cc519a7f1a3eb878b6765a9accda1" name="a2b0cc519a7f1a3eb878b6765a9accda1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b0cc519a7f1a3eb878b6765a9accda1">&#9670;&nbsp;</a></span>vector_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vector_size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vector_8h.html#a44f8285ddb5bd8e55dd64651e13de7e3">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>donne la taille (nombre d'éléments stockés) du <a class="el" href="structvector.html">vector</a> pointé par <em>vec</em>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>le pointeur vers le vecteur. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>le nombre d'éléments stockés dans le vecteur. </dd></dl>
+
+<p class="reference">Références <a class="el" href="structvector.html#a4200005b6949608d6a533db1a0d299c8">vector::size</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="test__them_8c.html#a525802eba38aac7e20519cae5082ea1a">manually_print_vector()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
+</body>
+</html>
