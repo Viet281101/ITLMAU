@@ -2,50 +2,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 ################################### TP1 : k-moyennes fleuries ######################################
-"""
-Il s'agit d'implémenter l'algorithme des k-moyennes à une base de données classique en apprentissage automatique : les iris. 
-La base de données des iris est présentée ci-dessous, puis le travail est décrit. 
-Enfin, l'algorithme est rappelé.
-"""
-## Présentation de la base de données des iris
-# Classes :
-# Iris setosa
-# Iris versicolor
-# Iris virginica
-
-## Attributs :
-# Longueur des sépales
-# Largeur des sépales
-# Longueur des pétales
-# Largeur des pétales
-
-# Répartition de la population, selon les attributs fournis : Iris Data (red=setosa, green=versicolor, blue=virginica)
-# Travail à faire: k-moyennes et iris
-#### IMPORTANT: sans utiliser scikit learn pour les k-moyennes.
-
-# Rappel de l'algorithme des k-moyennes :
-"""
-INIT choisir aléatoirement k point comme centres
-1. pour chaque point, affecter au cluster dont le centre est le plus proche
-2. pour chaque cluster C, calculer le nouveau centre m
-m = 1/|C| * somme des points de C
-3. tant que affectation changent, itérer 1.
-"""
 
 ## 1. Prendre en entrée deux fichiers, inclus dans l'archive iris/ : iris_data.csv & iris_label.csv
-"""
-Le fichier iris_data.csv est composé d'une donnée par ligne sous la forme :
-5.0;3.3;1.4;0.2;
-7.0;3.2;4.7;1.4;
-6.5;3.2;5.1;2.0;
-
-Le fichier label a le même nombre de lignes que le fichier data, chaque ligne indiquant la classe de la ligne correspondante dans le fichier data. Avec :
-0 désigne la classe des iris setosa
-1 désigne la classe des iris versicolor
-2 désigne la classe des iris virginica
-"""
 def read_data(data_file, label_file) -> (pd.DataFrame, pd.DataFrame):
 	data = pd.read_csv(data_file)
 	labels = pd.read_csv(label_file)
@@ -58,22 +19,61 @@ def read_data(data_file, label_file) -> (pd.DataFrame, pd.DataFrame):
 	return data, labels
 
 
+
 ## 2. Programmer, en python, l'algorithme des k-moyennes, de manière à pouvoir l'appliquer à différents jeux de données.
 def k_means(data, k) -> (np.ndarray, np.ndarray):
 	centroids = data[np.random.choice(data.shape[0], size=k, replace=False)]
-
+	print("Initial centroids:\n", centroids)
+	
+	history_centroids = [centroids]
+	closest_history = []
+	iteration = 0
+	
 	while True:
 		distances = np.sqrt(((data - centroids[:, np.newaxis])**2).sum(axis=2))
 		closest = np.argmin(distances, axis=0)
-
+		closest_history.append(closest)
 		new_centroids = np.array([data[closest==ki].mean(axis=0) for ki in range(k)])
-
+		
+		print(f"\nItération {iteration}:")
+		print("Centroides:\n", centroids)
+		print("Nouveaux centroïdes:\n", new_centroids)
+		print("Point assignments:", closest)
+		
 		if np.all(centroids == new_centroids):
+			print("Convergence atteinte à l'itération", iteration)
 			break
-
+		
 		centroids = new_centroids
+		history_centroids.append(centroids)
+		closest_history.append(closest)
+		iteration += 1
+		
+	return np.array(history_centroids), np.array(closest_history)
 
-	return centroids, closest
+
+def update_plot(i, data, history_centroids, closest_history) -> None:
+	plt.clf()
+	colors = ['red', 'green', 'blue']
+	centroids = history_centroids[i]
+	closest = closest_history[i]
+
+	for ki, color in zip(range(centroids.shape[0]), colors):
+		plt.scatter(data[closest == ki, 0], data[closest == ki, 1], c=color, alpha=0.5)
+		plt.scatter(*centroids[ki], marker='D', c=color, s=150)
+
+	plt.title('Update Cluster Centers')
+	plt.draw()
+
+
+def animate(data):
+	history_centroids, closest_history = k_means(data, k=3)
+
+	fig = plt.figure()
+	ani = FuncAnimation(fig, update_plot, frames=len(history_centroids), fargs=(data, history_centroids, closest_history), interval=300)
+
+	plt.show()
+
 
 
 ## 3. Appliquer l'algorithme aux iris, en faisant varier la valeur de k (i.e. le nombre de clusters) et donnez le k minimal permettant d'obtenir des clusters contenant un unique type d'iris. Les classes (fichier label) seront utilisées pour vérifier la "pureté" des clusters.
@@ -85,6 +85,8 @@ def find_optimal_k(data, labels) -> (int, np.ndarray, np.ndarray):
 
 	for k in range(1, len(data)):
 		centroids, closest = k_means(data, k)
+		print(data.shape)
+		print(closest.shape)
 		clusters = [data[closest == ki] for ki in range(k)]
 		purity = sum([len(set(cluster)) == 1 for cluster in clusters]) / k
 		if purity > max_purity:
@@ -93,7 +95,12 @@ def find_optimal_k(data, labels) -> (int, np.ndarray, np.ndarray):
 			optimal_centroids = centroids
 			optimal_closest = closest
 
+	print(f"K optimal trouvé: {optimal_k}")
+	print("Optimal centroides:\n", optimal_centroids)
+	print("Optimal point assignments:", optimal_closest)
+	
 	return optimal_k, optimal_centroids, optimal_closest
+
 
 
 ## 4. Tester son implémentation sur les clusters gaussiens fournis dans le fichier clusters.py joint (sans utiliser les centres comme centroîdes). Comparer les résultats pour 2 à 6 clusters, que vous pourrez éloigner, rapprocher ou étendre (en taille).
@@ -106,10 +113,11 @@ def clusters_gen(n_clusters, n_points, centers, sigmas) -> np.ndarray:
 
 	clusters = np.concatenate(clusters)
 
-	plt.scatter(clusters[:, 0], clusters[:, 1])
-	plt.show()
+	# plt.scatter(clusters[:, 0], clusters[:, 1])
+	# plt.show()
 
 	return clusters
+
 
 
 def main():
@@ -119,7 +127,9 @@ def main():
 	labels = labels.to_numpy()
 
 	optimal_k, centroids, closest = find_optimal_k(data, labels)
-	print(f'Optimal k for iris dataset: {optimal_k}')
+	print(f"K optimal pour l'ensemble de données sur l'iris: {optimal_k}")
+	print("Centroides pour optimal K:\n", centroids)
+	print("Point assignments pour optimal K:\n", closest)
 
 	n_clusters = 3
 	n_points = [50, 50, 50, 50]
@@ -127,9 +137,10 @@ def main():
 	sigmas = [[[0.1, 0], [0, 0.1]]]*n_clusters
 
 	clusters = clusters_gen(n_clusters, n_points, centers, sigmas)
+	animate(clusters)
 
 	optimal_k, centroids, closest = find_optimal_k(clusters, np.zeros(clusters.shape[0]))
-	print(f'Optimal k for Gaussian clusters: {optimal_k}')
+	print(f'K optimal pour Gaussian clusters: {optimal_k}')
 
 
 
