@@ -29,5 +29,11 @@
             }
         ],
     },
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "python.testing.pytestArgs": [
+        "Semestre_6_L3"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "dotnet.defaultSolution": "disable"
 }

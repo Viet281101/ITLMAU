@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Semestre_5_L3/Algo_Avancée/Projet/Othello"
+                "${workspaceFolder}/Semestre_5_L3/Algo_Avancée/Projet/Othello",
+                "/usr/include/SDL2"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

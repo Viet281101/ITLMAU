@@ -33,7 +33,7 @@ static GLuint _pId = 0;
 int main(int argc, char ** argv) {
   if(!gl4duwCreateWindow(argc, argv, "GL4Dummies", 20, 20, 
 			 _wW, _wH, GL4DW_RESIZABLE | GL4DW_SHOWN))
-    return 1;
+	return 1;
   init();
   atexit(quit);
   gl4duwDisplayFunc(draw);
@@ -45,55 +45,55 @@ static void init(void) {
   /* indices pour réaliser le maillage des géométrie, envoyés dans le
    * VBO ELEMENT_ARRAY_BUFFER */
   GLuint idata[] = {
-    /* le triangle rouge-vert-bleu */
-    0, 1, 2,
-    /* face haut du cube unitaire */
-    3, 4, 5, 6,
-    /* face bas du cube unitaire  */
-    7, 10, 9, 8,
-    /* face avant du cube unitaire  */
-    3, 7, 8, 4,
-    /* face arriere du cube unitaire  */
-    10, 6, 5, 9,
-    /* face gauche du cube unitaire  */
-    7, 3, 6, 10,
-    /* face droite du cube unitaire  */
-    8, 9, 5, 4,
-    /* l'axe des x (abscisses) : une flèche */
-    11, 12, 13, 12, 14,
-    /* l'axe des y (ordonnées) : une flèche */
-    11, 15, 16, 15, 17,
-    /* l'axe des z (profondeur) : une flèche */
-    11, 18, 19, 18, 20
+	/* le triangle rouge-vert-bleu */
+	0, 1, 2,
+	/* face haut du cube unitaire */
+	3, 4, 5, 6,
+	/* face bas du cube unitaire  */
+	7, 10, 9, 8,
+	/* face avant du cube unitaire  */
+	3, 7, 8, 4,
+	/* face arriere du cube unitaire  */
+	10, 6, 5, 9,
+	/* face gauche du cube unitaire  */
+	7, 3, 6, 10,
+	/* face droite du cube unitaire  */
+	8, 9, 5, 4,
+	/* l'axe des x (abscisses) : une flèche */
+	11, 12, 13, 12, 14,
+	/* l'axe des y (ordonnées) : une flèche */
+	11, 15, 16, 15, 17,
+	/* l'axe des z (profondeur) : une flèche */
+	11, 18, 19, 18, 20
   };
   /* données-sommets envoyée dans le VBO ARRAY_BUFFER */
   GLfloat data[] = {
-    /* 3 coordonnées de sommets en 3D chacune suivie de sa couleur
-     * pour un triangle */
-    /* sommet  0 */ -1.5f, -1.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
-    /* sommet  1 */ 1.5f, -1.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-    /* sommet  2 */ 0.0f,  1.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-    /* 8 coordonnées de sommets en 3D chacune suivie de sa couleur
-     * pour les sommets du cube unitaire */
-    /* sommet  3 */ -1, 1, 1, 0.5, 0, 0,
-    /* sommet  4 */ 1, 1, 1, 0, 0.5, 0,
-    /* sommet  5 */ 1, 1, -1, 0, 1, 0,
-    /* sommet  6 */ -1, 1, -1, 1, 0, 0,
-    /* sommet  7 */ -1, -1, 1, 0.5, 0.5, 0,
-    /* sommet  8 */ 1, -1, 1, 0, 0, 0.5,
-    /* sommet  9 */ 1, -1, -1, 0, 0, 1,
-    /* sommet 10 */ -1, -1, -1, 1, 1, 0,
-    /* sommet 11 */ 0, 0, 0, 0, 0, 0,
-    /* 3x5 sommets pour les 3 flèches représentant les axes */
-    /* sommet 12 */ 3, 0, 0, 1, 0, 0,
-    /* sommet 13 */ 2.9f, 0.1f, 0, 1, 0, 0,
-    /* sommet 14 */ 2.9f, -0.1f, 0, 1, 0, 0,
-    /* sommet 15 */ 0, 3, 0, 0, 1, 0,
-    /* sommet 16 */ 0.1f, 2.9f, 0, 0, 1, 0,
-    /* sommet 17 */ -0.1f, 2.9f, 0, 0, 1, 0,
-    /* sommet 18 */ 0, 0, 3, 0, 0, 1,
-    /* sommet 19 */ 0, 0.1f, 2.9f, 0, 0, 1,
-    /* sommet 20 */ 0, -0.1f, 2.9f, 0, 0, 1
+	/* 3 coordonnées de sommets en 3D chacune suivie de sa couleur
+	 * pour un triangle */
+	/* sommet  0 */ -1.5f, -1.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
+	/* sommet  1 */ 1.5f, -1.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+	/* sommet  2 */ 0.0f,  1.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+	/* 8 coordonnées de sommets en 3D chacune suivie de sa couleur
+	 * pour les sommets du cube unitaire */
+	/* sommet  3 */ -1, 1, 1, 0.5, 0, 0,
+	/* sommet  4 */ 1, 1, 1, 0, 0.5, 0,
+	/* sommet  5 */ 1, 1, -1, 0, 1, 0,
+	/* sommet  6 */ -1, 1, -1, 1, 0, 0,
+	/* sommet  7 */ -1, -1, 1, 0.5, 0.5, 0,
+	/* sommet  8 */ 1, -1, 1, 0, 0, 0.5,
+	/* sommet  9 */ 1, -1, -1, 0, 0, 1,
+	/* sommet 10 */ -1, -1, -1, 1, 1, 0,
+	/* sommet 11 */ 0, 0, 0, 0, 0, 0,
+	/* 3x5 sommets pour les 3 flèches représentant les axes */
+	/* sommet 12 */ 3, 0, 0, 1, 0, 0,
+	/* sommet 13 */ 2.9f, 0.1f, 0, 1, 0, 0,
+	/* sommet 14 */ 2.9f, -0.1f, 0, 1, 0, 0,
+	/* sommet 15 */ 0, 3, 0, 0, 1, 0,
+	/* sommet 16 */ 0.1f, 2.9f, 0, 0, 1, 0,
+	/* sommet 17 */ -0.1f, 2.9f, 0, 0, 1, 0,
+	/* sommet 18 */ 0, 0, 3, 0, 0, 1,
+	/* sommet 19 */ 0, 0.1f, 2.9f, 0, 0, 1,
+	/* sommet 20 */ 0, -0.1f, 2.9f, 0, 0, 1
   };
   /* Création du programme shader (voir le dossier shader) */
   _pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/basic.fs", NULL);
@@ -242,10 +242,10 @@ static void draw(void) {
 static void quit(void) {
   /* suppression du VAO _vao en GPU */
   if(_vao)
-    glDeleteVertexArrays(1, &_vao);
+	glDeleteVertexArrays(1, &_vao);
   /* suppression du VBO _buffer en GPU, maintenant il y en a deux */
   if(_buffer[0])
-    glDeleteBuffers(2, _buffer);
+	glDeleteBuffers(2, _buffer);
   /* nettoyage des éléments utilisés par la bibliothèque GL4Dummies */
   gl4duClean(GL4DU_ALL);
 }

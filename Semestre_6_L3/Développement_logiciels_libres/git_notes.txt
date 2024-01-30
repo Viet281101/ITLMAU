@@ -1,0 +1,13 @@
+
+
+git status
+
+git log --oneline
+
+git diff
+
+git merge <commit>
+
+git cherry-pick <commit>
+
+

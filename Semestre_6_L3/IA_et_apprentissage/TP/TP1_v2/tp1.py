@@ -23,7 +23,9 @@ def read_data(data_file, label_file) -> (pd.DataFrame, pd.DataFrame):
 ## 2. Programmer, en python, l'algorithme des k-moyennes, de manière à pouvoir l'appliquer à différents jeux de données.
 def k_means(data, k) -> (np.ndarray, np.ndarray):
 	centroids = data[np.random.choice(data.shape[0], size=k, replace=False)]
-	print("Initial centroids:\n", centroids)
+
+	print(f"Initialisation des centres des clusters :")
+	print(centroids)
 	
 	history_centroids = [centroids]
 	closest_history = []
@@ -35,19 +37,15 @@ def k_means(data, k) -> (np.ndarray, np.ndarray):
 		closest_history.append(closest)
 		new_centroids = np.array([data[closest==ki].mean(axis=0) for ki in range(k)])
 		
-		print(f"\nItération {iteration}:")
-		print("Centroides:\n", centroids)
-		print("Nouveaux centroïdes:\n", new_centroids)
-		print("Point assignments:", closest)
-		
 		if np.all(centroids == new_centroids):
-			print("Convergence atteinte à l'itération", iteration)
 			break
 		
 		centroids = new_centroids
 		history_centroids.append(centroids)
 		closest_history.append(closest)
 		iteration += 1
+
+	print(f"Algorithme k-moyennes terminé en {iteration} itérations.")
 		
 	return np.array(history_centroids), np.array(closest_history)
 
@@ -83,27 +81,41 @@ def find_optimal_k(data, labels) -> (int, np.ndarray, np.ndarray):
 	optimal_centroids = None
 	optimal_closest = None
 
-	for k in range(1, len(data)):
+	max_k = min(len(data), 7)
+
+	for k in range(2, max_k):
 		centroids, closest = k_means(data, k)
-		print(data.shape)
-		print(closest.shape)
+
 		clusters = [data[closest == ki] for ki in range(k)]
-		purity = sum([len(set(cluster)) == 1 for cluster in clusters]) / k
+
+		purity = 0
+		for ki in range(k):
+			cluster_labels = labels[closest == ki]
+			if cluster_labels.size == 0:
+				continue
+
+			most_common = np.bincount(cluster_labels).argmax()
+			purity += np.sum(cluster_labels == most_common)
+
+		purity /= len(data)
+
+		print(f"Comparaison des résultats pour k = {k}:")
+		print(f" - Nombre de clusters : {k}")
+		print(f" - Pureté des clusters : {purity*100:.2f}%")
+
 		if purity > max_purity:
 			max_purity = purity
 			optimal_k = k
-			optimal_centroids = centroids
-			optimal_closest = closest
+			optimal_centroids = centroids[-1]
+			optimal_closest = closest[-1]
 
-	print(f"K optimal trouvé: {optimal_k}")
-	print("Optimal centroides:\n", optimal_centroids)
-	print("Optimal point assignments:", optimal_closest)
-	
 	return optimal_k, optimal_centroids, optimal_closest
 
 
 
-## 4. Tester son implémentation sur les clusters gaussiens fournis dans le fichier clusters.py joint (sans utiliser les centres comme centroîdes). Comparer les résultats pour 2 à 6 clusters, que vous pourrez éloigner, rapprocher ou étendre (en taille).
+
+
+## 4. Tester son implémentation sur les clusters gaussiens. Comparer les résultats pour 2 à 6 clusters, que vous pourrez éloigner, rapprocher ou étendre (en taille).
 def clusters_gen(n_clusters, n_points, centers, sigmas) -> np.ndarray:
 	clusters = []
 
@@ -116,6 +128,8 @@ def clusters_gen(n_clusters, n_points, centers, sigmas) -> np.ndarray:
 	# plt.scatter(clusters[:, 0], clusters[:, 1])
 	# plt.show()
 
+	print(f"Clusters gaussiens générés avec succès.")
+
 	return clusters
 
 
@@ -127,20 +141,23 @@ def main():
 	labels = labels.to_numpy()
 
 	optimal_k, centroids, closest = find_optimal_k(data, labels)
-	print(f"K optimal pour l'ensemble de données sur l'iris: {optimal_k}")
-	print("Centroides pour optimal K:\n", centroids)
-	print("Point assignments pour optimal K:\n", closest)
+	print(f"Nombre optimal de clusters pour les données Iris : {optimal_k}")
 
 	n_clusters = 3
 	n_points = [50, 50, 50, 50]
 	centers = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
-	sigmas = [[[0.1, 0], [0, 0.1]]]*n_clusters
+	sigmas = [[[0.1, 0], [0, 0.1]]] * n_clusters
 
+	print(f"Génération de {n_clusters} clusters gaussiens avec {sum(n_points)} points...")
 	clusters = clusters_gen(n_clusters, n_points, centers, sigmas)
+	print("Clusters gaussiens générés avec succès.")
+
+	print(f"Application de l'algorithme k-moyennes sur les clusters gaussiens...")
 	animate(clusters)
 
 	optimal_k, centroids, closest = find_optimal_k(clusters, np.zeros(clusters.shape[0]))
-	print(f'K optimal pour Gaussian clusters: {optimal_k}')
+	print(f"Nombre optimal de clusters trouvé pour les clusters gaussiens : {optimal_k}")
+
 
 
 

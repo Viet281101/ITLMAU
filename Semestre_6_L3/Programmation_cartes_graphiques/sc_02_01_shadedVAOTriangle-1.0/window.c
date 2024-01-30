@@ -29,7 +29,7 @@ static GLuint _pId = 0;
 int main(int argc, char ** argv) {
   if(!gl4duwCreateWindow(argc, argv, "GL4Dummies", 20, 20, 
 			 _wW, _wH, GL4DW_RESIZABLE | GL4DW_SHOWN))
-    return 1;
+	return 1;
   init();
   atexit(quit);
   gl4duwDisplayFunc(draw);
@@ -47,14 +47,14 @@ static void init(void) {
   /* données envoyées par tranches (différent du mode interleaved
    * array) dans le VBO */
   GLfloat data[] = {
-    /* 3 coordonnées de sommets en 2D */
-    -1.0f, -1.0f, 
-    1.0f, -1.0f,
-     0.0f,  1.0f,
-    /* 3 couleurs */
-    1.0f, 0.0f, 0.0f, 
-    0.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 1.0f
+	/* 3 coordonnées de sommets en 2D */
+	-1.0f, -1.0f, 
+	1.0f, -1.0f,
+	 0.0f,  1.0f,
+	/* 3 couleurs */
+	1.0f, 0.0f, 0.0f, 
+	0.0f, 1.0f, 0.0f,
+	0.0f, 0.0f, 1.0f
   };
   /* Création du programme shader (voir le dossier shader) */
   _pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/basic.fs", NULL);
@@ -102,10 +102,10 @@ static void draw(void) {
 static void quit(void) {
   /* suppression du VAO _vao en GPU */
   if(_vao)
-    glDeleteVertexArrays(1, &_vao);
+	glDeleteVertexArrays(1, &_vao);
   /* suppression du VBO _buffer en GPU */
   if(_buffer)
-    glDeleteBuffers(1, &_buffer);
+	glDeleteBuffers(1, &_buffer);
   /* nettoyage des éléments utilisés par la bibliothèque GL4Dummies */
   gl4duClean(GL4DU_ALL);
 }
