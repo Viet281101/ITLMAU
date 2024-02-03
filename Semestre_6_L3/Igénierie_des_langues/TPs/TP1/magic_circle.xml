@@ -6,8 +6,8 @@
 		<nbr_order>001</nbr_order>
 		<name> Air Magic </name>
 		<types>
-			<type> Element </type>
-			<type> Skill </type>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
 		</types>
 		<damages>
 			<physical_damage>100</physical_damage>
@@ -17,19 +17,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Lightning, Thunder Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Earth, Ground Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			<description number="1">
-
-			</description>
-			<description number="2">
-
-			</description>
+			Magic circle representing storm, tempest, wind, and air magic
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/air_magic.png"/>
 	</spell_circle>
@@ -38,8 +33,8 @@
 		<nbr_order>002</nbr_order>
 		<name> Astrology Spell </name>
 		<types>
-			<type> Special, Effect </type>
-			<type> Skill </type>
+			<type number="1"> Special, Effect </type>
+			<type number="2"> Skill </type>
 		</types>
 		<damages>
 			<physical_damage>60</physical_damage>
@@ -56,12 +51,7 @@
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			<description number="1">
-				
-			</description>
-			<description number="2">
-
-			</description>
+			Magic circle representing astrology, zodiac, and constellation magic
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/astrology_spell.png"/>
 	</spell_circle>
@@ -70,8 +60,8 @@
 		<nbr_order>003</nbr_order>
 		<name> Control Magic </name>
 		<types>
-			<type> Special, Effect </type>
-			<type> Skill </type>
+			<type number="1"> Special, Effect </type>
+			<type number="2"> Skill </type>
 		</types>
 		<damages>
 			<physical_damage>20</physical_damage>
@@ -88,12 +78,7 @@
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			<description number="1">
-				
-			</description>
-			<description number="2">
-
-			</description>
+			Magic circle representing control, mind, and illusion magic
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/control_magic.png"/>
 	</spell_circle>
@@ -102,8 +87,8 @@
 		<nbr_order>004</nbr_order>
 		<name> Curse Poison Magic </name>
 		<types>
-			<type> Potion </type>
-			<type> Skill </type>
+			<type number="1"> Potion </type>
+			<type number="2"> Skill </type>
 		</types>
 		<damages>
 			<physical_damage>20</physical_damage>
@@ -120,14 +105,198 @@
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			<description number="1">
-				
-			</description>
-			<description number="2">
-
-			</description>
+			Magic circle representing curse and poison magic
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/curse_poison_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="005">
+		<nbr_order>005</nbr_order>
+		<name> Dark Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>100</physical_damage>
+			<magic_damage>500</magic_damage>
+			<critical_damage>10% ~ 20%</critical_damage>
+			<effective_damage>30% ~ 80%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+
+			</type_advantage>
+			<vulnerable_to>
+
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing dark, shadow, and evil magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/dark_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="006">
+		<nbr_order>006</nbr_order>
+		<name> Demonic Spell </name>
+		<types>
+			<type number="1"> Summon, Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>10</physical_damage>
+			<magic_damage>10</magic_damage>
+			<critical_damage>10% ~ 20%</critical_damage>
+			<effective_damage>300% ~ 800%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+
+			</type_advantage>
+			<vulnerable_to>
+
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing demonic, hell, and underworld magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/demonic_spell.png"/>
+	</spell_circle>
+
+	<spell_circle id="007">
+		<nbr_order>007</nbr_order>
+		<name> Dragon Magic </name>
+		<types>
+			<type number="1"> Summon, Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>100</physical_damage>
+			<magic_damage>100</magic_damage>
+			<critical_damage>10% ~ 20%</critical_damage>
+			<effective_damage>300% ~ 800%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+
+			</type_advantage>
+			<vulnerable_to>
+
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing dragon, wyvern, and serpent magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/dragon_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="008">
+		<nbr_order>008</nbr_order>
+		<name> Energy Spell </name>
+		<types>
+			<type number="1"> Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>500</physical_damage>
+			<magic_damage>400</magic_damage>
+			<critical_damage>100% ~ 200%</critical_damage>
+			<effective_damage>70% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+
+			</type_advantage>
+			<vulnerable_to>
+
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing energy, light, and power magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/energy_spell.png"/>
+	</spell_circle>
+
+	<spell_circle id="009">
+		<nbr_order>009</nbr_order>
+		<name> Fire Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>200</physical_damage>
+			<magic_damage>200</magic_damage>
+			<critical_damage>120% ~ 200%</critical_damage>
+			<effective_damage>90% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Air, Wind Magic
+			</type_advantage>
+			<vulnerable_to>
+				Water, Ice Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing fire, flame, and heat magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/fire_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="009">
+		<nbr_order>009</nbr_order>
+		<name> Flesh Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>100</physical_damage>
+			<magic_damage>100</magic_damage>
+			<critical_damage>220% ~ 300%</critical_damage>
+			<effective_damage>200% ~ 300%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				
+			</type_advantage>
+			<vulnerable_to>
+			
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing flesh, blood, and body magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/flesh_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="010">
+		<nbr_order>010</nbr_order>
+		<name> Gravity Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>600</physical_damage>
+			<magic_damage>80</magic_damage>
+			<critical_damage>100% ~ 200%</critical_damage>
+			<effective_damage>100% ~ 200%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				
+			</type_advantage>
+			<vulnerable_to>
+			
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing gravity, space, and time magic
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/gravity_magic.png"/>
 	</spell_circle>
 
 </magic_circle>
