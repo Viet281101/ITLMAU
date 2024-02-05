@@ -24,7 +24,7 @@
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing storm, tempest, wind, and air magic
+			Magic circle representing storm, tempest, wind, and air magic. A elemental type of magic that can deal both physical and magic damage.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/air_magic.png"/>
 	</spell_circle>
@@ -44,14 +44,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Star, Galaxy, Universe Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Chaos, Destruction Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing astrology, zodiac, and constellation magic
+			Magic circle representing astrology, zodiac, and constellation magic. Most of the time, it is a special type of magic that does not deal any damage but can manipulate the fate of the target.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/astrology_spell.png"/>
 	</spell_circle>
@@ -71,14 +71,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Psychic, Mind, Illusion Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Truth, Judgement Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing control, mind, and illusion magic
+			Magic circle representing control, mind, and illusion magic. Rule over the mind of the target and manipulate their actions.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/control_magic.png"/>
 	</spell_circle>
@@ -87,7 +87,7 @@
 		<nbr_order>004</nbr_order>
 		<name> Curse Poison Magic </name>
 		<types>
-			<type number="1"> Potion </type>
+			<type number="1"> Effect, Potion </type>
 			<type number="2"> Skill </type>
 		</types>
 		<damages>
@@ -98,14 +98,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Toxic, Venom, Acid Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Healing, Recovery Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing curse and poison magic
+			Magic circle representing curse and poison magic. It is a special type of magic that can deal both curse and poison damage.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/curse_poison_magic.png"/>
 	</spell_circle>
@@ -125,14 +125,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Shadow, Evil Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Light, Holy Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing dark, shadow, and evil magic
+			Magic circle representing dark, shadow, and evil magic. For those who are willing to sacrifice their soul for power.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/dark_magic.png"/>
 	</spell_circle>
@@ -141,7 +141,7 @@
 		<nbr_order>006</nbr_order>
 		<name> Demonic Spell </name>
 		<types>
-			<type number="1"> Summon, Effect, Special </type>
+			<type number="1"> Summon, Effect, Ritual </type>
 			<type number="2"> Skill </type>
 		</types>
 		<damages>
@@ -152,14 +152,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Hell, Underworld Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Angel, Heaven, God, Divine, Sacred, Pure, Truth Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing demonic, hell, and underworld magic
+			Magic circle representing demonic, hell, and underworld magic. Summon the power of the underworld to do your bidding.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/demonic_spell.png"/>
 	</spell_circle>
@@ -168,7 +168,7 @@
 		<nbr_order>007</nbr_order>
 		<name> Dragon Magic </name>
 		<types>
-			<type number="1"> Summon, Effect, Special </type>
+			<type number="1"> Summon, Effect, Ritual </type>
 			<type number="2"> Skill </type>
 		</types>
 		<damages>
@@ -179,14 +179,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Dragon, Wyvern, Serpent
 			</type_advantage>
 			<vulnerable_to>
-
+				Hunter, Slayer, Knight
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing dragon, wyvern, and serpent magic
+			Magic circle representing dragon, wyvern, and serpent magic. Summon the power of the dragon to do your bidding.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/dragon_magic.png"/>
 	</spell_circle>
@@ -206,14 +206,14 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-
+				Element, Nature Magic
 			</type_advantage>
 			<vulnerable_to>
-
+				Destruction, Chaos Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing energy, light, and power magic
+			Magic circle representing energy, light, and power magic. Pure energy that can deal both physical and magic damage.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/energy_spell.png"/>
 	</spell_circle>
@@ -245,11 +245,11 @@
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/fire_magic.png"/>
 	</spell_circle>
 
-	<spell_circle id="009">
-		<nbr_order>009</nbr_order>
+	<spell_circle id="010">
+		<nbr_order>010</nbr_order>
 		<name> Flesh Magic </name>
 		<types>
-			<type number="1"> Element </type>
+			<type number="1"> Ritual </type>
 			<type number="2"> Skill </type>
 		</types>
 		<damages>
@@ -260,23 +260,23 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-				
+				Light, Holy Magic
 			</type_advantage>
 			<vulnerable_to>
-			
+				Dark, Shadow Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing flesh, blood, and body magic
+			Magic circle representing flesh, blood, and body magic. Born from the sacrifice of the flesh and blood of the caster. Sceret magic forbidden by the gods.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/flesh_magic.png"/>
 	</spell_circle>
 
-	<spell_circle id="010">
-		<nbr_order>010</nbr_order>
+	<spell_circle id="011">
+		<nbr_order>011</nbr_order>
 		<name> Gravity Magic </name>
 		<types>
-			<type number="1"> Element </type>
+			<type number="1"> Effect, Special </type>
 			<type number="2"> Skill </type>
 		</types>
 		<damages>
@@ -287,16 +287,124 @@
 		</damages>
 		<type_chart>
 			<type_advantage>
-				
+				Element, Nature Magic
 			</type_advantage>
 			<vulnerable_to>
-			
+				Light, Holy Magic
 			</vulnerable_to>
 		</type_chart>
 		<descriptions>
-			Magic circle representing gravity, space, and time magic
+			Magic circle representing gravity, space, and time magic. Prove that gravity is not just a force of attraction but also a force of destruction.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/gravity_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="012">
+		<nbr_order>012</nbr_order>
+		<name> Healing Magic </name>
+		<types>
+			<type number="1"> Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>0</physical_damage>
+			<magic_damage>300</magic_damage>
+			<critical_damage>0% ~ 10%</critical_damage>
+			<effective_damage>100% ~ 200%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Flesh, Body Magic
+			</type_advantage>
+			<vulnerable_to>
+				Dark, Shadow Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing healing, recovery, and health magic. A special type of magic that can heal and recover the health of the target.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/healing_recovery_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="013">
+		<nbr_order>013</nbr_order>
+		<name>  Illusion Spell </name>
+		<types>
+			<type number="1"> Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>0</physical_damage>
+			<magic_damage>0</magic_damage>
+			<critical_damage>0% ~ 0%</critical_damage>
+			<effective_damage>0% ~ 0%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Psychic, Mind Magic
+			</type_advantage>
+			<vulnerable_to>
+				Judgement, Truth Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing illusion, dream, and nightmare magic. It is a special type of magic that does not deal any damage but can manipulate the perception of the target.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/illusion_spell.png"/>
+	</spell_circle>
+
+	<spell_circle id="014">
+		<nbr_order>014</nbr_order>
+		<name>  Judgement Spell </name>
+		<types>
+			<type number="1"> Effect, Special </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>200</physical_damage>
+			<magic_damage>500</magic_damage>
+			<critical_damage>0% ~ 1000%</critical_damage>
+			<effective_damage>0% ~ 1000%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Dark, Shadow, Evil, Demonic, Flesh, Body, Hell, Underworld Magic
+			</type_advantage>
+			<vulnerable_to>
+				Light, Holy, Angel, Heaven, God, Divine, Sacred, Pure, Truth Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing judgement, truth, and divine magic. It is a special type of magic that does not deal any damage but can manipulate the fate of the target.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/judgement_spell.png"/>
+	</spell_circle>
+
+	<spell_circle id="015">
+		<nbr_order>015</nbr_order>
+		<name>  Light Dark Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>300</physical_damage>
+			<magic_damage>300</magic_damage>
+			<critical_damage>10% ~ 100%</critical_damage>
+			<effective_damage>80% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Balance, Harmony, Yin, Yang Magic
+			</type_advantage>
+			<vulnerable_to>
+				Chaos, Destruction Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing light, dark, and balance magic. It is a special type of magic that can deal both light and dark damage.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/light_dark_magic.png"/>
 	</spell_circle>
 
 </magic_circle>
