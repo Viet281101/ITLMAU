@@ -14,7 +14,7 @@ def read_csv(file_path) -> list:
 
 
 def generate_clusters() -> np.ndarray:
-	"""Generates clusters (keep this function unchanged as per your request)."""
+	"""Generates clusters."""
 	# C1 ---------->
 	centre1=np.array([3,3])	           # centre du premier cluster
 	sigma1=np.array([[1.5,0],[0,1.5]]) # matrice de covariance du premier cluster
@@ -121,7 +121,6 @@ def main() -> None:
 
 	plt.legend()
 	plt.show()
-
 
 
 

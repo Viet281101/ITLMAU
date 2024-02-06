@@ -66,7 +66,7 @@
 	</xsl:template>
 
 	<xsl:template match="image">
-		<img src="{@url}" width="150"/>
+		<img src="{@url}" width="150" height="150"/>
 	</xsl:template>
 
 </xsl:stylesheet> 
