@@ -1,13 +1,15 @@
 
-import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-def read_csv(file) -> list:
-	"""Reads a csv file and returns a list of lists."""
-	with open(file, "r") as f:
-		data = f.readlines()
-		data = [line.strip().split(";") for line in data]
+
+def read_csv(file_path) -> list:
+	"""Reads a CSV file and returns a list of lists."""
+	data = []
+	with open(file_path, "r") as file:
+		for line in file:
+			stripped_line = line.strip().rstrip(';')
+			data.append(stripped_line.split(";"))
 	return data
 
 
@@ -44,6 +46,7 @@ def generate_clusters() -> np.ndarray:
 def euclidean_distance(point1, point2) -> float:
 	"""Calculate the Euclidean distance between two points."""
 	return np.linalg.norm(np.array(point1) - np.array(point2))
+
 
 def calculate_distance_matrix(data) -> np.ndarray:
 	"""Calculate the distance matrix for a dataset."""
@@ -82,6 +85,8 @@ def hierarchical_clustering(data, linkage_method) -> tuple:
 				elif linkage_method == 'average':
 					distance_matrix[i, k] = distance_matrix[k, i] = (distance_matrix[i, k] + distance_matrix[j, k]) / 2
 				### Le Ward linkage method n'est pas implémenté ici. Parce que c'est plus compliqué à implémenter.
+				else:
+					raise ValueError("Invalid linkage method.")
 
 		distance_matrix = np.delete(distance_matrix, j, axis=0)
 		distance_matrix = np.delete(distance_matrix, j, axis=1)
@@ -99,13 +104,18 @@ def hierarchical_clustering(data, linkage_method) -> tuple:
 
 
 def main() -> None:
-	data = generate_clusters()
-	linkage_method = 'single' # 'single', 'complete', ou 'average'
+	"""Main function."""
+	data_path = "iris/iris_data.csv"
+	label_path = "iris/iris_label.csv"
+	data = np.array(read_csv(data_path), dtype=float)
+	labels = np.array(read_csv(label_path), dtype=int).flatten()
 
-	clusters, history = hierarchical_clustering(data, linkage_method)
-	# print("History of clusters:", history)
+	linkage_method = 'single'  # 'single', 'complete', 'average'
+	final_clusters, cluster_history = hierarchical_clustering(data, linkage_method)
 
-	for label, points in clusters.items():
+	print("History of clusters:", cluster_history)
+
+	for label, points in final_clusters.items():
 		points = np.array(points)
 		plt.scatter(points[:, 0], points[:, 1], label=f"Cluster {label}")
 

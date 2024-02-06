@@ -29,7 +29,7 @@
 
 				<xsl:for-each select="magic_circle/spell_circle">
 					<tr>
-						<td style="color: black;"><xsl:apply-templates select="nbr_order"/></td>
+						<td align="center" style="color: black;"><xsl:apply-templates select="nbr_order"/></td>
 						<td style="color: black;"><xsl:apply-templates select="image"/></td>
 						<td style="color: black;"><xsl:value-of select="name"/></td>
 						<td align="center" style="color: black;">

@@ -227,7 +227,7 @@
 		</types>
 		<damages>
 			<physical_damage>200</physical_damage>
-			<magic_damage>200</magic_damage>
+			<magic_damage>600</magic_damage>
 			<critical_damage>120% ~ 200%</critical_damage>
 			<effective_damage>90% ~ 100%</effective_damage>
 		</damages>
@@ -362,7 +362,7 @@
 		</types>
 		<damages>
 			<physical_damage>200</physical_damage>
-			<magic_damage>500</magic_damage>
+			<magic_damage>1000</magic_damage>
 			<critical_damage>0% ~ 1000%</critical_damage>
 			<effective_damage>0% ~ 1000%</effective_damage>
 		</damages>
@@ -405,6 +405,141 @@
 			Magic circle representing light, dark, and balance magic. It is a special type of magic that can deal both light and dark damage.
 		</descriptions>
 		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/light_dark_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="016">
+		<nbr_order>016</nbr_order>
+		<name>  Lightning Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>300</physical_damage>
+			<magic_damage>300</magic_damage>
+			<critical_damage>60% ~ 120%</critical_damage>
+			<effective_damage>80% ~ 140%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Water, Ice, Metal, Mechanical Magic
+			</type_advantage>
+			<vulnerable_to>
+				Earth, Ground Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing lightning, thunder, and electric magic. Fast and powerful magic, full of energy and electricity.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/lightning_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="017">
+		<nbr_order>017</nbr_order>
+		<name>  Machinery Magic </name>
+		<types>
+			<type number="1"> Special, Effect </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>400</physical_damage>
+			<magic_damage>100</magic_damage>
+			<critical_damage>100% ~ 200%</critical_damage>
+			<effective_damage>80% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Earth, Ground, Metal, Mechanical, Technology, Energy Magic
+			</type_advantage>
+			<vulnerable_to>
+				Lightning, Thunder Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing machinery, mechanical, and technology magic. Full of gears, cogs, and steam, this magic is the power of the machine. God of Mechanism.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/machinery_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="018">
+		<nbr_order>018</nbr_order>
+		<name>  Melody Spell </name>
+		<types>
+			<type number="1"> Effect </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>100</physical_damage>
+			<magic_damage>400</magic_damage>
+			<critical_damage>100% ~ 200%</critical_damage>
+			<effective_damage>80% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Music, Sound, Voice, Harmony, Rhythm, Melody Magic				
+			</type_advantage>
+			<vulnerable_to>
+				Silence, Mute, Noise, Discord, Chaos Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing melody, music, and sound magic. Harmonize the world with the power of music. With many different effects, it can heal, damage, or even control the mind of the target.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/melody_spell.png"/>
+	</spell_circle>
+
+	<spell_circle id="019">
+		<nbr_order>019</nbr_order>
+		<name>  Necromancy Death Magic </name>
+		<types>
+			<type number="1"> Summon, Effect </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>10</physical_damage>
+			<magic_damage>10</magic_damage>
+			<critical_damage>100% ~ 200%</critical_damage>
+			<effective_damage>80% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Death, Undead, Zombie, Skeleton, Ghost, Spirit, Soul, Afterlife, Hell, Underworld Magic				
+			</type_advantage>
+			<vulnerable_to>
+				Light, Holy, Angel, Heaven, God, Divine, Sacred, Pure, Truth Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing necromancy, death, and undead magic. Summon the power of the dead to do your bidding.
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/necromancy_death_magic.png"/>
+	</spell_circle>
+
+	<spell_circle id="020">
+		<nbr_order>020</nbr_order>
+		<name>  Plant Nature Magic </name>
+		<types>
+			<type number="1"> Element </type>
+			<type number="2"> Skill </type>
+		</types>
+		<damages>
+			<physical_damage>300</physical_damage>
+			<magic_damage>300</magic_damage>
+			<critical_damage>200% ~ 300%</critical_damage>
+			<effective_damage>80% ~ 100%</effective_damage>
+		</damages>
+		<type_chart>
+			<type_advantage>
+				Earth, Ground, Forest, Jungle, Plant, Flower, Tree, Nature Magic
+			</type_advantage>
+			<vulnerable_to>
+				Fire, Flame, Heat, Desert, Sand, Drought Magic
+			</vulnerable_to>
+		</type_chart>
+		<descriptions>
+			Magic circle representing plant, nature, and forest magic. The power of the green world, full of life and energy. 
+		</descriptions>
+		<image url="https://raw.githubusercontent.com/Viet281101/ITLMAU/main/Semestre_6_L3/Ig%C3%A9nierie_des_langues/magic_spell_circle/plant_nature_magic.png"/>
 	</spell_circle>
 
 </magic_circle>

@@ -1,5 +1,5 @@
 
-# TP1 prodruire un ficher XML et un fichier XSL
+# TP1 prodruire un fichier XML et un fichier XSL
 
 ## Problème n°1 - du non structuré au structuré... accessible pour l'humain
 
