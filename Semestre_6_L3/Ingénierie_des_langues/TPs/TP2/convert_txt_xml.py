@@ -30,6 +30,6 @@ def convert_txt_xml(input_file_path, output_file_path) -> None:
 
 if __name__ == "__main__":
 	input_file_path = 'conte.txt'
-	output_file_path = 'output.xml'
+	output_file_path = 'output/conte_output.xml'
 	convert_txt_xml(input_file_path, output_file_path)
 

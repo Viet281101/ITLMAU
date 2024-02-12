@@ -1,31 +1,42 @@
 
 # TP 2 : nombre moyen de mots par phrase et profilage morphosyntaxique
 
+Rapport de TP réalisé par Viet Nguyen -- 20006303.
+
+__________________________________________________
+
 ## 1. Découpage en phrases : test de différentes méthodes
 
-Dans cette section, j'ai exploré différentes méthodes pour découper un texte en phrases, en vue de préparer le terrain pour une analyse morphosyntaxique plus approfondie.
+Dans cette première partie, j'ai exploré différentes méthodes pour découper le texte en phrases, visant à préparer le texte pour les analyses morphosyntaxiques ultérieures.
 
 ### 1.1 Méthode basée sur des expressions régulières (Regex)
 
-- **Description** : Utilisation de regex pour identifier les fins de phrases (., !, ?) et séparer le texte.
-- **Implémentation** : Script `create_output_xml.py`, utilisant `re` pour les expressions régulières et `xml.etree.ElementTree` pour la création de XML.
-- **Avantages** : Simplicité et efficacité sur des textes avec une ponctuation claire.
-- **Inconvénients** : Peut échouer dans des cas où la ponctuation ne marque pas clairement la fin d'une phrase (ex. abréviations, nombres).
+Cette méthode utilise des expressions régulières pour détecter les fins de phrases, marquées par des points, des points d'interrogation ou des points d'exclamation. Le script `convert_txt_xml.py` lit le contenu de `conte.txt`, découpe le texte en phrases, et génère un fichier XML `output.xml` où chaque phrase est identifiée par une balise `<sentence>` unique.
 
-### 1.2 Méthode utilisant NLTK
+- [x] module re
+- [X] utilisation de regex
+- [X] input/output de fichiers
 
-- **Description** : Emploi de la bibliothèque NLTK pour un découpage plus nuancé, prenant en compte les particularités linguistiques du français.
-- **Implémentation** : Script à développer, utilisant `nltk.tokenize` pour segmenter le texte.
-- **Avantages** : Meilleure gestion des exceptions linguistiques grâce à l'analyse basée sur des modèles de langue.
-- **Inconvénients** : Nécessite l'installation de NLTK et le téléchargement de modèles de langue spécifiques.
+### 1.2 Utilisation de librairies dédiées (python)
 
-### 1.3 Méthode utilisant spaCy
+1. Sentencizer
+2. Senter Rappel pipeline spacy
 
-- **Description** : Application de spaCy, une bibliothèque avancée de NLP, pour une segmentation précise et contextuelle des phrases.
-- **Implémentation** : Script à développer, utilisant `spacy.load("fr_core_news_sm")` pour charger le modèle français et `doc.sents` pour la segmentation.
-- **Avantages** : Précision accrue grâce à l'utilisation de modèles entraînés sur de larges corpus de texte.
-- **Inconvénients** : Nécessite l'installation de spaCy et le téléchargement de modèles, ce qui peut être exigeant en termes de ressources.
 
-### Conclusion
+__________________________________________________
 
-Cette exploration des différentes méthodes de segmentation de texte met en lumière les compromis entre simplicité et précision. La méthode idéale dépend des spécificités du corpus de texte à analyser ainsi que des objectifs de recherche.
+## 2. Découpage en mots : test de différentes méthodes
+
+Dans cette deuxième partie, j'ai exploré différentes méthodes pour découper le texte en mots, visant à préparer le texte pour les analyses morphosyntaxiques ultérieures.
+
+### 2.1 Tokéniseur "à base de règles" (Rule-based tokenizer)
+
+J'ai utilisé [regex101.com](https://regex101.com/) pour tester des expressions régulières pour découper le texte en mots. J'ai commencé par une expression simple pour séparer les mots par des espaces, puis j'ai ajouté des règles pour gérer les cas spéciaux, comme les nombres, les abréviations, les mots composés, etc.
+
+
+### 2.2 Librairie NLTK (Natural Language ToolKit)
+
+
+
+### 2.3 Remarque et tokéniseur custom
+
