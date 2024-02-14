@@ -40,6 +40,8 @@ int main(int argc, char ** argv) {
   gl4duwMainLoop();
   return 0;
 }
+
+
 /*!\brief initialise les paramètres OpenGL et les données. */
 static void init(void) {
   /* indices pour réaliser le maillage des géométrie, envoyés dans le
@@ -153,6 +155,8 @@ static void init(void) {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+
 /*!\brief Cette fonction dessine dans le contexte OpenGL actif. */
 static void draw(void) {
   /* une variable d'angle, maintenant elle passe ne degrés */
@@ -237,6 +241,8 @@ static void draw(void) {
   /* désactiver le programme shader */
   glUseProgram(0);
 }
+
+
 /*!\brief appelée au moment de sortir du programme (atexit), elle
  *  libère les éléments OpenGL utilisés.*/
 static void quit(void) {

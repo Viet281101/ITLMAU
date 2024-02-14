@@ -22,6 +22,8 @@ static GLuint _buffer = 0;
 /*!\brief identifiant du (futur) GLSL program */
 static GLuint _pId = 0;
 
+#define M_PI 3.14159265358979323846
+
 /*!\brief créé la fenêtre d'affichage, initialise GL et les données,
  * affecte les fonctions d'événements et lance la boucle principale
  * d'affichage.
