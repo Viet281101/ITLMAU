@@ -22,3 +22,6 @@
 [submodule "Semestre_6_L3/Développement_logiciels_libres/Projets/pixel-paint"]
 	path = Semestre_6_L3/Développement_logiciels_libres/Projets/pixel-paint
 	url = https://github.com/Viet281101/pixel-paint.git
+[submodule "Semestre_5_L3/Développement_mobile/MusicPlayerVirap"]
+	path = Semestre_5_L3/Développement_mobile/MusicPlayerVirap
+	url = https://github.com/Viet281101/MusicPlayerVirap.git
