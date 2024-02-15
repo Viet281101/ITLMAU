@@ -16,142 +16,142 @@ import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var title: EditText
-    private lateinit var text: EditText
-    private lateinit var save: ImageButton
-    private lateinit var open: ImageButton
-    private lateinit var delete: ImageButton
-    private lateinit var disconect: ImageButton
-    private lateinit var file: String
-    private lateinit var data: String
+	private lateinit var title: EditText
+	private lateinit var text: EditText
+	private lateinit var save: ImageButton
+	private lateinit var open: ImageButton
+	private lateinit var delete: ImageButton
+	private lateinit var disconect: ImageButton
+	private lateinit var file: String
+	private lateinit var data: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_main)
 
-        initiate()
-        toClick()
-    }
+		initiate()
+		toClick()
+	}
 
-    private fun initiate(){
-        this.title = findViewById(R.id.text_title)
-        this.text = findViewById(R.id.text)
-        this.save = findViewById(R.id.text_save)
-        this.open = findViewById(R.id.text_open)
-        this.delete = findViewById(R.id.text_delete)
-        this.disconect = findViewById(R.id.disconnect)
-    }
+	private fun initiate(){
+		this.title = findViewById(R.id.text_title)
+		this.text = findViewById(R.id.text)
+		this.save = findViewById(R.id.text_save)
+		this.open = findViewById(R.id.text_open)
+		this.delete = findViewById(R.id.text_delete)
+		this.disconect = findViewById(R.id.disconnect)
+	}
 
-    private fun toClick(){
-        this.save.setOnClickListener {
-            toSave() // sauvegarder dans la mémoire interne
-            /*if(isExternalStorageWritable()){ //sauvegarder dans la mémoire externe
-                toExternalSave()
-            }else{
-                Toast.makeText(this, "Vous n'avez pas d'espace de stockage externe!", Toast.LENGTH_SHORT).show()
-            }*/
-        }
-        this.open.setOnClickListener {
-            toOpen()
-        }
-        this.delete.setOnClickListener {
-            toDelete()
-        }
-        this.disconect.setOnClickListener {
-            finish()
-        }
-    }
+	private fun toClick(){
+		this.save.setOnClickListener {
+			toSave() // sauvegarder dans la mémoire interne
+			/*if(isExternalStorageWritable()){ //sauvegarder dans la mémoire externe
+				toExternalSave()
+			}else{
+				Toast.makeText(this, "Vous n'avez pas d'espace de stockage externe!", Toast.LENGTH_SHORT).show()
+			}*/
+		}
+		this.open.setOnClickListener {
+			toOpen()
+		}
+		this.delete.setOnClickListener {
+			toDelete()
+		}
+		this.disconect.setOnClickListener {
+			finish()
+		}
+	}
 
-    private fun toSave(){
-        this.file = this.title.text.toString()
-        this.data = this.text.text.toString()
-        val fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput(this.file, Context.MODE_PRIVATE)
-            fileOutputStream.write(this.data.toByteArray())
-        }
-        catch(e: FileNotFoundException){
-            e.printStackTrace()
-        }
-        catch (e: Exception){
-            e.printStackTrace()
-        }
-    }
+	private fun toSave(){
+		this.file = this.title.text.toString()
+		this.data = this.text.text.toString()
+		val fileOutputStream: FileOutputStream
+		try {
+			fileOutputStream = openFileOutput(this.file, Context.MODE_PRIVATE)
+			fileOutputStream.write(this.data.toByteArray())
+		}
+		catch(e: FileNotFoundException){
+			e.printStackTrace()
+		}
+		catch (e: Exception){
+			e.printStackTrace()
+		}
+	}
 
-    private fun toOpen(){
+	private fun toOpen(){
 
-        this.file = this.title.text.toString()
+		this.file = this.title.text.toString()
 
-        if(this.file.trim()!=""){
-            try {
-                var fileInputStream: FileInputStream? = null
-                fileInputStream = openFileInput(this.file)
+		if(this.file.trim()!=""){
+			try {
+				var fileInputStream: FileInputStream? = null
+				fileInputStream = openFileInput(this.file)
 
-                var inputStreamReader: InputStreamReader
-                inputStreamReader = InputStreamReader(fileInputStream)
+				var inputStreamReader: InputStreamReader
+				inputStreamReader = InputStreamReader(fileInputStream)
 
-                val bufferedReader: BufferedReader
-                bufferedReader = BufferedReader(inputStreamReader)
+				val bufferedReader: BufferedReader
+				bufferedReader = BufferedReader(inputStreamReader)
 
-                var stringBuilder: StringBuilder = StringBuilder()
-                var text: String? = null
+				var stringBuilder: StringBuilder = StringBuilder()
+				var text: String? = null
 
-                while ({ text = bufferedReader.readLine(); text }() != null) {
-                    stringBuilder.append(text)
-                }
+				while ({ text = bufferedReader.readLine(); text }() != null) {
+					stringBuilder.append(text)
+				}
 
-                this.text.setText(stringBuilder).toString()
+				this.text.setText(stringBuilder).toString()
 
-            }catch (e: FileNotFoundException){
+			}catch (e: FileNotFoundException){
 
-                e.printStackTrace()
-                Toast.makeText(this, "Ce fichier n'existe pas!", Toast.LENGTH_SHORT).show()
+				e.printStackTrace()
+				Toast.makeText(this, "Ce fichier n'existe pas!", Toast.LENGTH_SHORT).show()
 
-            }catch (e: Exception){
+			}catch (e: Exception){
 
-                e.printStackTrace()
+				e.printStackTrace()
 
-            }
-        }else{
+			}
+		}else{
 
-            Toast.makeText(this, "Choisir un nom de fichier!", Toast.LENGTH_SHORT).show()
+			Toast.makeText(this, "Choisir un nom de fichier!", Toast.LENGTH_SHORT).show()
 
-        }
-    }
+		}
+	}
 
-    private fun toDelete(){
+	private fun toDelete(){
 
-        this.file = this.title.text.toString()
+		this.file = this.title.text.toString()
 
-        if(this.file.trim()!="") {
+		if(this.file.trim()!="") {
 
-            try{
+			try{
 
-                deleteFile(this.file)
+				deleteFile(this.file)
 
-            }catch (e: FileNotFoundException){
-                e.printStackTrace()
-                Toast.makeText(this, "Ce fichier n'existe pas!", Toast.LENGTH_SHORT).show()
-            }catch (e: Exception){
-                e.printStackTrace()
-            }
+			}catch (e: FileNotFoundException){
+				e.printStackTrace()
+				Toast.makeText(this, "Ce fichier n'existe pas!", Toast.LENGTH_SHORT).show()
+			}catch (e: Exception){
+				e.printStackTrace()
+			}
 
-        }else{
+		}else{
 
-            Toast.makeText(this, "Choisir un fichier à supprimer!", Toast.LENGTH_SHORT).show()
+			Toast.makeText(this, "Choisir un fichier à supprimer!", Toast.LENGTH_SHORT).show()
 
-        }
-    }
+		}
+	}
 
-    private fun isExternalStorageWritable(): Boolean {
-        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-    }
+	private fun isExternalStorageWritable(): Boolean {
+		return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+	}
 
-    private fun toExternalSave(){
-        this.file = this.title.text.toString()
-        val externalFile = File(this.getExternalFilesDir(null), this.file)
-        externalFile.createNewFile()
-        externalFile.writeBytes(this.text.text.toString().toByteArray())
-    }
+	private fun toExternalSave(){
+		this.file = this.title.text.toString()
+		val externalFile = File(this.getExternalFilesDir(null), this.file)
+		externalFile.createNewFile()
+		externalFile.writeBytes(this.text.text.toString().toByteArray())
+	}
 
 }
