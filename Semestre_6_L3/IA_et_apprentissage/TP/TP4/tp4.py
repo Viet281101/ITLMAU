@@ -2,8 +2,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-### Read CSV files
+
 def read_csv(file_path):
+	""" Read a csv file """
 	data = []
 	with open(file_path, "r") as file:
 		for line in file:
@@ -13,14 +14,13 @@ def read_csv(file_path):
 
 
 
-
-
 def main():
 	data_path = "iris/iris_data.csv"
 	data = read_csv(data_path)
 
 	label_path = "iris/iris_label.csv"
 	labels = read_csv(label_path)
+
 
 
 if __name__ == "__main__":
