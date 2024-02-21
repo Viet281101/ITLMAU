@@ -3,7 +3,7 @@
 	url = https://github.com/Viet281101/PavagesPolyominosJS
 [submodule "Semestre_5_L3/Moteur_de_Jeux/Projet"]
 	path = Semestre_5_L3/Moteur_de_Jeux/Projet
-	url = https://github.com/Viet281101/CastlevaniaJS
+	url = https://github.com/Viet281101/CastlevaniaJS.git
 [submodule "Semestre_5_L3/Développement_mobile/Projet"]
 	path = Semestre_5_L3/Développement_mobile/Projet
 	url = https://github.com/Viet281101/MusicPlayerApp.git
