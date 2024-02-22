@@ -110,10 +110,10 @@ Implémentez-donc la fonction lpredict qui prend en argument un fichier de test 
 ```python
 lprediction = []
 for lg, model in lmodels_wc.items():
-            common_words = set(model).intersection(most_frequent_test)
-            common_wc = len(common_words)
-            lprediction.append([common_wc, lg])
-            lprediction = sorted(lprediction, reverse=True)[0][1]
+			common_words = set(model).intersection(most_frequent_test)
+			common_wc = len(common_words)
+			lprediction.append([common_wc, lg])
+			lprediction = sorted(lprediction, reverse=True)[0][1]
 ```
 
 À ce stade, la prédiction réalisée correspond au premier élément de la liste `lprediction`.
@@ -130,16 +130,16 @@ Créez ensuite une fonction `evaluate_wc_model` qui prend en paramètre une list
 
 ```python
 def evaluate(pred_results):
-    correct = 0
-    for language, predicted_language in pred_results:
-        results_dic.setdefault(langue, {"VP": int(), "FP": int(), "FN": int()})
-        results_dic.setdefault(langue_pred, {"VP": int(), "FP": int(), "FN": int()})
-        if langue == langue_pred:
-            results_dic[language]["VP"] += 1  # langue bien détectée
-            correct += 1
-        # TO FILL
-        
-    return dic_resultats, NB_bonnes_reponses
+	correct = 0
+	for language, predicted_language in pred_results:
+		results_dic.setdefault(langue, {"VP": int(), "FP": int(), "FN": int()})
+		results_dic.setdefault(langue_pred, {"VP": int(), "FP": int(), "FN": int()})
+		if langue == langue_pred:
+			results_dic[language]["VP"] += 1  # langue bien détectée
+			correct += 1
+		# TO FILL
+		
+	return dic_resultats, NB_bonnes_reponses
 ```
 
 Parmi les métriques vues en cours, utilisez celles qui vous paraissent les plus adaptées pour procéder à l'évaluation. Vous pourrez créer une nouvelle liste qui pour chaque langue renvoie la valeur obtenue pour chacune des métriques.
@@ -180,11 +180,11 @@ texts = {"appr":[], "test":[]}
 classes= {"appr":[], "test":[]}
 
 for path in glob.glob("corpus_multi/*/*/*")[:1500]:
-    _, lg, corpus, filename = re.split("/", path)
-    classes[corpus].append(lg)
-    with open(path, encoding="utf−8") as f:
-        fstring = f.read()
-        texts[corpus].append(fstring)
+	_, lg, corpus, filename = re.split("/", path)
+	classes[corpus].append(lg)
+	with open(path, encoding="utf−8") as f:
+		fstring = f.read()
+		texts[corpus].append(fstring)
 ```
 
 ### 2. Vectorisation données
