@@ -13,7 +13,7 @@
 //  "  -v, --verbose=LEVEL           1 - print moves, 2 and higher - draw boards.\n"
 //  "  -p, --pause=SECONDS           1 - sleep(1), 2 and more - sleep(2 and more).\n";
 
-#define DUMP_GTP_PIPES		1
+#define DUMP_GTP_PIPES		0
 
 class btp_server { // breakthrough text protocol server
   int server_is_up;
@@ -47,7 +47,7 @@ class btp_server { // breakthrough text protocol server
   
   array send_command(string command) {
 #if DUMP_GTP_PIPES
-    werror("[%s] %s\n", engine_name ? engine_name : "", command);
+    werror("[%s%s] %s\n", full_engine_name ? full_engine_name + ", " : "", command);
 #endif
     command = String.trim_all_whites(command);
     sscanf(command, "%[0-9]", string id);
@@ -76,11 +76,11 @@ class btp_server { // breakthrough text protocol server
       werror("%s\n", response);
 #endif
       if (response == "") {
-        if (result[0] < 0) {
-          werror("Warning, unrecognized response to command `%s':\n", command);
-          werror("%s\n", result[1]);
-        }
-        return result;
+	if (result[0] < 0) {
+	  werror("Warning, unrecognized response to command `%s':\n", command);
+	  werror("%s\n", result[1]);
+	}
+	return result;
       }
       result[1] += "\n" + response;
     }
@@ -97,13 +97,14 @@ class btp_server { // breakthrough text protocol server
   void move(string _movestr) {
     send_command("play " +_movestr);
   }
-  string get_extra() {
-    return send_command("extra")[1];
-  }
   void quit() {
     send_command("quit");
   }
 };
+
+#define ENDGAME_WHITE_WIN    0
+#define ENDGAME_BLACK_WIN    0
+#define ENDGAME_WHITE_WIN    0
 
 class btp_game {
   private btp_server p0;
@@ -204,7 +205,7 @@ class btp_game {
       board[i] = 'o';
   }
   void print_board() {
-    bool color_print = false;
+    bool color_print = true;
     if(color_print) {
       werror("nb_turn: %d   timers : \x1b[31m%.2f\x1b[0m : %.2f\n", 
 	     nb_turn, p0_remaining_time, p1_remaining_time);
@@ -262,16 +263,6 @@ class btp_game {
       if(board[i] == 'o') return true;
     for(int i = (board_nbl-1)*board_nbc; i < board_nbl*board_nbc; i++)
       if(board[i] == '@') return true;
-    int nb_white = 0;
-    int nb_black = 0;
-    for(int i = 0; i < board_nbl; i++) {
-      for(int j = 0; j < board_nbc; j++) {
-        if(board[i*board_nbc+j] == '@') nb_white++;
-        if(board[i*board_nbc+j] == 'o') nb_black++;
-      }
-    }
-    if(nb_white == 0) return true;
-    if(nb_black == 0) return true;
     return false;
   }
   int count_pawn_on_board() {
@@ -297,7 +288,6 @@ class btp_game {
     while(true) {
       if(verbose >= 1) print_board();
       array(int) Ti = System.gettimeofday();
-      if(verbose >= 2) werror("calling generate_move\n");
       p0_move = p0->generate_move();
       if(verbose >= 2) werror("P0_move received : "+p0_move+"\n");
       array(int) Tf = System.gettimeofday();
@@ -382,9 +372,6 @@ class btp_game {
       }
     }
   }
-  void game_stats() {
-    werror("game_length: "+p0->get_extra()+"\n");
-  }
   void finalize() {
     p0->quit(); p1->quit(); 
   }
@@ -394,8 +381,6 @@ void run_many_games(btp_game game, int _nb_games_to_play, int verbose) {
   game->nb_games = 0;
   for (int k = 0; k < _nb_games_to_play; k++) {
     game->play();
-    //werror("nb_turn: "+game->nb_turn+"\n");
-    //game->game_stats();
     if(game->p0_new_win == 1) {
       game->show_endgame();
       werror("================= player1 WIN\n");

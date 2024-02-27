@@ -1,0 +1,10 @@
+ ================
+  NB_GAMES_PER_SIDE 10
+  NBL 6
+  NBC 4
+
+  number of wins
+ ================
+    ./pwet is  3
+    ./rand_player is  0
+ ================

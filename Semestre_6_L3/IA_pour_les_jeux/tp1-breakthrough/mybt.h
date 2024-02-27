@@ -2,10 +2,14 @@
 #define MYBT_H
 #include <cstdio>
 #include <cstdlib>
+#include <chrono>
 #include <random>
+#include <vector>
 #define WHITE 0
 #define BLACK 1
 #define EMPTY 2
+#define INT_MIN -9999
+#define INT_MAX 9999
 char* cboard = (char*)"o@.";
 
 // print black in red (as bg is black... black is printed in red)
@@ -50,6 +54,17 @@ struct bt_move_t {
 // pieces captures only in diag
 // i.e. to go forward, square must be empty
 
+struct bt_state_t {
+  int board[MAX_LINES][MAX_COLS];
+    int turn;
+    bt_piece_t white_pieces[2*MAX_LINES];
+    int nb_white_pieces;
+    bt_piece_t black_pieces[2*MAX_LINES];
+    int nb_black_pieces;
+};
+
+std::vector<bt_state_t> history;
+
 struct bt_t {
   int nbl;
   int nbc;
@@ -85,20 +100,37 @@ struct bt_t {
   int endgame();
   double score(int _color);
   void playout(bool _log);
+  bool is_terminal();
+  void apply_move(bt_move_t _m);
       
   // déclarées mais non définies
   double eval();
+  void undo();
   bt_move_t minimax(double _sec);
   bt_move_t alphabeta(double _sec);
+  int minimax_depth(int turn, int depth, bool maximizingPlayer);
+  int alphabeta_depth(int turn, int depth, int alpha, int beta, bool maximizingPlayer);
   bt_move_t mcts(double _sec);
   bt_move_t mcts_ppa(double _sec);
   bt_move_t nmcs(double _sec);
   bt_move_t nrpa(double _sec);
 
+  void saveCurrentState();
+  void restoreLastState();
+
   void add_move(int _li, int _ci, int _lf, int _cf) {
     moves[nb_moves].line_i = _li; moves[nb_moves].col_i = _ci;
     moves[nb_moves].line_f = _lf; moves[nb_moves].col_f = _cf;
     nb_moves++;
+  }
+
+  std::vector<bt_move_t> get_possible_moves() {
+    std::vector<bt_move_t> possible_moves;
+    update_moves();
+    for(int i = 0; i < nb_moves; i++) {
+        possible_moves.push_back(moves[i]);
+    }
+    return possible_moves;
   }
 };
   
@@ -268,6 +300,7 @@ bool bt_t::can_play(bt_move_t _m) {
 }
 
 void bt_t::play(bt_move_t _m) {
+  saveCurrentState();
   int color_i = board[_m.line_i][_m.col_i];
   int color_f = board[_m.line_f][_m.col_f];
   board[_m.line_f][_m.col_f] = color_i;
@@ -343,6 +376,185 @@ void bt_t::playout(bool _log) {
     print_turn_and_moves(stderr);
   }
 }
+
+/// @brief une fonction heuristique pour la variante classique du jeu Breakthrough
+double bt_t::eval() {
+  int score = 0;
+  for(int i = 0; i < nbl; i++) {
+    for(int j = 0; j < nbc; j++) {
+      if(board[i][j] == WHITE) {
+        score += (nbl - i) * 2;
+        if(i > 0 && (board[i-1][j] == EMPTY || (j > 0 && board[i-1][j-1] == EMPTY) || (j < nbc-1 && board[i-1][j+1] == EMPTY)))
+          score += 5;
+      } else if(board[i][j] == BLACK) {
+        score -= (i + 1) * 2;
+        if(i < nbl-1 && (board[i+1][j] == EMPTY || (j > 0 && board[i+1][j-1] == EMPTY) || (j < nbc-1 && board[i+1][j+1] == EMPTY)))
+          score -= 5;
+      }
+    }
+  }
+  return score;
+}
+
+void bt_t::undo() {
+  restoreLastState();
+}
+
+void bt_t::saveCurrentState() {
+  bt_state_t current_state;
+  std::copy(&board[0][0], &board[0][0] + MAX_LINES*MAX_COLS, &current_state.board[0][0]);
+  current_state.turn = turn;
+  std::copy(&white_pieces[0], &white_pieces[0] + 2*MAX_LINES, &current_state.white_pieces[0]);
+  current_state.nb_white_pieces = nb_white_pieces;
+  std::copy(&black_pieces[0], &black_pieces[0] + 2*MAX_LINES, &current_state.black_pieces[0]);
+  current_state.nb_black_pieces = nb_black_pieces;
+
+  history.push_back(current_state);
+}
+
+void bt_t::restoreLastState() {
+  if (history.empty()) return;
+
+  bt_state_t last_state = history.back();
+  history.pop_back();
+
+  std::copy(&last_state.board[0][0], &last_state.board[0][0] + MAX_LINES*MAX_COLS, &board[0][0]);
+
+  turn = last_state.turn;
+  std::copy(&last_state.white_pieces[0], &last_state.white_pieces[0] + 2*MAX_LINES, &white_pieces[0]);
+  nb_white_pieces = last_state.nb_white_pieces;
+  std::copy(&last_state.black_pieces[0], &last_state.black_pieces[0] + 2*MAX_LINES, &black_pieces[0]);
+  nb_black_pieces = last_state.nb_black_pieces;
+
+  update_moves();
+}
+
+bool bt_t::is_terminal() {
+  return endgame() != EMPTY;
+}
+
+void bt_t::apply_move(bt_move_t move) {
+  int piece = board[move.line_i][move.col_i];
+  board[move.line_f][move.col_f] = piece;
+  board[move.line_i][move.col_i] = EMPTY;
+
+  if(piece == WHITE) {
+    for(int i = 0; i < nb_white_pieces; ++i) {
+      if(white_pieces[i].line == move.line_i && white_pieces[i].col == move.col_i) {
+        white_pieces[i].line = move.line_f;
+        white_pieces[i].col = move.col_f;
+        break;
+      }
+    }
+  } else {
+    for(int i = 0; i < nb_black_pieces; ++i) {
+      if(black_pieces[i].line == move.line_i && black_pieces[i].col == move.col_i) {
+        black_pieces[i].line = move.line_f;
+        black_pieces[i].col = move.col_f;
+        break;
+      }
+    }
+  }
+  turn++;
+  update_moves();
+}
+
+bt_move_t bt_t::minimax(double _sec) {
+  int bestScore = INT_MIN;
+  bt_move_t bestMove;
+  update_moves();
+  int score;
+  for (int i = 0; i < nb_moves; i++) {
+    bt_move_t move = moves[i];
+    play(move);
+    score = minimax_depth(turn, 3, false);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMove = move;
+    }
+    undo();
+  }
+  return bestMove;
+}
+int bt_t::minimax_depth(int turn, int depth, bool maximizingPlayer) {
+  if (depth == 0 || endgame() != EMPTY) {
+    return eval();
+  }
+  if (maximizingPlayer) {
+    int maxEval = INT_MIN;
+    update_moves();
+    for (int i = 0; i < nb_moves; i++) {
+      play(moves[i]);
+      int eval = minimax_depth(turn + 1, depth - 1, false);
+      maxEval = std::max(maxEval, eval);
+      undo();
+    }
+    return maxEval;
+  } else {
+    int minEval = INT_MAX;
+    update_moves();
+    for (int i = 0; i < nb_moves; i++) {
+      play(moves[i]);
+      int eval = minimax_depth(turn + 1, depth - 1, true);
+      minEval = std::min(minEval, eval);
+      undo();
+    }
+    return minEval;
+  }
+}
+
+bt_move_t bt_t::alphabeta(double _sec) {
+  int alpha = INT_MIN;
+  int beta = INT_MAX;
+  int bestScore = INT_MIN;
+  bt_move_t bestMove;
+  update_moves();
+  int score;
+  for (int i = 0; i < nb_moves; i++) {
+    bt_move_t move = moves[i];
+    play(move);
+    score = alphabeta_depth(turn, 3, alpha, beta, false);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMove = move;
+    }
+    undo();
+  }
+  return bestMove;
+}
+int bt_t::alphabeta_depth(int turn, int depth, int alpha, int beta, bool maximizingPlayer) {
+  if (depth == 0 || endgame() != EMPTY) {
+    return eval();
+  }
+  if (maximizingPlayer) {
+    int maxEval = INT_MIN;
+    update_moves();
+    for (int i = 0; i < nb_moves; i++) {
+      play(moves[i]);
+      int eval = alphabeta_depth(turn + 1, depth - 1, alpha, beta, false);
+      maxEval = std::max(maxEval, eval);
+      alpha = std::max(alpha, eval);
+      undo();
+      if (beta <= alpha)
+        break;
+    }
+    return maxEval;
+  } else {
+    int minEval = INT_MAX;
+    update_moves();
+    for (int i = 0; i < nb_moves; i++) {
+      play(moves[i]);
+      int eval = alphabeta_depth(turn + 1, depth - 1, alpha, beta, true);
+      minEval = std::min(minEval, eval);
+      beta = std::min(beta, eval);
+      undo();
+      if (beta <= alpha)
+        break;
+    }
+    return minEval;
+  }
+}
+
 
 
 #endif /* MYBT_H */

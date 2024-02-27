@@ -3,12 +3,19 @@
         "kind": "global"
     },
     "files.associations": {
+        "*.fs": "glsl",
+        "*.vs": "glsl",
+        "*.pike": "java",
         "heap.h": "c",
         "fifo.h": "c",
         "ima.h": "c",
         "limits.h": "c",
         "cstdlib": "c",
-        "game.h": "c"
+        "game.h": "c",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp"
     },
 
     "editor.tokenColorCustomizations": {
