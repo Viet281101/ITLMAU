@@ -1,7 +1,7 @@
 
 import re
 
-def doc_to_word_list(path):
+def doc_to_word_list(path) -> list:
 	'''
 	paramètre : chemin vers un corpus
 	returns : liste de liste 

@@ -1,7 +1,7 @@
 
 import numpy as np
 
-def doc_to_word_list(path):
+def doc_to_word_list(path) -> list:
 	'''
 	paramètre : chemin vers un corpus
 	returns : liste de liste 
@@ -15,24 +15,7 @@ def doc_to_word_list(path):
 	return lines
 
 
-def count_unigram_transitions(corpus):
-	'''
-	paramètre : corpus (séquence de séquence de tokens)
-	returns : dictionnaire à deux niveaux contenant pour chaque mot le nombre d'apparitions pour chaque mot suivant possible.
-	'''
-	transitions = {}
-	
-	for sentence in corpus:
-		for i in range(len(sentence)-1):
-			if sentence[i] not in transitions:
-				transitions[sentence[i]] = {}
-			if sentence[i+1] not in transitions[sentence[i]]:
-				transitions[sentence[i]][sentence[i+1]] = 0
-			transitions[sentence[i]][sentence[i+1]] += 1
-
-	return transitions
-
-def probabilify(comptes_transitions):
+def probabilify(comptes_transitions) -> dict:
 	'''
 	paramètre : dictionnaire de transitions
 	returns : dictionnaire à deux niveaux contenant pour chaque mot la probabilité d'apparition pour chaque mot suivant possible. 
@@ -46,7 +29,7 @@ def probabilify(comptes_transitions):
 	return probabilites
 
 
-def compter_transitions_bigrammes(corpus):
+def compter_transitions_bigrammes(corpus) -> dict:
 	transitions = {}
 	
 	for sentence in corpus:
@@ -65,7 +48,7 @@ corpus.extend(doc_to_word_list("proust/2998-0.txt"))
 compter_transitions_bigrammes(corpus)
 
 
-def chaine_markov_bigramme(corpus):
+def chaine_markov_bigramme(corpus) -> dict:
 	transitions = compter_transitions_bigrammes(corpus)
 	return probabilify(transitions)
 
@@ -76,7 +59,7 @@ ponctuation = [".", "!", "?", "…", ":", ";", ",", "(", ")", "[", "]", "{", "}"
 NB_MOTS_MAXI = 100
 
 
-def generate_bi(markov_chain, start_token):
+def generate_bi(markov_chain, start_token) -> str:
 	phrase = []
 	maximum = NB_MOTS_MAXI
 	token = start_token
@@ -97,7 +80,7 @@ print(generate_bi(markov_chain, "Si"))
 
 import random
 
-def generate_bi(markov_chain, start_token, n_best=1):
+def generate_bi(markov_chain, start_token, n_best=1) -> str:
 	phrase = []
 	maximum = NB_MOTS_MAXI
 	token = start_token
