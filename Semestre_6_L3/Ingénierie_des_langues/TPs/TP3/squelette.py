@@ -12,7 +12,7 @@ def load_model(json_file) -> dict[str, list[str]]:
 	with open(json_file, "r", encoding="utf−8") as f:
 		model = json.load(f)
 		return(model)
-			   
+
 
 files_list = glob.glob("corpus_multi/*/*/*")
 print("Nombre de fichiers : %i"%len(files_list))
@@ -33,7 +33,7 @@ def show_files(files_list) -> None:
 		print(chemin)
 		print(chemin.split("/"))
 		break
-	
+
 
 def read_file(chemin) -> str:
 	"""Reads a file and returns its content."""
@@ -102,7 +102,7 @@ def lpredict(test_file, lmodels_wc) -> str:
 	test_content = read_file(test_file)
 
 	most_frequent_test = get_most_frequent_words(test_content)
-	
+
 	lprediction = []
 	for lg, model in lmodels_wc.items():
 		common_words = set(model).intersection(most_frequent_test)
