@@ -2,6 +2,7 @@
 #define MYBT_H
 #include <cstdio>
 #include <cstdlib>
+#include <string>
 // values on the board
 #define WHITE 0
 #define BLACK 1
