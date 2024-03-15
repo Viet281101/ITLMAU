@@ -24,21 +24,21 @@
 
 
 class HMM:
-    def __init__(self, initial_prob, transition_prob, emission_prob):
-        self.tags = sorted(emission_prob.keys())
-        # à compléter
+	def __init__(self, initial_prob, transition_prob, emission_prob):
+		self.tags = sorted(emission_prob.keys())
+		# à compléter
 
-    def initial(self, tag):
-        # à compléter
-        pass
+	def initial(self, tag):
+		# à compléter
+		pass
 
-    def transition(self, tag_p, tag_c):
-        # à compléter
-        pass
+	def transition(self, tag_p, tag_c):
+		# à compléter
+		pass
 
-    def emission(self, tag, token):
-        # à compléter
-        pass
+	def emission(self, tag, token):
+		# à compléter
+		pass
 
 
 # # Exercice 1 : écrire l'algorithme de _décodage_ : l'algorithme de Viterbi
@@ -59,20 +59,20 @@ class HMM:
 exo1_initial = {"DET": 1.0}
 
 exo1_transition = {
-    "ADJ": {"NOUN": 1.0},
-    "CLO": {"VERB": 1.0},
-    "CLS": {"VERB": 1.0},
-    "DET": {"NOUN": 0.8, "ADJ": 0.2},
-    "NOUN": {"CLO": 0.5, "VERB": 0.5},
-    "VERB": {"DET": 1.0}
+	"ADJ": {"NOUN": 1.0},
+	"CLO": {"VERB": 1.0},
+	"CLS": {"VERB": 1.0},
+	"DET": {"NOUN": 0.8, "ADJ": 0.2},
+	"NOUN": {"CLO": 0.5, "VERB": 0.5},
+	"VERB": {"DET": 1.0}
 }
 
 exo1_emission = {
-    "ADJ" : {"belle": 1.0},
-    "DET" : {"le": 0.6, "la": 0.4},
-    "NOUN": {"belle": 0.1, "porte": 0.8, "voile": 0.1},
-    "VERB": {"porte": 0.6, "voile": 0.4},
-    "CLO" : {"le": 1.0}
+	"ADJ" : {"belle": 1.0},
+	"DET" : {"le": 0.6, "la": 0.4},
+	"NOUN": {"belle": 0.1, "porte": 0.8, "voile": 0.1},
+	"VERB": {"porte": 0.6, "voile": 0.4},
+	"CLO" : {"le": 1.0}
 }
 
 
@@ -107,15 +107,15 @@ assert exo1_hmm.emission("DET", "les") == 0.0, exo1_hmm.emission("DET", "les")
 
 
 def initials(hmm, token):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 assert initials(exo1_hmm, "la") == {
-    'ADJ': {'probabilité': 0.0, 'depuis': None},
-    'CLO': {'probabilité': 0.0, 'depuis': None},
-    'DET': {'probabilité': 0.4, 'depuis': None},
-    'NOUN': {'probabilité': 0.0, 'depuis': None},
-    'VERB': {'probabilité': 0.0, 'depuis': None}
+	'ADJ': {'probabilité': 0.0, 'depuis': None},
+	'CLO': {'probabilité': 0.0, 'depuis': None},
+	'DET': {'probabilité': 0.4, 'depuis': None},
+	'NOUN': {'probabilité': 0.0, 'depuis': None},
+	'VERB': {'probabilité': 0.0, 'depuis': None}
 }, initials(exo1_hmm, "la")
 
 
@@ -133,12 +133,12 @@ assert initials(exo1_hmm, "la") == {
 
 
 def best_transition_to(hmm, probas_preced, etiquette, token):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 avant = initials(exo1_hmm, "la")
 assert (
-    best_transition_to(exo1_hmm, avant, "ADJ", "belle") == {'probabilité': 0.08000000000000002, 'depuis': 'DET'}
+	best_transition_to(exo1_hmm, avant, "ADJ", "belle") == {'probabilité': 0.08000000000000002, 'depuis': 'DET'}
 ), best_transition_to(exo1_hmm, avant, "ADJ", "belle")
 
 
@@ -152,16 +152,16 @@ assert (
 
 
 def best_transitions(hmm, probas_preced, token):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 avant = initials(exo1_hmm, "la")
 assert best_transitions(exo1_hmm, avant, "belle") == {
-    'ADJ': {'probabilité': 0.08000000000000002, 'depuis': 'DET'},
-    'CLO': {'probabilité': 0.0, 'depuis': 'ADJ'},
-    'DET': {'probabilité': 0.0, 'depuis': 'ADJ'},
-    'NOUN': {'probabilité': 0.03200000000000001, 'depuis': 'DET'},
-    'VERB': {'probabilité': 0.0, 'depuis': 'ADJ'}
+	'ADJ': {'probabilité': 0.08000000000000002, 'depuis': 'DET'},
+	'CLO': {'probabilité': 0.0, 'depuis': 'ADJ'},
+	'DET': {'probabilité': 0.0, 'depuis': 'ADJ'},
+	'NOUN': {'probabilité': 0.03200000000000001, 'depuis': 'DET'},
+	'VERB': {'probabilité': 0.0, 'depuis': 'ADJ'}
 }
 
 
@@ -185,13 +185,13 @@ assert best_transitions(exo1_hmm, avant, "belle") == {
 
 
 def viterbi_matrix(hmm, words):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 matrix = viterbi_matrix(exo1_hmm, ["la", "belle", "porte", "le", "voile"])
 
 def non_zeroes(d):
-    return {tag: value for tag, value in d.items() if value["probabilité"] != 0}
+	return {tag: value for tag, value in d.items() if value["probabilité"] != 0}
 
 assert non_zeroes(matrix[0]) == {'DET': {'probabilité': 0.4, 'depuis': None}}, non_zeroes(matrix[0])
 assert non_zeroes(matrix[1]) == {'ADJ': {'probabilité': 0.08000000000000002, 'depuis': 'DET'}, 'NOUN': {'probabilité': 0.03200000000000001, 'depuis': 'DET'}}, non_zeroes(matrix[1])
@@ -213,8 +213,8 @@ assert non_zeroes(matrix[4]) == {'NOUN': {'probabilité': 0.00046080000000000014
 
 
 def viterbi(hmm, sentence):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 tags, prob = viterbi(exo1_hmm, ["la", "belle", "porte", "le", "voile"])
 assert tags == ['DET', 'ADJ', 'NOUN', 'CLO', 'VERB'], tags
@@ -245,8 +245,8 @@ assert prob == 0.012800000000000004, prob
 
 
 def lire(path):
-    # à compléter
-    pass
+	# à compléter
+	pass
 
 sent = lire("test_lire.txt")
 assert sent == [[['Que', 'SCONJ'], ['la', 'DET'], ['lumière', 'NOUN'], ['soit', 'VERB'], ['!', 'PUNCT']]], sent
@@ -258,17 +258,17 @@ assert sent == [[['Que', 'SCONJ'], ['la', 'DET'], ['lumière', 'NOUN'], ['soit',
 
 
 def depuis_corpus(corpus):
-    initials = {}
-    emissions = {}
-    transitions = {}
+	initials = {}
+	emissions = {}
+	transitions = {}
 
-    # comptage depuis le corpus
-    # à compléter
+	# comptage depuis le corpus
+	# à compléter
 
-    # transformation des comptes en probabilités
-    # à compléter
+	# transformation des comptes en probabilités
+	# à compléter
 
-    return HMM(initials, transitions, emissions)
+	return HMM(initials, transitions, emissions)
 
 
 # ## b. Tester le HMM
@@ -298,11 +298,11 @@ dev = lire("sequoia/fr_sequoia-ud-dev.line.txt")
 total = 0
 correct = 0
 for sentence in dev:
-    tokens = [token for token, tag in sentence]
-    gold = [tag for token, tag in sentence]
-    total += len(sentence)
-    guess, prob = viterbi(my_hmm, tokens)
-    correct += sum(guess[i] == gold[i] for i in range(len(gold)))
+	tokens = [token for token, tag in sentence]
+	gold = [tag for token, tag in sentence]
+	total += len(sentence)
+	guess, prob = viterbi(my_hmm, tokens)
+	correct += sum(guess[i] == gold[i] for i in range(len(gold)))
 print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct / total, "%")
 
 
@@ -327,21 +327,21 @@ print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct 
 
 
 class HMM:
-    def __init__(self, initial_prob, transition_prob, emission_prob, backoff):
-        self.tags = sorted(emission_prob.keys())
-        # à compléter
+	def __init__(self, initial_prob, transition_prob, emission_prob, backoff):
+		self.tags = sorted(emission_prob.keys())
+		# à compléter
 
-    def initial(self, tag):
-        # à compléter
-        pass
+	def initial(self, tag):
+		# à compléter
+		pass
 
-    def transition(self, tag_p, tag_c):
-        # à compléter
-        pass
+	def transition(self, tag_p, tag_c):
+		# à compléter
+		pass
 
-    def emission(self, tag, token):
-        # à compléter
-        pass
+	def emission(self, tag, token):
+		# à compléter
+		pass
 
 
 # Ajoutez ensuite le calcul de la probabilité `backoff` à la fonction `depuis_corpus`
@@ -349,20 +349,20 @@ class HMM:
 
 
 def depuis_corpus(corpus):
-    initials = {}
-    emissions = {}
-    transitions = {}
+	initials = {}
+	emissions = {}
+	transitions = {}
 
-    # comptage depuis le corpus
-    # à compléter
+	# comptage depuis le corpus
+	# à compléter
 
-    # calcul du backoff
-    # à compléter
+	# calcul du backoff
+	# à compléter
 
-    # transformation des comptes en probabilités
-    # à compléter
+	# transformation des comptes en probabilités
+	# à compléter
 
-    return HMM(initials, transitions, emissions, backoff)
+	return HMM(initials, transitions, emissions, backoff)
 
 
 
@@ -374,11 +374,11 @@ my_hmm = depuis_corpus(train)
 total = 0
 correct = 0
 for sentence in dev:
-    tokens = [token for token, tag in sentence]
-    gold = [tag for token, tag in sentence]
-    total += len(sentence)
-    guess, prob = viterbi(my_hmm, tokens)
-    correct += sum(guess[i] == gold[i] for i in range(len(gold)))
+	tokens = [token for token, tag in sentence]
+	gold = [tag for token, tag in sentence]
+	total += len(sentence)
+	guess, prob = viterbi(my_hmm, tokens)
+	correct += sum(guess[i] == gold[i] for i in range(len(gold)))
 print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct / total, "%")
 
 

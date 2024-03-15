@@ -35,7 +35,7 @@ class HMM:
 
 ```
 
-## Exercice 1 : écrire l'algorithme de décodage : l'algorithme de Viterbi
+## Exercice 1 : écrire l'algorithme de _décodage_ : l'algorithme de Viterbi
 
 Pour un HMM, on appelle _décodage_ le processus de retrouver, pour une séquence d'observations donnée, la séquence d'états cachés qui a servi à les générer la plus probable.
 
