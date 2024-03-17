@@ -2,10 +2,13 @@
 #define MYBT_H
 #include <cstdio>
 #include <cstdlib>
+#include <math.h>
+
+#include <string.h>
+#include <iostream>
 #include <string>
-#include <chrono>
-#include <random>
-#include <vector>
+#include <chrono> 
+#include<vector>
 // values on the board
 #define WHITE 0
 #define BLACK 1
@@ -16,7 +19,7 @@
 // EMPTY when the game is not finished
 // DRAW when both players win with simultaneous moves variant
 #define DRAW 4
-using namespace std;
+
 char* cboard = (char*)"o@.?";
 
 // print black in red (as bg is black... black is printed in red)
@@ -51,15 +54,6 @@ struct bt_move_t {
   }
 };
 
-typedef struct node {
-  bt_move_t move;
-  int wins;
-  node *parent;
-  vector<node *> children;
-  int visit;
-  int getN() { return visit; }
-} Node;
-
 // alloc default 10x10
 // standard game in 8x8
 #define MAX_LINES 10
@@ -69,6 +63,24 @@ typedef struct node {
 // pieces moves from 1 square in diag and in front
 // pieces captures only in diag
 // i.e. to go forward, square must be empty
+/*
+struct MCTSNode {
+  bt_t board;
+  std::vector<MCTSNode*> children;
+  int wins;
+  int visits;
+
+  MCTSNode(bt_t board) : board(board), wins(0), visits(0) {}
+
+  bt_move_t bt_t::mcts(double time_limit);
+  MCTSNode* bt_t::mcts_selection(MCTSNode* node);
+  void bt_t::mcts_expansion(MCTSNode* node);
+  bool bt_t::mcts_simulation();
+  void bt_t::mcts_backpropagation(MCTSNode* node, bool result);
+};
+*/
+struct MCTSNode; // forward declare
+
 struct bt_t {
   int nbl;
   int nbc;
@@ -77,7 +89,14 @@ struct bt_t {
   int classic_or_misere;
   int alternate_or_simultaneous;
   int fullinfo_or_dark_or_blind;
-
+    bt_move_t mcts(bt_t& board, double time_limit);
+  MCTSNode* mcts_selection(MCTSNode* node, bt_t& board);
+  void mcts_expansion(MCTSNode* node);
+  bool mcts_simulation(bt_t& board);
+  void mcts_backpropagation(MCTSNode* node, bool result);
+  int winner(bt_t& board);
+  
+  
   bt_piece_t white_pieces[2*MAX_LINES];
   int nb_white_pieces;
   bt_piece_t black_pieces[2*MAX_LINES];
@@ -97,7 +116,7 @@ struct bt_t {
   void print_board(FILE* _fp);
   void get_board(char _ret[128]);
   void get_board(int _side, char _ret[128]);
-
+ // void get_move();
   void print_turn_and_moves(FILE* _fp);
   void update_moves();
   void update_moves(int _color);
@@ -109,7 +128,6 @@ struct bt_t {
   bool black_can_move_forward(int _line, int _col);
   bool black_can_move_left(int _line, int _col);
 
-  bt_move_t mcts(double milli);
   bt_move_t get_rand_move();
   bt_move_t get_rand_move(int _color);
 
@@ -133,12 +151,22 @@ struct bt_t {
     nb_moves++;
   }
 };
+extern bt_move_t mcts(bt_t& board, double time_limit);
+extern MCTSNode* mcts_selection(MCTSNode* node, bt_t& board);  
+extern void mcts_expansion(MCTSNode* node);
+extern bool mcts_simulation(bt_t& board);
+extern void mcts_backpropagation(MCTSNode* node, bool result);
 
-struct Result {
+struct MCTSNode {
   bt_t board;
-  Node *noeud;
+  std::vector<MCTSNode*> children;
+  int wins;
+  int visits;
+  MCTSNode* parent;
+
+  MCTSNode(bt_t board) : board(board), wins(0), visits(0) {}
 };
-  
+ 
 void bt_t::init(int _nbl, int _nbc) {
   if(_nbl > MAX_LINES || _nbc > MAX_COLS) {
     fprintf(stderr, "ERROR : MAX_LINES or MAX_COLS exceeded\n");
@@ -173,6 +201,35 @@ void bt_t::set_alt_or_sim(int _v) {
 void bt_t::set_fullinfo_or_dark_or_blind(int _v) {
   fullinfo_or_dark_or_blind = _v;
 }
+
+
+/*
+void get move
+for  mcts
+copy du board
+appel trois fois eval en dehors de get_move
+
+
+
+--- 
+
+playout puis mcts
+
+
+montré au tableau :
+
+test_playout(){o
+	for 3
+	afficer br
+	
+*/
+
+
+
+
+
+
+
 void bt_t::init_pieces() {
   nb_white_pieces = 0;
   nb_black_pieces = 0;
@@ -307,7 +364,7 @@ void bt_t::get_board(int _side, char _ret[128]) {
       c_side = 'o';
     }
     int where = 0;
-    for(int i = 0; i < nbl; i++) {
+    for(int i = 0; i < nbl; i++){
       for(int j = 0; j < nbc; j++) {
         if(board[i][j] == _side) {
           _ret[where] = c_side;
@@ -325,6 +382,10 @@ void bt_t::print_turn_and_moves(FILE* _fp = stderr) {
   }
   fprintf(_fp, "\n");
 }
+
+
+
+
 void bt_t::update_moves() {
   if(turn%2 == 0) update_moves(WHITE);
   else update_moves(BLACK);

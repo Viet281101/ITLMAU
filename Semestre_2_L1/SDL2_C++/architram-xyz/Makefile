@@ -25,10 +25,10 @@ all: $(BUILDDIR)/$(TARGET)
 
 $(BUILDDIR)/$(TARGET): $(OBJECTS)
     @mkdir -p $(BUILDDIR)
-    $(CXX) $(OBJECTS) $(INCLUDES) $(LIBS) -o $(BUILDDIR)/$(TARGET)
+    $(C) $(OBJECTS) $(INCLUDES) $(LIBS) -o $(BUILDDIR)/$(TARGET)
 
-.cpp.o:
-    $(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+.c.o:
+    $(C) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean: 
     rm -rf $(BUILDDIR)/*

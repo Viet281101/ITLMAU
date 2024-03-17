@@ -15,7 +15,8 @@
         "*.tcc": "cpp",
         "unordered_map": "cpp",
         "fstream": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "vector": "cpp"
     },
 
     "editor.tokenColorCustomizations": {
