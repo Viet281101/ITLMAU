@@ -117,11 +117,11 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named adventure14
+# Target rules for targets named adventure
 
 # Build rule for target.
 adventure14: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 adventure14
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 adventure
 .PHONY : adventure14
 
 # fast build rule for target.
