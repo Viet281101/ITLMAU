@@ -95,7 +95,7 @@ static void draw(void) {
   /* avance vers z positifs */
   gl4duTranslatef(0.0f, 0.0f, 2.0f);
   /* faire une rotation autour de l'axe y */
-  gl4duRotatef(-30.0f + 45.0f * cos(M_PI * angle / 180.0), 1.0f, 0.0f, 0.0f);
+  //gl4duRotatef(angle, 0.0f, 1.0f, 0.0f);
 
   //gl4duScalef(1.0f, 1.0, 1.0f);
   /* Envoyer, au shader courant, toutes les matrices connues dans

@@ -65,7 +65,6 @@ static void init(void) {
 }
 /*!\brief Cette fonction dessine dans le contexte OpenGL actif. */
 static void draw(void) {
-  static float angle = 0.0f;
   static double t0 = 0;
   double t = gl4dGetElapsedTime(), dt = (t - t0) / 1000.0;
   t0 = t;
@@ -86,18 +85,12 @@ static void draw(void) {
   /* Composer la matrice vue courante en simulant une "caméra" à
    * l'aide de la fonction LookAt(xyz_position_cam,
    * xyz_ou_elle_regarde, xyz_son_vecteur_haut) */
-  gl4duLookAtf(0, 3, 6, 0, 0, 0, 0, 1, 0);
+  gl4duLookAtf(3, 3, 6, 0, 0, 0, 0, 1, 0);
   /* lier (mettre en avant ou "courante") la matrice modèle créée dans
    * init */
   gl4duBindMatrix("modelMatrix");
   /* Charger la matrice identité dans la matrice courante (liée) */
   gl4duLoadIdentityf();
-  /* avance vers z positifs */
-  gl4duTranslatef(0.0f, 0.0f, 2.0f);
-  /* faire une rotation autour de l'axe y */
-  gl4duRotatef(-30.0f + 45.0f * cos(M_PI * angle / 180.0), 1.0f, 0.0f, 0.0f);
-
-  //gl4duScalef(1.0f, 1.0, 1.0f);
   /* Envoyer, au shader courant, toutes les matrices connues dans
    * GL4Dummies, ici on intègre pas la rotation qui vient après */
   gl4duSendMatrices();
@@ -108,9 +101,6 @@ static void draw(void) {
   gl4dgDraw(_quadId);
   /* désactiver le programme shader */
   glUseProgram(0);
-
-  /* un tour par seconde */
-  angle += 72.0f * dt;
 }
 /*!\brief appelée au moment de sortir du programme (atexit), elle
  *  libère les éléments OpenGL utilisés.*/
