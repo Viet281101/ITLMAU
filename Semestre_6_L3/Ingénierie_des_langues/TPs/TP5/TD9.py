@@ -254,9 +254,14 @@ def viterbi(hmm, sentence):
 		if info["probabilité"] > max_prob:
 			max_prob = info["probabilité"]
 			max_tag = tag
+	if max_tag is None:
+		max_tag = 'NOUN'
 	sequence = [max_tag]
 	for i in range(len(sentence) - 2, -1, -1):
-		sequence.insert(0, matrix[i + 1][sequence[0]]['depuis'])
+		prev_tag = matrix[i + 1][sequence[0]]['depuis']
+		if prev_tag is None:
+			prev_tag = sequence[0]
+		sequence.insert(0, prev_tag)
 	return sequence, max_prob
 
 tags, prob = viterbi(exo1_hmm, ["la", "belle", "porte", "le", "voile"])
@@ -288,8 +293,14 @@ assert prob == 0.012800000000000004, prob
 
 
 def lire(path):
-	# à compléter
-	pass
+	sentences = []
+	with open(path, 'r', encoding='utf-8') as file:
+		for line in file:
+			if line.strip():
+				tokens = line.strip().split()
+				sentence = [token.split('/') for token in tokens]
+				sentences.append(sentence)
+	return sentences
 
 sent = lire("test_lire.txt")
 assert sent == [[['Que', 'SCONJ'], ['la', 'DET'], ['lumière', 'NOUN'], ['soit', 'VERB'], ['!', 'PUNCT']]], sent
@@ -305,11 +316,43 @@ def depuis_corpus(corpus):
 	emissions = {}
 	transitions = {}
 
-	# comptage depuis le corpus
-	# à compléter
+	total_initials = 0
+	total_transitions = {}
 
-	# transformation des comptes en probabilités
-	# à compléter
+	for sentence in corpus:
+		for i, token in enumerate(sentence):
+			try:
+				word, tag = token
+			except ValueError:
+				print(f"Erreur de format pour le token: {token} dans la phrase: {sentence}")
+				continue
+
+			if i == 0:
+				initials[tag] = initials.get(tag, 0) + 1
+				total_initials += 1
+
+			if tag not in emissions:
+				emissions[tag] = {}
+			emissions[tag][word] = emissions[tag].get(word, 0) + 1
+
+			if i > 0:
+				prev_tag = sentence[i-1][1]
+				if prev_tag not in transitions:
+					transitions[prev_tag] = {}
+					total_transitions[prev_tag] = 0
+				transitions[prev_tag][tag] = transitions[prev_tag].get(tag, 0) + 1
+				total_transitions[prev_tag] += 1
+
+	for tag in initials:
+		initials[tag] = initials[tag] / total_initials
+	for tag in emissions:
+		total = sum(emissions[tag].values())
+		for word in emissions[tag]:
+			emissions[tag][word] = emissions[tag][word] / total
+	for tag in transitions:
+		total = sum(transitions[tag].values())
+		for next_tag in transitions[tag]:
+			transitions[tag][next_tag] = transitions[tag][next_tag] / total
 
 	return HMM(initials, transitions, emissions)
 
@@ -341,12 +384,23 @@ dev = lire("sequoia/fr_sequoia-ud-dev.line.txt")
 total = 0
 correct = 0
 for sentence in dev:
-	tokens = [token for token, tag in sentence]
-	gold = [tag for token, tag in sentence]
-	total += len(sentence)
-	guess, prob = viterbi(my_hmm, tokens)
-	correct += sum(guess[i] == gold[i] for i in range(len(gold)))
-print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct / total, "%")
+	tokens = []
+	gold = []
+	for item in sentence:
+		if len(item) == 2:
+			token, tag = item
+			tokens.append(token)
+			gold.append(tag)
+		else:
+			print(f"Skipping malformatted token: {item} in sentence: {sentence}")
+			break
+
+	if len(tokens) == len(sentence):
+		total += len(sentence)
+		guess, prob = viterbi(my_hmm, tokens)
+		correct += sum(guess[i] == gold[i] for i in range(len(gold)))
+
+print("L'accuracy du HMM sur le corpus de développement est de :", 100 * correct / total, "%")
 
 
 # L'accuracy de votre HMM devrait avoisiner 45%. Ce n'est pas très convainquant...
@@ -371,20 +425,19 @@ print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct 
 
 class HMM:
 	def __init__(self, initial_prob, transition_prob, emission_prob, backoff):
-		self.tags = sorted(emission_prob.keys())
-		# à compléter
+		self.initial_prob = initial_prob
+		self.transition_prob = transition_prob
+		self.emission_prob = emission_prob
+		self.backoff = backoff
 
 	def initial(self, tag):
-		# à compléter
-		pass
+		return self.initial_prob.get(tag, 0.0)
 
 	def transition(self, tag_p, tag_c):
-		# à compléter
-		pass
+		return self.transition_prob.get(tag_p, {}).get(tag_c, 0.0)
 
 	def emission(self, tag, token):
-		# à compléter
-		pass
+		return self.emission_prob.get(tag, {}).get(token, self.backoff)
 
 
 # Ajoutez ensuite le calcul de la probabilité `backoff` à la fonction `depuis_corpus`
@@ -395,18 +448,47 @@ def depuis_corpus(corpus):
 	initials = {}
 	emissions = {}
 	transitions = {}
+	n = 0
+	vocabulaire = set()
 
-	# comptage depuis le corpus
-	# à compléter
+	for sentence in corpus:
+		for item in sentence:
+			if len(item) == 2:
+				word, tag = item
+				n += 1
+				vocabulaire.add(word)
 
-	# calcul du backoff
-	# à compléter
+				if sentence.index(item) == 0:
+					initials[tag] = initials.get(tag, 0) + 1
+				
+				if tag not in emissions:
+					emissions[tag] = {}
+				emissions[tag][word] = emissions[tag].get(word, 0) + 1
+				
+				if sentence.index(item) > 0:
+					prev_tag = sentence[sentence.index(item)-1][1]
+					if prev_tag not in transitions:
+						transitions[prev_tag] = {}
+					transitions[prev_tag][tag] = transitions[prev_tag].get(tag, 0) + 1
+			else:
+				print(f"Skipping malformatted token: {item} in sentence: {sentence}")
+				continue
 
-	# transformation des comptes en probabilités
-	# à compléter
+	V = len(vocabulaire) + len(emissions)
+	backoff = 1 / (n + V)
+
+	for tag in initials:
+		initials[tag] = initials[tag] / sum(initials.values())
+	for tag in emissions:
+		total = sum(emissions[tag].values())
+		for word in emissions[tag]:
+			emissions[tag][word] = emissions[tag][word] / total
+	for tag in transitions:
+		total = sum(transitions[tag].values())
+		for next_tag in transitions[tag]:
+			transitions[tag][next_tag] = transitions[tag][next_tag] / total
 
 	return HMM(initials, transitions, emissions, backoff)
-
 
 
 
@@ -417,13 +499,19 @@ my_hmm = depuis_corpus(train)
 total = 0
 correct = 0
 for sentence in dev:
-	tokens = [token for token, tag in sentence]
-	gold = [tag for token, tag in sentence]
-	total += len(sentence)
+	filtered_sentence = [item for item in sentence if len(item) == 2]
+	tokens = [token for token, tag in filtered_sentence]
+	gold = [tag for token, tag in filtered_sentence]
+	if not tokens:
+		continue
+	total += len(filtered_sentence)
 	guess, prob = viterbi(my_hmm, tokens)
 	correct += sum(guess[i] == gold[i] for i in range(len(gold)))
-print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct / total, "%")
 
+if total > 0:
+	print("L'accuracy du HMM sur le corpus de développement est de :", 100*correct / total, "%")
+else:
+	print("Aucune donnée valide pour calculer l'accuracy.")
 
 # Vous devriez à présent atteindre approximativement 93% d'accuracy ! C'est déjà plus convainquant !
 # 
