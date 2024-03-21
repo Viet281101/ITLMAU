@@ -25,20 +25,24 @@
 
 class HMM:
 	def __init__(self, initial_prob, transition_prob, emission_prob):
-		self.tags = sorted(emission_prob.keys())
-		# à compléter
+		self.initial_prob = initial_prob
+		self.transition_prob = transition_prob
+		self.emission_prob = emission_prob
 
 	def initial(self, tag):
-		# à compléter
-		pass
+		return self.initial_prob.get(tag, 0.0)
 
 	def transition(self, tag_p, tag_c):
-		# à compléter
-		pass
+		if tag_p in self.transition_prob and tag_c in self.transition_prob[tag_p]:
+			return self.transition_prob[tag_p][tag_c]
+		else:
+			return 0.0
 
 	def emission(self, tag, token):
-		# à compléter
-		pass
+		if tag in self.emission_prob and token in self.emission_prob[tag]:
+			return self.emission_prob[tag][token]
+		else:
+			return 0.0
 
 
 # # Exercice 1 : écrire l'algorithme de _décodage_ : l'algorithme de Viterbi
@@ -107,8 +111,11 @@ assert exo1_hmm.emission("DET", "les") == 0.0, exo1_hmm.emission("DET", "les")
 
 
 def initials(hmm, token):
-	# à compléter
-	pass
+	initial_probs = {}
+	for tag in hmm.emission_prob:
+		prob = hmm.initial(tag) * hmm.emission(tag, token)
+		initial_probs[tag] = {'probabilité': prob, 'depuis': None}
+	return initial_probs
 
 assert initials(exo1_hmm, "la") == {
 	'ADJ': {'probabilité': 0.0, 'depuis': None},
@@ -133,8 +140,19 @@ assert initials(exo1_hmm, "la") == {
 
 
 def best_transition_to(hmm, probas_preced, etiquette, token):
-	# à compléter
-	pass
+	meilleure_prob = 0
+	meilleure_etiquette = None
+	for etiqu_prec, val in probas_preced.items():
+
+		prob_transition = hmm.transition(etiqu_prec, etiquette)
+
+		prob_totale = prob_transition * val['probabilité']
+
+		if prob_totale > meilleure_prob:
+			meilleure_prob = prob_totale
+			meilleure_etiquette = etiqu_prec
+	meilleure_prob *= hmm.emission(etiquette, token)
+	return {'probabilité': meilleure_prob, 'depuis': meilleure_etiquette}
 
 avant = initials(exo1_hmm, "la")
 assert (
@@ -152,17 +170,29 @@ assert (
 
 
 def best_transitions(hmm, probas_preced, token):
-	# à compléter
-	pass
+	meilleures_transitions = {}
+	for etiquette in hmm.emission_prob:
+		meilleure_prob = 0
+		meilleure_etiquette_prec = None
+		for etiqu_prec, val in probas_preced.items():
+			prob_transition = hmm.transition(etiqu_prec, etiquette)
+			prob_totale = prob_transition * val['probabilité']
+			if prob_totale > meilleure_prob:
+				meilleure_prob = prob_totale
+				meilleure_etiquette_prec = etiqu_prec
+
+		meilleure_prob *= hmm.emission(etiquette, token)
+		meilleures_transitions[etiquette] = {'probabilité': meilleure_prob, 'depuis': meilleure_etiquette_prec}
+	return meilleures_transitions
 
 avant = initials(exo1_hmm, "la")
 assert best_transitions(exo1_hmm, avant, "belle") == {
 	'ADJ': {'probabilité': 0.08000000000000002, 'depuis': 'DET'},
-	'CLO': {'probabilité': 0.0, 'depuis': 'ADJ'},
-	'DET': {'probabilité': 0.0, 'depuis': 'ADJ'},
+	'CLO': {'probabilité': 0.0, 'depuis': None},
+	'DET': {'probabilité': 0.0, 'depuis': None},
 	'NOUN': {'probabilité': 0.03200000000000001, 'depuis': 'DET'},
-	'VERB': {'probabilité': 0.0, 'depuis': 'ADJ'}
-}
+	'VERB': {'probabilité': 0.0, 'depuis': None}
+}, best_transitions(exo1_hmm, avant, "belle")
 
 
 # ## d. Construire la matrice de Viterbi
@@ -185,8 +215,11 @@ assert best_transitions(exo1_hmm, avant, "belle") == {
 
 
 def viterbi_matrix(hmm, words):
-	# à compléter
-	pass
+	viterbi = [initials(hmm, words[0])]
+	for word in words[1:]:
+		current_probs = best_transitions(hmm, viterbi[-1], word)
+		viterbi.append(current_probs)
+	return viterbi
 
 matrix = viterbi_matrix(exo1_hmm, ["la", "belle", "porte", "le", "voile"])
 
@@ -213,8 +246,18 @@ assert non_zeroes(matrix[4]) == {'NOUN': {'probabilité': 0.00046080000000000014
 
 
 def viterbi(hmm, sentence):
-	# à compléter
-	pass
+	matrix = viterbi_matrix(hmm, sentence)
+	last_word_probs = matrix[-1]
+	max_prob = 0
+	max_tag = None
+	for tag, info in last_word_probs.items():
+		if info["probabilité"] > max_prob:
+			max_prob = info["probabilité"]
+			max_tag = tag
+	sequence = [max_tag]
+	for i in range(len(sentence) - 2, -1, -1):
+		sequence.insert(0, matrix[i + 1][sequence[0]]['depuis'])
+	return sequence, max_prob
 
 tags, prob = viterbi(exo1_hmm, ["la", "belle", "porte", "le", "voile"])
 assert tags == ['DET', 'ADJ', 'NOUN', 'CLO', 'VERB'], tags
