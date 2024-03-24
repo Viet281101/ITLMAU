@@ -1,0 +1,6 @@
+#lang datalog
+square_sum(1,1).
+square_sum(X,Y):- X != 1, X1:- -(X,1),
+    square_sum(X1,R1), X2:-*(X,X), Y:- +(X2,R1).
+square_sum(10,X)?
+square_sum(100,X)?

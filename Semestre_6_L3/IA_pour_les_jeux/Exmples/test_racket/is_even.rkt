@@ -1,0 +1,8 @@
+#lang datalog/sexp
+(! (is_even 0 true))
+(! (is_even 1 false))
+(! (:- (is_even X Y)
+	(> X 1 :- C) (= C #t) (- X 2 :- X1) (is_even X1 Y)
+))
+(? (is_even 10 Y))
+(? (is_even 11 Y))
