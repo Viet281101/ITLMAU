@@ -6,3 +6,7 @@
 ))
 (? (is_even 10 Y))
 (? (is_even 11 Y))
+(? (is_even 12 Y))
+(? (is_even 13 Y))
+(? (is_even 14 Y))
+(? (is_even 15 Y))
