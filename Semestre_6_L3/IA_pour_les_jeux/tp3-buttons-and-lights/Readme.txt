@@ -123,3 +123,12 @@ q1c- résoudre la version classique à 2 joueurs (6 points)
 q1d- résoudre la version misère à 2 joueurs (6 points)
 
 
+P/s:
+Choisissez un nom de compétiteur
+Nommer votre répertoire avec ce nom
+Nommer votre exécutable avec ce nom
+Quand on se met dans le répertoire, "make" permet de compiler votre programme
+Votre programme répond son nom à la commande "name"
+Votre programme doit répondre à la commande "genmove" en moins de 1 sec 
+Merci de cleaner votre répertoire avant de faire votre archive
+

@@ -1,0 +1,12 @@
+Info,  T0: Load models/soccer/soccerball.obj
+Info,  T0: Found a matching importer for this file format: Wavefront Object Importer.
+Info,  T0: Import root directory is 'models/soccer/'
+Info,  T0: Entering post processing pipeline
+Info,  T0: RemoveRedundantMatsProcess finished. Removed 0 redundant and 1 unused materials.
+Info,  T0: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T0: Points: 0, Lines: 0, Triangles: 404, Polygons: 0 (Meshes, X = removed)
+Info,  T0: FindInvalidDataProcess finished. Found issues ...
+Error, T0: Failed to compute tangents; need UV data in channel0
+Info,  T0: JoinVerticesProcess finished | Verts in: 7500 out: 4357 | ~41.9067
+Info,  T0: Cache relevant are 49 meshes (2668 faces). Average output ACMR is 1.09595
+Info,  T0: Leaving post processing pipeline
