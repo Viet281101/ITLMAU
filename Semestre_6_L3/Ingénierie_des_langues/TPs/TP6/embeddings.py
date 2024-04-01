@@ -57,4 +57,4 @@ class Embeddings(object):
 
 	def get_model(self):
 		return self._model
-		
+

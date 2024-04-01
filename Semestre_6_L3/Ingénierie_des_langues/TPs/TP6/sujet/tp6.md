@@ -77,8 +77,7 @@ Observez la méthode `learn` et les fonctions qu'elle appelle.
 
 ## Exercice 3 : Apprentissage des Embeddings sur nos corpus
 
-Notre objectif est de comparer les sous-corpus `Gauche` et `Droite` constitués en début de TD, en utilisant les `embeddings`. Le code ci-dessous montre comment réaliser l'apprentissage d'`embeddings` pour un fichier texte appelé `subCorpus_path`. Le modèle (qui contient l'ensemble des `embeddings`) sera sauvé à `model_path`. L'apprentissage 
-dure une dizaine de secondes.
+Notre objectif est de comparer les sous-corpus `Gauche` et `Droite` constitués en début de TD, en utilisant les `embeddings`. Le code ci-dessous montre comment réaliser l'apprentissage d'`embeddings` pour un fichier texte appelé `subCorpus_path`. Le modèle (qui contient l'ensemble des `embeddings`) sera sauvé à `model_path`. L'apprentissage dure une dizaine de secondes.
 
 ```python
 subCorpus_path = './path/to/subCorpus.txt'
