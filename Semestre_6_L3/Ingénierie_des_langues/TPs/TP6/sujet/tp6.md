@@ -115,7 +115,7 @@ Vous utiliserez pour cela les fonctions déjà définies dans la classe `Embeddi
 
 Dans un fichier `ex4_use_embeddings.py`, chargez comme précédemment vos deux modèles. 
 
-### Étude des vecteurs proches et éloignés 
+### 1. Étude des vecteurs proches et éloignés 
 
 La fonction ci-dessous vous permet d'obtenir la similarité cosinus de deux vecteurs `vec1` et `vec2` :
 

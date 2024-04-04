@@ -23,10 +23,28 @@
 
 (define (apply-random-move current-lights)
 	(let ([move (random-move)])
-		(toggle-light current-lights move)))
+		(case move
+		[(0) (toggle-light current-lights 0)]
+		[(1) (list 0 (if (= (first current-lights) 0) 0 1) (third current-lights))]
+		[(2) (list (first current-lights) 0 (if (= (second current-lights) 0) 0 1))])))
+
+(define (try-moves current-lights moves remaining-moves)
+	(if (= remaining-moves 0)
+		(if (game-won? current-lights)
+			(list moves)
+			'())
+		(append
+		(try-moves (toggle-light current-lights 0) (append moves '(a)) (- remaining-moves 1))
+		(try-moves (list 0 (if (= (first current-lights) 0) 0 1) (third current-lights))
+					(append moves '(b)) (- remaining-moves 1))
+		(try-moves (list (first current-lights) 0 (if (= (second current-lights) 0) 0 1))
+					(append moves '(c)) (- remaining-moves 1)))))
+
+(define (eval current-lights remaining-moves)
+	(try-moves current-lights '() remaining-moves))
 
 (define (run-game)
-	(printf "Welcome to Lights and Buttons Game!\nCommands: setname <...>, name, newgame, play <1-3>, show, quit\n")
+	(printf "Welcome to Lights and Buttons Game!\nCommands: setname <...>, name, newgame, play <1-3>, randmove, show, quit\n")
 	(let loop ([current-lights lights])
 		(printf "\nEnter command: ")
 		(let ([cmd (read-line)])
@@ -46,7 +64,7 @@
 				(begin
 				(set! current-lights '(0 0 0))
 				(game-active #t)
-				(printf "New game started. You can set light with command: play <1-3> \n\n")
+				(printf "New game started. You can set light with command: play <1-3> or randmove\n\n")
 				(display-lights current-lights)))]
 			[(string-prefix? cmd "play ")
 			(if (not (game-active))
@@ -59,6 +77,16 @@
 				(when (game-won? new-lights)
 					(printf "\nPlayer ~a wins!\n" (player-name))
 					(game-active #f))))]
+			[(string=? cmd "randmove")
+			(if (not (game-active))
+				(printf "Game has not started. Please use newgame to start.\n\n")
+				(let ([new-lights (apply-random-move current-lights)])
+				(set! current-lights new-lights)
+				(printf "Random move applied.\n\n")
+				(display-lights new-lights)
+				(when (game-won? new-lights)
+					(printf "Player ~a wins!\n" (player-name))
+					(game-active #f))))]
 			[(string=? cmd "show")
 			(if (game-active)
 				(display-lights current-lights)
@@ -67,4 +95,3 @@
 		(loop current-lights))))
 
 (run-game)
-

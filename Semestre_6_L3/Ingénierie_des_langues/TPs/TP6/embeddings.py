@@ -58,3 +58,19 @@ class Embeddings(object):
 	def get_model(self):
 		return self._model
 
+
+gauche_corpus_path = './data_embeddings/GAUCHE.txt'
+droite_corpus_path = './data_embeddings/DROITE.txt'
+
+gauche_model_path = './model/GAUCHE.W2Vmodel'
+droite_model_path = './model/DROITE.W2Vmodel'
+
+
+embeddings_gauche = Embeddings(gauche_corpus_path, gauche_model_path)
+embeddings_gauche.learn()
+print(f"Model {gauche_model_path} saved.")
+
+embeddings_droite = Embeddings(droite_corpus_path, droite_model_path)
+embeddings_droite.learn()
+print(f"Model {droite_model_path} saved.")
+
