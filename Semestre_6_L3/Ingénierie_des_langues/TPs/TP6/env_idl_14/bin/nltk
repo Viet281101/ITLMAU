@@ -1,8 +1,0 @@
-#!/home/viet/Documents/ITLMAU/Semestre_6_L3/Ingénierie_des_langues/TPs/TP6/env_idl_14/bin/python3
-# -*- coding: utf-8 -*-
-import re
-import sys
-from nltk.cli import cli
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(cli())
