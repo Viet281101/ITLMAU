@@ -18,7 +18,7 @@ Comme vous pouvez le constater les `plots` (résumés) sont très courts, mais n
 
 ## I. Préparation du dataset
 
-### Étape 1 : lecture du jeu de données 
+### Étape 1 : lecture du jeu de données
 
 Implémentez une fonction `json_to_dic()` qui prend en argument le nom d'un fichier `json` de la forme ci-dessus, et renvoie un dictionnaire dont les `clés` sont les titres de films, et les `valeurs` les résumés.
 
@@ -28,7 +28,7 @@ Implémentez une fonction `json_to_dic()` qui prend en argument le nom d'un fich
 
 
 
-### Étape 2 : chaîne de traitement en TAL 
+### Étape 2 : chaîne de traitement en TAL
 
 Nous devons effectuer un certain nombre de pré-traitements sur nos résumés 
 
@@ -46,7 +46,7 @@ print(nlp(sentence))
 
 Vous vous appuierez pour cela sur des librairies existantes. 
 
-### Étape 3 : application de la chaîne de traitement au dictionnaire 
+### Étape 3 : application de la chaîne de traitement au dictionnaire
 
 Implémentez une fonction `nlp_dico` qui prend en argument un dictionnaire et renvoie un dictionnaire où le traitement ci-dessus a été appliqué à chacune des valeurs.
 
@@ -145,5 +145,3 @@ Les recommandations basées sur la distance cosinus et sur TF-IDF pour le film "
 ```
 
 
-
-```
