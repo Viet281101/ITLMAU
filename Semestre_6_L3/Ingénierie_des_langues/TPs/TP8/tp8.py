@@ -1,5 +1,6 @@
 
 import json
+import numpy as np
 
 def json_to_dict(filename):
 	with open(filename, 'r', encoding='utf-8') as file:
@@ -62,8 +63,58 @@ def jaccard_similarity_from_title(title1, title2, processed_movies):
 	tokens1 = processed_movies.get(title1, [])
 	tokens2 = processed_movies.get(title2, [])
 	similarity_score = jaccard_similarity(tokens1, tokens2)
-	print(f"Jaccard similarity between '{title1}' and '{title2}' is: {similarity_score}")
+	print(f"le Score de simiarité de Jaccard des films '{title1}' et '{title2}' est: {similarity_score}")
 	return similarity_score
 
 jaccard_similarity_from_title('The Shawshank Redemption', 'The Godfather', processed_movies)
+
+
+
+def compute_TF(document):
+	tf_dict = {}
+	len_doc = len(document)
+	for word in document:
+		tf_dict[word] = tf_dict.get(word, 0) + 1/len_doc
+	return tf_dict
+
+from math import log10
+
+def compute_IDF(documents):
+	N = len(documents)
+	idf_dict = {}
+	for document in documents:
+		for word in set(document):
+			idf_dict[word] = idf_dict.get(word, 0) + 1
+
+	for word, val in idf_dict.items():
+		idf_dict[word] = log10(N / float(val))
+
+	return idf_dict
+
+def compute_TFIDF(tf_dict, idf_dict):
+	tfidf_dict = {}
+	for word, tf in tf_dict.items():
+		tfidf_dict[word] = tf * idf_dict.get(word, 0)
+	return tfidf_dict
+
+
+all_tokens = list(processed_movies.values())
+idf_dict = compute_IDF(all_tokens)
+
+tfidf_document = {}
+for title, tokens in processed_movies.items():
+	tf_dict = compute_TF(tokens)
+	tfidf_dict = compute_TFIDF(tf_dict, idf_dict)
+	tfidf_document[title] = tfidf_dict
+
+
+
+
+
+def cosine_similarity(list1, list2):
+	dot = np.dot(list1, list2)
+	norm1 = np.linalg.norm(list1)
+	norm2 = np.linalg.norm(list2)
+	cos = dot / (norm1 * norm2)
+	return(cos)
 
