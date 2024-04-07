@@ -108,13 +108,48 @@ for title, tokens in processed_movies.items():
 	tfidf_document[title] = tfidf_dict
 
 
-
-
-
 def cosine_similarity(list1, list2):
 	dot = np.dot(list1, list2)
 	norm1 = np.linalg.norm(list1)
 	norm2 = np.linalg.norm(list2)
 	cos = dot / (norm1 * norm2)
 	return(cos)
+
+vocab = set(word for document in all_tokens for word in document)
+
+def vectorize(tfidf_dict, vocab):
+	return np.array([tfidf_dict.get(word, 0) for word in vocab])
+
+tfidf_vectors = {title: vectorize(tfidf, vocab) for title, tfidf in tfidf_document.items()}
+
+def recommend_movies(base_title, tfidf_vectors, n_recommendations=3):
+	base_vector = tfidf_vectors[base_title]
+	similarities = {title: cosine_similarity(base_vector, vector)
+					for title, vector in tfidf_vectors.items() if title != base_title}
+
+	recommended_titles = sorted(similarities, key=similarities.get, reverse=True)[:n_recommendations]
+
+	return [(title, similarities[title]) for title in recommended_titles]
+
+recommendations = recommend_movies('The Shawshank Redemption', tfidf_vectors, 3)
+for title, score in recommendations:
+	print(f"{title}: {score}")
+
+document_example = processed_movies['The Shawshank Redemption']
+tf_example = compute_TF(document_example)
+
+for word, tf_value in list(tf_example.items())[:5]:
+	print(f"{word}: {tf_value}")
+
+idf_values = compute_IDF(all_tokens)
+
+for word, idf_value in list(idf_values.items())[:5]:
+	print(f"{word}: {idf_value}")
+
+
+tfidf_example = compute_TFIDF(tf_example, idf_values)
+
+for word, tfidf_value in list(tfidf_example.items())[:5]:
+	print(f"{word}: {tfidf_value}")
+
 

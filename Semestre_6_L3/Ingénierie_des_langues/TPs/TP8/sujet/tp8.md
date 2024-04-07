@@ -4,14 +4,14 @@
 Pour ce TP, le fichier `fims.json` est fourni. Il contient des entrées de la forme suivante : 
 
 ```jsonld
-  {
-    "Title": "The Shawshank Redemption",
-    "Plot": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
-  },
-  {
-    "Title": "The Godfather",
-    "Plot": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
-  },
+	{
+		"Title": "The Shawshank Redemption",
+		"Plot": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
+	},
+	{
+		"Title": "The Godfather",
+		"Plot": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
+	},
 ```
 
 Comme vous pouvez le constater les `plots` (résumés) sont très courts, mais nous allons voir dans ce TP ce qu'on peut déjà développer sur cette base.
@@ -105,14 +105,14 @@ Exemple de résultat :
 
 ```csv
 {'The Shawshank Redemption': 
-    [
-      0.07079041684733411, // token Two
-      0.08737125054200234, // token imprison
-      0.07482833405600313, // token man
-      0.08737125054200234, // token bind
-      etc.
-    ],
-    etc.
+		[
+			0.07079041684733411, // token Two
+			0.08737125054200234, // token imprison
+			0.07482833405600313, // token man
+			0.08737125054200234, // token bind
+			etc.
+		],
+		etc.
 }
 ```
 
@@ -126,11 +126,11 @@ On utilisera pour calculer la similarité entre deux films (dans le cadre de la 
 
 ```python 
 def cosine_similarity(list1, list2):
-    dot = np.dot(list1, list2)
-    norm1 = np.linalg.norm(list1)
-    norm2 = np.linalg.norm(list2)
-    cos = dot / (norm1 * norm2)
-    return(cos)
+		dot = np.dot(list1, list2)
+		norm1 = np.linalg.norm(list1)
+		norm2 = np.linalg.norm(list2)
+		cos = dot / (norm1 * norm2)
+		return(cos)
 ```
 
 
