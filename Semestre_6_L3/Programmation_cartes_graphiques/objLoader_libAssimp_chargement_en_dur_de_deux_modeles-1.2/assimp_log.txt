@@ -1,0 +1,25 @@
+Info,  T0: Load models/mazda_rx7_stylised/scene.gltf
+Info,  T0: Found a possible importer: glTF Importer; trying signature-based detection
+Info,  T0: Found a possible importer: glTF2 Importer; trying signature-based detection
+Info,  T0: Found a matching importer for this file format: glTF2 Importer.
+Info,  T0: Import root directory is 'models/mazda_rx7_stylised/'
+Info,  T0: Entering post processing pipeline
+Info,  T0: RemoveRedundantMatsProcess finished. Removed 0 redundant and 1 unused materials.
+Info,  T0: Points: 0, Lines: 0, Triangles: 15, Polygons: 0 (Meshes, X = removed)
+Info,  T0: FindInvalidDataProcess finished. Found issues ...
+Info,  T0: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T0: JoinVerticesProcess finished | Verts in: 10097 out: 9390 | ~7.00208
+Info,  T0: Cache relevant are 14 meshes (5729 faces). Average output ACMR is 1.66399
+Info,  T0: Leaving post processing pipeline
+trying signature-based detection
+Info,  T0: Found a possible importer: glTF2 Importer; trying signature-based detection
+Info,  T0: Found a matching importer for this file format: glTF2 Importer.
+Info,  T0: Import root directory is 'models/mazda_rx7_stylised/'
+Info,  T0: Entering post processing pipeline
+Info,  T0: RemoveRedundantMatsProcess finished. Removed 0 redundant and 1 unused materials.
+Info,  T0: Points: 0, Lines: 0, Triangles: 15, Polygons: 0 (Meshes, X = removed)
+Info,  T0: FindInvalidDataProcess finished. Found issues ...
+Info,  T0: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T0: JoinVerticesProcess finished | Verts in: 10097 out: 9390 | ~7.00208
+Info,  T0: Cache relevant are 14 meshes (5729 faces). Average output ACMR is 1.66399
+Info,  T0: Leaving post processing pipeline
