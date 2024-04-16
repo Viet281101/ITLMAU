@@ -78,7 +78,7 @@ Quand on pose les questions :
 Le programme répond :
  end(1, 1, 1, #t).
  end(0, 1, 0, #f).
- 
+
 3/ Définir un prédicat eval/5
  les variables sont les suivantes:
  *** A : valeur de la première lampe 
@@ -91,7 +91,7 @@ Le programme répond :
  si end/4 est faux, c'est appeler next/10 pour obtenir A1 B1 C1 et c'est evaluer/5 A1 B1 C1
  a chq fois qu'on apliquer next/10, il faut décrémenter le nombre de tours
  avoir une solution, c'est jouer tant que le nombre de tours est positif
- 
+
 Quand on pose la question :
  (? (eval 0 0 0 7 X))
 Le programme répond : 

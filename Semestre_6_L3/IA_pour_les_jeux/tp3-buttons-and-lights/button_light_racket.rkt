@@ -43,8 +43,16 @@
 (define (eval current-lights remaining-moves)
 	(try-moves current-lights '() remaining-moves))
 
+(define (simulate-actions initial-lights actions)
+	(define (apply-action state action)
+		(case action
+		[('a) (toggle-light state 0)]
+		[('b) (list 0 (if (= (first state) 0) 0 1) (third state))]
+		[('c) (list (first state) 0 (if (= (second state) 0) 0 1))]))
+	(foldl apply-action initial-lights actions))
+
 (define (run-game)
-	(printf "Welcome to Lights and Buttons Game!\nCommands: setname <...>, name, newgame, play <1-3>, randmove, show, quit\n")
+	(printf "Welcome to Lights and Buttons Game!\nCommands: setname <...>, name, newgame, play <1-3>, randmove, solve, show, quit\n")
 	(let loop ([current-lights lights])
 		(printf "\nEnter command: ")
 		(let ([cmd (read-line)])
@@ -87,6 +95,16 @@
 				(when (game-won? new-lights)
 					(printf "Player ~a wins!\n" (player-name))
 					(game-active #f))))]
+			[(string=? cmd "solve")
+			(let ([solution (eval current-lights 7)])
+			(if (null? solution)
+				(printf "No solution found.\n\n")
+				(begin
+					(printf "Solution: ~a\n\n" solution)
+					(for-each (lambda (sol)
+								(let ([result (simulate-actions '(0 0 0) sol)])
+								(printf "Testing solution ~a: Final state ~a\n" sol result)))
+							solution))))]
 			[(string=? cmd "show")
 			(if (game-active)
 				(display-lights current-lights)
