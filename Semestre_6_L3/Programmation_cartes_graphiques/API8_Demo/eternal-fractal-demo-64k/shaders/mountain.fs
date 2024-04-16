@@ -41,17 +41,17 @@ mat2 rot(float a) {
 }
 
 vec4 formula(vec4 p) {
-		p.xz = abs(p.xz+1.5+sin(u_time*0.1*p.z)*0.1)-abs(p.xz-1.5+sin(u_time *0.01*p.z)*0.1)-p.xz;
-		p=p*2./clamp(dot(p.xz,p.xz),.15,1.)-vec4(0.5,0.5,0.8,0.);
-		p.xy*=rot(.5);
-	    return p;
+	p.xz = abs(p.xz+1.5+sin(u_time*0.1*p.z)*0.1)-abs(p.xz-1.5+sin(u_time *0.01*p.z)*0.1)-p.xz;
+	p=p*2./clamp(dot(p.xz,p.xz),.15,1.)-vec4(0.5,0.5,0.8,0.);
+	p.xy*=rot(.5);
+	return p;
 }
 
 vec4 formula2(vec4 p) {
-		p.xz = abs(p.xz+1.5+cos(u_time*0.1+p.z)*0.1)-abs(p.xz-1.5+sin(u_time*0.1+p.z)*0.1)-p.xz;
-		p=p*2./clamp(dot(p.xy,p.xy),.15,1.)-vec4(0.5,0.5,0.8,0.);
-		p.xy*=rot(.5);
-	    return p;
+	p.xz = abs(p.xz+1.5+cos(u_time*0.1+p.z)*0.1)-abs(p.xz-1.5+sin(u_time*0.1+p.z)*0.1)-p.xz;
+	p=p*2./clamp(dot(p.xy,p.xy),.15,1.)-vec4(0.5,0.5,0.8,0.);
+	p.xy*=rot(.5);
+	return p;
 }
 
 float screen(vec3 p) {
@@ -90,10 +90,10 @@ vec2 colorize(vec3 p) {
 	float ot=1000.;
 	for (int i = 0; i < 15; i++) { 
 		p=formula(vec4(p,0.)).xyz;
-				float pl = l;
-				l = length(p);
-				es+= exp(-10. / abs(l - pl));
-				ot=min(ot,abs(l-3.));
+			float pl = l;
+			l = length(p);
+			es+= exp(-10. / abs(l - pl));
+			ot=min(ot,abs(l-3.));
 	}
 	return vec2(es,ot);
 }
@@ -106,41 +106,40 @@ vec3 path(float ti) {
 vec3 normal(vec3 p) {
 	vec3 e = vec3(0.0,det,0.0);	
 	return normalize(vec3(
-			de(p+e.yxx).x-de(p-e.yxx).x,
-			de(p+e.xyx).x-de(p-e.xyx).x,
-			de(p+e.xxy).x-de(p-e.xxy).x
-			)
-		);	
+		de(p+e.yxx).x-de(p-e.yxx).x,
+		de(p+e.xyx).x-de(p-e.xyx).x,
+		de(p+e.xxy).x-de(p-e.xxy).x
+	));	
 }
 
 float shadow(vec3 pos, vec3 sdir) {
 	float sh=1.0;
 	float totdist =2.0*det;
 	float dist=10.;
-		for (int steps=0; steps<SHADOW_STEPS; steps++) {
-			if (totdist<1. && dist>detail) {
-				vec3 p = pos - totdist * sdir;
-				dist = de(p).x;
-				sh = min( sh, max(50.*dist/totdist,0.0) );
-				totdist += max(.01,dist);
-			}
+	for (int steps=0; steps<SHADOW_STEPS; steps++) {
+		if (totdist<1. && dist>detail) {
+			vec3 p = pos - totdist * sdir;
+			dist = de(p).x;
+			sh = min( sh, max(50.*dist/totdist,0.0) );
+			totdist += max(.01,dist);
 		}
+	}
 	
-    return clamp(sh,0.1,1.0);
+	return clamp(sh,0.1,1.0);
 }
 
 float calcAO( const vec3 pos, const vec3 nor ) {
 	float aodet=detail*40.;
 	float totao = 0.0;
-    float sca = 13.0;
-    for( int aoi=0; aoi<5; aoi++ ) {
-        float hr = aodet*float(aoi*aoi);
-        vec3 aopos =  nor * hr + pos;
-        float dd = de( aopos ).x;
-        totao += -(dd-hr)*sca;
-        sca *= 0.1;
-    }
-    return clamp( 1.0 - 5.0*totao, 0., 1.0 );
+	float sca = 13.0;
+	for( int aoi=0; aoi<5; aoi++ ) {
+		float hr = aodet*float(aoi*aoi);
+		vec3 aopos =  nor * hr + pos;
+		float dd = de( aopos ).x;
+		totao += -(dd-hr)*sca;
+		sca *= 0.1;
+	}
+	return clamp( 1.0 - 5.0*totao, 0., 1.0 );
 }
 
 vec3 light(in vec3 p, in vec3 dir, in vec3 n, in float hid) {
@@ -159,8 +158,8 @@ vec3 light(in vec3 p, in vec3 dir, in vec3 n, in float hid) {
 		col+=pow(max(0.,1.-getcol.y),5.)*.3;
 	}
 
-    // Edition
-    col *= sin(amplitudeSon * 0.005) ;
+	// Edition
+	col *= sin(amplitudeSon * 0.005) ;
 
 
 	col=col*ao*(amb+diff*LIGHT_COLOR)+spec*LIGHT_COLOR;	
@@ -173,7 +172,7 @@ vec3 raymarch(in vec3 from, in vec3 dir)
 	float glow,eglow,totdist=glow=0.;
 	vec2 d=vec2(1.,0.);
 	vec3 p, col=vec3(0.);
-	
+
 	for (int i=0; i<RAY_STEPS; i++) {
 		if (d.x>det && totdist<30.0) {
 			p=from+totdist*dir;
@@ -194,7 +193,7 @@ vec3 raymarch(in vec3 from, in vec3 dir)
 		col = mix(col, backg, 1.0-exp(-.15*pow(totdist,1.5)));
 	} else { 
 		col=backg;
-	    vec3 st = (dir * 3.+ vec3(1.3,2.5,1.25)) * 1.3;
+		vec3 st = (dir * 3.+ vec3(1.3,2.5,1.25)) * 1.3;
 		for (int i = 0; i < 7; i++) st = abs(st) / dot(st,st) - .9;
 		col+= min( 1., pow( min( 5., length(st) ), 3. ) * .0025 );
 	}
@@ -212,7 +211,7 @@ vec3 move(inout vec3 dir) {
 	vec3 advec=normalize(adv-go);
 	float an=adv.x-go.x; an*=min(1.,abs(adv.z-go.z))*sign(adv.z-go.z)*.7;
 	dir.xy*=mat2(cos(an),sin(an),-sin(an),cos(an));
-    an=advec.y*1.7;
+	an=advec.y*1.7;
 	dir.yz*=mat2(cos(an),sin(an),-sin(an),cos(an));
 	an=atan(advec.x,advec.z);
 	dir.xz*=mat2(cos(an),sin(an),-sin(an),cos(an));
@@ -221,8 +220,7 @@ vec3 move(inout vec3 dir) {
 
 void main( void)
 {
-
-    lightdir.y = lightdir.y + u_time*0.01;
+	lightdir.y = lightdir.y + u_time*0.01;
 
 	pth1 = path(t+.3)+origin;
 	vec2 uv = vsoPosition;
@@ -232,6 +230,6 @@ void main( void)
 	color=clamp(color,vec3(.0),vec3(1.));
 	color=pow(color,vec3(GAMMA))*BRIGHTNESS;
 	color=mix(vec3(length(color)),color,SATURATION);
-    
+	
 	fragColor = vec4(color,1.);
 }

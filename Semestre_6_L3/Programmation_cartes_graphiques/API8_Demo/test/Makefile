@@ -1,5 +1,8 @@
 #  Makefile 
-#  Auteur : Farès BELHADJ 
+#  Auteur : Farès BELHADJ
+#  Email  : amsi@ai.univ-paris8.fr
+#  Date   : 29/01/2017
+
 SHELL = /bin/sh
 # définition des commandes utilisées
 CC = gcc
@@ -9,7 +12,6 @@ TAR = tar
 MKDIR = mkdir
 CHMOD = chmod
 CP = rsync -R
-
 # déclaration des options du compilateur
 PG_FLAGS =
 SDL_CFLAGS = $(shell sdl2-config --cflags)
@@ -17,6 +19,17 @@ SDL_LDFLAGS = $(shell sdl2-config --libs) -lSDL2_mixer -lSDL2_image -lassimp -lS
 CPPFLAGS = -I. $(SDL_CFLAGS)
 CFLAGS = -Wall -O3
 LDFLAGS = -lm $(SDL_LDFLAGS) -lGL4Dummies
+
+# définition des fichiers et dossiers
+PROGNAME = demo
+VERSION = 1.0
+distdir = $(PROGNAME)-$(VERSION)
+HEADERS = audioHelper.h
+SOURCES = window.c audioHelper.c
+OBJ = $(SOURCES:.c=.o)
+DOXYFILE = documentation/Doxyfile
+EXTRAFILES = COPYING $(wildcard shaders/*.?s) 
+DISTFILES = $(SOURCES) Makefile $(HEADERS) $(DOXYFILE) $(EXTRAFILES)
 
 # Traitement automatique (ne pas modifier)
 ifneq (,$(shell ls -d /usr/local/include 2>/dev/null | tail -n 1))
@@ -31,33 +44,16 @@ endif
 ifneq (,$(shell ls -d $(HOME)/local/lib 2>/dev/null | tail -n 1))
 	LDFLAGS += -L$(HOME)/local/lib
 endif
-
-UNAME := $(shell uname)
-ifeq ($(UNAME),Darwin)
+ifeq ($(shell uname),Darwin)
 	MACOSX_DEPLOYMENT_TARGET = 10.8
-	CFLAGS += -I/opt/local/include -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
-	LDFLAGS += -framework OpenGL -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
+        CFLAGS += -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
+        LDFLAGS += -framework OpenGL -mmacosx-version-min=$(MACOSX_DEPLOYMENT_TARGET)
 else
-	LDFLAGS +=  -L/usr/lib -L/usr/X11R6/lib -lGL -lGLU
+        LDFLAGS += -lGL
 endif
 
-#définition des fichiers et dossiers
-PROGNAME = demo
-PACKAGE=$(PROGNAME)
-VERSION = 0.01
-distdir = $(PACKAGE)-$(VERSION)
-HEADERS = animations.h audioHelper.h
-SOURCES = animation.c window.c audioHelper.c credit.c julia.c mandelbrot.c bulber.c rhombic.c pulse.c temple.c
-OBJ = $(SOURCES:.c=.o)
-DOXYFILE = documentation/Doxyfile
-EXTRAFILES = COPYING $(wildcard shaders/*.?s) $(wildcard images/*) \
-#shaders/basic.vs shaders/mix.fs shaders/basic.fs shaders/model.vs shaders/model.fs	\
-shaders/base.vs shaders/base.fs shaders/earth.vs shaders/earth.fs	\
-#takeonme.mod images/land_ocean_ice_2048_glossmap.png			\
-#images/land_ocean_ice_2048.png images/moon.jpg
-DISTFILES = $(SOURCES) Makefile $(HEADERS) $(DOXYFILE) $(EXTRAFILES)
-
-
+CPPFLAGS += $(shell sdl2-config --cflags)
+LDFLAGS  += -lGL4Dummies $(shell sdl2-config --libs)
 
 all: $(PROGNAME)
 
@@ -84,4 +80,4 @@ doc: $(DOXYFILE)
 	cd documentation && doxygen && cd ..
 
 clean:
-	@$(RM) -r $(PROGNAME) $(OBJ) *~ $(distdir).tgz gmon.out core.* documentation/*~ shaders/*~ GL4D/*~ documentation/html
+	@$(RM) -r $(PROGNAME) $(OBJ) *~ $(distdir).tgz gmon.out core.* documentation/*~ shaders/*~ GL4D/*~ documentation/html dna.txt assimp_log.txt
