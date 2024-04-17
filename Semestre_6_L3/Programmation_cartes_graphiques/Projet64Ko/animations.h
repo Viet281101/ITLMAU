@@ -31,9 +31,9 @@ extern "C" {
 	extern void animation_vide(int state);
 	extern void exemple_d_animation_00(int state);
 
-	extern void rouge(int state);
-	extern void vert(int state);
-	extern void bleu(int state);
+	extern void red(int state);
+	extern void green(int state);
+	extern void blue(int state);
 	extern void ciel(int state);
 
 	extern void animationsInit(void);

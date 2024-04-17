@@ -201,7 +201,7 @@ void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 	}
 }
 
-void vert(int state) {
+void green(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	static double mp = 0.0;
 	switch(state) {
@@ -229,7 +229,7 @@ void vert(int state) {
 	}
 }
 
-void bleu(int state) {
+void blue(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	/* ... */
 	switch(state) {
@@ -251,7 +251,7 @@ void bleu(int state) {
 	}
 }
 
-void rouge(int state) {
+void red(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	/* ... */
 	switch(state) {
@@ -267,7 +267,7 @@ void rouge(int state) {
 		return;
 	default: /* GL4DH_DRAW */
 		/* JOUER L'ANIMATION */
-		glClearColor(0.37f, 0.0f, 0.0f, 1.0f);
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return;
 	}

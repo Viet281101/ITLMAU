@@ -1,0 +1,8 @@
+Cette démonstration graphique est une animation de formes géométriques dans laquelle on retrouve
+une génération procédurale de cercles avec un jeux de couleurs. 
+
+Source audio : https://uppbeat.io/browse/trending
+Auteur : Mood Maze
+
+Compilation: Make 
+exécution: ./basicDemo
