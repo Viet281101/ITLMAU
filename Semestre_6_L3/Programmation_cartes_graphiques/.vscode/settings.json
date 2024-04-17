@@ -4,7 +4,8 @@
         "*.vs": "glsl",
         "*.pike": "java",
         "gl4du.h": "c",
-        "gl4dummies.h": "c"
+        "gl4dummies.h": "c",
+        "gl4duw_sdl2.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

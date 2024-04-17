@@ -89,19 +89,19 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 		glGetIntegerv(GL_VIEWPORT, vp);
 		glGenTextures(2, tex);
 		for(i = 0; i < 2; i++) {
-		glBindTexture(GL_TEXTURE_2D, tex[i]);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, vp[2], vp[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+			glBindTexture(GL_TEXTURE_2D, tex[i]);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, vp[2], vp[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 		}
 		pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/mix.fs", NULL);
 		return;
 	case GL4DH_FREE:
 		if(tex[0]) {
-		glDeleteTextures(2, tex);
-		tex[0] = tex[1] = 0;
+			glDeleteTextures(2, tex);
+			tex[0] = tex[1] = 0;
 		}
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO:
@@ -122,8 +122,8 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, tex[1]);
 		if(et / (GLfloat)t > 1) {
-		fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t);
-		exit(0);
+			fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t);
+			exit(0);
 		}
 		glUniform1f(glGetUniformLocation(pId, "dt"), et / (GLfloat)t);
 		glUniform1i(glGetUniformLocation(pId, "tex0"), 0);
@@ -148,20 +148,20 @@ void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 		glGetIntegerv(GL_VIEWPORT, vp);
 		glGenTextures(2, tex);
 		for(i = 0; i < 2; i++) {
-		glBindTexture(GL_TEXTURE_2D, tex[i]);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, vp[2], vp[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+			glBindTexture(GL_TEXTURE_2D, tex[i]);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, vp[2], vp[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 		}
 		pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/mix.fs", NULL);
 		return;
 	case GL4DH_FREE:
 		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
 		if(tex[0]) {
-		glDeleteTextures(2, tex);
-		tex[0] = tex[1] = 0;
+			glDeleteTextures(2, tex);
+			tex[0] = tex[1] = 0;
 		}
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO:
@@ -186,8 +186,8 @@ void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, tex[1]);
 		if(et / (GLfloat)t > 1) {
-		fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t);
-		exit(0);
+			fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t);
+			exit(0);
 		}
 		glUniform1f(glGetUniformLocation(pId, "dt"), et / (GLfloat)t);
 		glUniform1i(glGetUniformLocation(pId, "tex0"), 0);

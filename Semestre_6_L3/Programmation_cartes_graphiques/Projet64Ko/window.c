@@ -71,8 +71,7 @@ static void resize(int w, int h) {
 static void keydown(int keycode) {
 	switch(keycode) {
 	case SDLK_ESCAPE:
-	case 'q':
-		exit(0);
+	case 'q': exit(0);
 	default: break;
 	}
 }
