@@ -12,6 +12,9 @@
  * \date April 12, 2023
  */
 
+#include <GL4D/gl4du.h>
+#include <GL4D/gl4dp.h>
+#include <GL4D/gl4duw_SDL2.h>
 #include <GL4D/gl4dh.h>
 #include "audioHelper.h"
 #include "animations.h"
@@ -19,6 +22,7 @@
 #include <stdlib.h>
 #include <GL4D/gl4dg.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
 /*!\brief identifiant de la géométrie QUAD GL4Dummies */
 static GLuint _quadId = 0;
@@ -274,23 +278,40 @@ void red(int state) {
 }
 
 void ciel(int state) {
-	/* INITIALISEZ VOS VARIABLES */
-	/* ... */
-	switch(state) {
+	static GLuint _pId = 0;
+	static GLuint _quad = 0;
+	static int increment = 0;
+	switch (state) {
 	case GL4DH_INIT:
-		/* INITIALISEZ VOTRE ANIMATION (SES VARIABLES <STATIC>s) */
+		_pId = gl4duCreateProgram( "<vs>shaders/basic.vs", "<fs>shaders/ciel.fs", NULL );
+		_quad = gl4dgGenQuadf();
+		gl4duGenMatrix( GL_FLOAT, "projectionMatrix" );
+		gl4duGenMatrix( GL_FLOAT, "modelMatrix" );
+		gl4duGenMatrix( GL_FLOAT, "viewMatrix" );
 		return;
 	case GL4DH_FREE:
-		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
-		gl4dpDeleteScreen();
+		if ( _quad ) gl4dgDelete( _quad );
+		gl4duClean( GL4DU_ALL );
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO:
-		/* METTRE A JOUR VOTRE ANIMATION EN FONCTION DU SON */
 		return;
 	default: /* GL4DH_DRAW */
 		/* JOUER L'ANIMATION */
-		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		glUseProgram(_pId);
+		gl4duBindMatrix( "projectionMatrix" );
+		gl4duLoadIdentityf();
+		gl4duScalef( 1.0f, 1.0f, 1.0f );
+		gl4duBindMatrix( "viewMatrix" );
+		gl4duLookAtf( 0, 0, 1, 0, 0, 0, 0, 1, 0 );
+		gl4duBindMatrix( "modelMatrix" );
+		gl4duLoadIdentityf();
+		gl4duSendMatrices();
+
+		gl4dgDraw(_quad);
+		glUseProgram(0);
+		increment++;
+		increment %= 10;
 		return;
 	}
 }

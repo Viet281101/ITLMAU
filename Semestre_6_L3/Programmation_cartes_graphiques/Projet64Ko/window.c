@@ -16,9 +16,9 @@ static void keydown(int keycode);
  * ce tableau se termine toujours par l'élémént {0, NULL, NULL,
  * NULL} */
 static GL4DHanime _animations[] = {
-	{10000, green, NULL, transition_fondu },
-	{10000, blue, NULL, transition_fondu },
-	{10000, red, NULL, NULL },
+	// {1000, green, NULL, transition_fondu },
+	// {1000, blue, NULL, transition_fondu },
+	{10000, ciel, NULL, NULL },
 	{    0, NULL, NULL, NULL } /* Toujours laisser à la fin */
 };
 
@@ -32,7 +32,7 @@ int main(int argc, char ** argv) {
 	if(!gl4duwCreateWindow(argc, argv, "Demo 64K", 
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
 		_dim[0], _dim[1],
-		SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN))
+		SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP))
 		return 1;
 	init();
 	atexit(quit);
