@@ -6,6 +6,7 @@
 #include "audioHelper.h"
 
 static void init(void);
+static void quit(void);
 static void draw(void);
 
 #define NB_E 1024
@@ -13,6 +14,7 @@ static void draw(void);
 static GLuint _wW = 1024, _wH = 768;
 static GLuint _cubeId = 0;
 static GLuint _pId = 0;
+static GLuint _quad = 0;
 
 static int _hauteurs[NB_E];
 
@@ -25,6 +27,7 @@ void spectre(int state) {
 		return;
 	case GL4DH_FREE:
 		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
+		quit();
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO: {
 		/* METTRE A JOUR VOTRE ANIMATION EN FONCTION DU SON */
@@ -45,6 +48,7 @@ void init(void) {
 	SDL_GL_SetSwapInterval(1);
 	_cubeId = gl4dgGenCubef();
 	_pId = gl4duCreateProgram("<vs>shaders/spectre.vs", "<fs>shaders/spectre.fs", NULL);
+	_quad = gl4dgGenQuadf();
 	gl4duGenMatrix(GL_FLOAT, "modelView");
 
 	gl4duGenMatrix(GL_FLOAT, "proj");
@@ -62,6 +66,12 @@ static double get_dt(void) {
 	double t = gl4dGetElapsedTime(), dt = (t - t0) / 1000.0;
 	t0 = t;
 	return dt;
+}
+
+static void quit( void ) {
+    if ( _quad )
+        gl4dgDelete(_quad);
+    gl4duClean( GL4DU_ALL );
 }
 
 void draw(void) {

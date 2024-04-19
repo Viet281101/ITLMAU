@@ -16,9 +16,8 @@ static void keydown(int keycode);
  * ce tableau se termine toujours par l'élémént {0, NULL, NULL,
  * NULL} */
 static GL4DHanime _animations[] = {
-	// {1000, green, NULL, transition_fondu },
-	// {1000, blue, NULL, transition_fondu },
-	{10000, ciel, NULL, NULL },
+	{ 1000, spectre, NULL, transition_fondu },
+	{ 1000, blue, NULL, transition_fondu },
 	{    0, NULL, NULL, NULL } /* Toujours laisser à la fin */
 };
 
@@ -63,6 +62,8 @@ static void init(void) {
 static void resize(int w, int h) {
 	_dim[0] = w; _dim[1] = h;
 	glViewport(0, 0, _dim[0], _dim[1]);
+	transition_fondu(NULL,NULL,0,0,4);
+	gl4dhResize(w, h);
 }
 
 /*!\brief permet de gérer les évènements clavier-down.

@@ -277,45 +277,6 @@ void red(int state) {
 	}
 }
 
-void ciel(int state) {
-	static GLuint _pId = 0;
-	static GLuint _quad = 0;
-	static int increment = 0;
-	switch (state) {
-	case GL4DH_INIT:
-		_pId = gl4duCreateProgram( "<vs>shaders/basic.vs", "<fs>shaders/ciel.fs", NULL );
-		_quad = gl4dgGenQuadf();
-		gl4duGenMatrix( GL_FLOAT, "projectionMatrix" );
-		gl4duGenMatrix( GL_FLOAT, "modelMatrix" );
-		gl4duGenMatrix( GL_FLOAT, "viewMatrix" );
-		return;
-	case GL4DH_FREE:
-		if ( _quad ) gl4dgDelete( _quad );
-		gl4duClean( GL4DU_ALL );
-		return;
-	case GL4DH_UPDATE_WITH_AUDIO:
-		return;
-	default: /* GL4DH_DRAW */
-		/* JOUER L'ANIMATION */
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		glUseProgram(_pId);
-		gl4duBindMatrix( "projectionMatrix" );
-		gl4duLoadIdentityf();
-		gl4duScalef( 1.0f, 1.0f, 1.0f );
-		gl4duBindMatrix( "viewMatrix" );
-		gl4duLookAtf( 0, 0, 1, 0, 0, 0, 0, 1, 0 );
-		gl4duBindMatrix( "modelMatrix" );
-		gl4duLoadIdentityf();
-		gl4duSendMatrices();
-
-		gl4dgDraw(_quad);
-		glUseProgram(0);
-		increment++;
-		increment %= 10;
-		return;
-	}
-}
-
 void animationsInit(void) {
 	if(!_quadId)
 		_quadId = gl4dgGenQuadf();
