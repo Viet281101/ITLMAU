@@ -34,6 +34,7 @@ extern "C" {
 	extern void blue(int state);
 	extern void strip(int state);
 	extern void strip2(int state);
+	extern void credit_fin(int state);
 
 	extern void animationsInit(void);
 

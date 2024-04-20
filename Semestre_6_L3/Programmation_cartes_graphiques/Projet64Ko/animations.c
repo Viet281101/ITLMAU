@@ -198,50 +198,60 @@ void blue(int state) {
 
 void strip(int state) {
 	static float time = 0.0;
-	static GLuint stripId = 0;
-	static GLuint stripQuadId = 0;
+	static GLuint _pId = 0;
+	static GLuint _quadId = 0;
+	static Uint32 lastTime = 0;
 	switch(state) {
 	case GL4DH_INIT:
-		stripId = gl4duCreateProgram("<vs>shaders/strip.vs", "<fs>shaders/strip.fs", NULL);
-		stripQuadId = gl4dgGenQuadf();
+		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/strip.fs", NULL);
+		_quadId = gl4dgGenQuadf();
+		lastTime = SDL_GetTicks();
 		break;
 	case GL4DH_FREE:
-		gl4dgDelete(stripQuadId);
+		gl4dgDelete(_quadId);
 		gl4duClean(GL4DU_ALL);
 		break;
 	case GL4DH_DRAW:
-		time += 0.1;
-		glUseProgram(stripId);
-		glUniform1f(glGetUniformLocation(stripId, "time"), time);
+		Uint32 currentTime = SDL_GetTicks();
+		float deltaTime = (currentTime - lastTime) / 1000.0f;
+		lastTime = currentTime;
+		time += deltaTime;
+		glUseProgram(_pId);
+		glUniform1f(glGetUniformLocation(_pId, "time"), time);
 		int width, height;
 		SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &width, &height);
-		glUniform2f(glGetUniformLocation(stripId, "resolution"), (float) width, (float) height);
-		gl4dgDraw(stripQuadId);
+		glUniform2f(glGetUniformLocation(_pId, "resolution"), (float) width, (float) height);
+		gl4dgDraw(_quadId);
 		glUseProgram(0);
 		break;
 	}
 }
 void strip2(int state) {
 	static float time = 0.0;
-	static GLuint stripId2 = 0;
-	static GLuint stripQuadId2 = 0;
-	switch(state) {
+	static GLuint _pId = 0;
+	static GLuint _quadId = 0;
+	static Uint32 lastTime = 0;
+	switch (state) {
 	case GL4DH_INIT:
-		stripId2 = gl4duCreateProgram("<vs>shaders/strip.vs", "<fs>shaders/strip2.fs", NULL);
-		stripQuadId2 = gl4dgGenQuadf();
+		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/strip2.fs", NULL);
+		_quadId = gl4dgGenQuadf();
+		lastTime = SDL_GetTicks();
 		break;
 	case GL4DH_FREE:
-		gl4dgDelete(stripQuadId2);
+		gl4dgDelete(_quadId);
 		gl4duClean(GL4DU_ALL);
 		break;
 	case GL4DH_DRAW:
-		time += 0.05;
-		glUseProgram(stripId2);
-		glUniform1f(glGetUniformLocation(stripId2, "time"), time);
+		Uint32 currentTime = SDL_GetTicks();
+		float deltaTime = (currentTime - lastTime) / 1000.0f;
+		lastTime = currentTime;
+		time += deltaTime * 1.5f;
+		glUseProgram(_pId);
+		glUniform1f(glGetUniformLocation(_pId, "time"), time);
 		int width, height;
 		SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &width, &height);
-		glUniform2f(glGetUniformLocation(stripId2, "resolution"), (float) width, (float) height);
-		gl4dgDraw(stripQuadId2);
+		glUniform2f(glGetUniformLocation(_pId, "resolution"), (float) width, (float) height);
+		gl4dgDraw(_quadId);
 		glUseProgram(0);
 		break;
 	}

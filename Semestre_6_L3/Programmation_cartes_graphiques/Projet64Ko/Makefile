@@ -19,7 +19,7 @@ PROGNAME = demo
 VERSION = 1.0
 distdir = $(PACKNAME)_$(PROGNAME)-$(VERSION)
 HEADERS = animations.h audioHelper.h
-SOURCES = animations.c audioHelper.c spectre.c window.c
+SOURCES = animations.c audioHelper.c spectre.c window.c credit.c
 MSVCSRC = $(patsubst %,<ClCompile Include=\"%\\\" \\/>,$(SOURCES))
 OBJ = $(SOURCES:.c=.o)
 DOXYFILE = documentation/Doxyfile
