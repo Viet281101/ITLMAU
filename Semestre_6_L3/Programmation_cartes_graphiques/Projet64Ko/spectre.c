@@ -69,9 +69,9 @@ static double get_dt(void) {
 }
 
 static void quit( void ) {
-    if ( _quad )
+    if (_quad)
         gl4dgDelete(_quad);
-    gl4duClean( GL4DU_ALL );
+    gl4duClean(GL4DU_ALL);
 }
 
 void draw(void) {
