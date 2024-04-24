@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_val_score
 
 import pandas as pd
 import polars as pl
@@ -76,36 +77,46 @@ def evaluate_model(clf: LinearSVC, X_test: pd.DataFrame, y_test: pd.DataFrame) -
 	print(class_report)
 	return accuracy, conf_matrix, class_report
 
+def gridsearch_model(X_train: pd.DataFrame, y_train: pd.DataFrame) -> GridSearchCV:
+	"""Perform a grid search to find the best parameters for the model."""
+	model = LinearSVC(dual=False, random_state=42)
+	param_grid = {
+		'C': [0.1, 1, 10, 100],
+		'loss': ['hinge', 'squared_hinge']
+	}
+	grid_search = GridSearchCV(model, param_grid, cv=5, scoring='accuracy', verbose=3, n_jobs=-1)
+	grid_search.fit(X_train, y_train)
+	return grid_search
+
+def cross_validate_model(model, X, y, cv=5):
+	"""Perform cross-validation on a given model."""
+	scores = cross_val_score(model, X, y, cv=cv, scoring='accuracy')
+	print(f"Cross-validation scores: {scores}")
+	print(f"Average cross-validation score: {scores.mean():.3f}")
+	return scores
+
 def main() -> None:
 	"""Main function."""
 	df = load_data()
 	# describe_data(df)
 	# visualize_data(df)
 	# boxplot(df)
-
 	X, y = standardize_data(df)
 	X_train, X_test, y_train, y_test = train_test_split_data(X, y)
 
 	clf = train_model(X_train, y_train)
 	accuracy, conf_matrix, class_report = evaluate_model(clf, X_test, y_test)
-
 	print(f"Score du modèle sur le jeu de tests : {clf.score(X_test, y_test):.3f}")
 
-	#### GridSearchCV
-	model = LinearSVC(dual=False, random_state=42)
-	param_grid = {
-		'C': [0.1, 1, 10, 100],
-		'loss': ['hinge', 'squared_hinge']
-	}
-
-	grid_search = GridSearchCV(model, param_grid, cv=5, scoring='accuracy', verbose=3, n_jobs=-1)
-	grid_search.fit(X_train, y_train)
-
+	## Grid search to find the best parameters
+	grid_search = gridsearch_model(X_train, y_train)
 	print("Meilleur score :", grid_search.best_score_)
 	print("Meilleurs paramètres :", grid_search.best_params_)
-
 	best_model = grid_search.best_estimator_
 	print("Score du modèle avec les meilleurs paramètres :", best_model.score(X_test, y_test))
+
+	## Cross-validation
+	cross_validate_model(best_model, X, y, cv=10)
 
 
 if __name__ == '__main__':

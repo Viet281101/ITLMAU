@@ -76,7 +76,7 @@ void help() {
   fprintf(stderr, "  quit\n");
   fprintf(stderr, "  echo ON | OFF\n");
   fprintf(stderr, "  help\n");
-  fprintf(stderr, "  name\n");
+  fprintf(stderr, "  name <PLAYER_NAME>\n");
   fprintf(stderr, "  setname <NEW_PLAYER_NAME>\n");
   fprintf(stderr, "  newgame <NBCOL> <NBLINE>\n");
   fprintf(stderr, "  showboard (print board on stderr)\n");
@@ -94,7 +94,7 @@ void help() {
   fprintf(stderr, "  strboard <TURN>\n"); // referee's side cmd on oracle
 }
 void name() {
-  printf("viet %s\n\n", playername);
+  printf("= %s\n\n", playername);
 }
 void setname(char* _name) {
   strncpy(playername, _name, 128);
@@ -188,14 +188,17 @@ void genmove() {
   white_turn = !white_turn;
   printf("= %s\n\n", m.tostr(B.nbl).c_str());
 }
-void genmove(char _turn) {  
-  if(_turn == '@') {
-    bt_move_t m = B.get_rand_move(BLACK);
-    printf("= %s\n\n", m.tostr(B.nbl).c_str());
-  } else {
-    bt_move_t m = B.get_rand_move(WHITE);
-    printf("= %s\n\n", m.tostr(B.nbl).c_str());
+void randmove() {
+  int ret = B.endgame();  
+  if(ret != EMPTY) {
+    fprintf(stderr, "game finished\n");
+    if(ret == WHITE) fprintf(stderr, "white player wins\n");
+    else fprintf(stderr, "black player wins\n");
+    printf("= \n\n");
+    return;
   }
+  bt_move_t m = B.get_rand_move();
+  printf("= %s\n\n", m.tostr(B.nbl).c_str());
 }
 void play(char a0, char a1, char a2, char a3) {
   bt_move_t m;
@@ -424,10 +427,10 @@ int main(int _ac, char** _av) {
         { cmd_ok=true; play(a0,a1,a2,a3);}
     }
 
-    if(B.alternate_or_simultaneous == 1) {
-      if(sscanf(line.c_str(), "genmove %c\n", &a0) == 1) { cmd_ok=true; genmove(a0);}
-      else if(sscanf(line.c_str(), "play %c%c%c%c %c%c%c%c\n", &a0,&a1,&a2,&a3,&b0,&b1,&b2,&b3) == 8) 
-        { cmd_ok=true; play(a0,a1,a2,a3,b0,b1,b2,b3);}
+    if(B.alternate_or_simultaneous == 0) {
+      if(line.compare("randmove") == 0) { cmd_ok=true; randmove();}
+      else if(sscanf(line.c_str(), "play %c%c%c%c\n", &a0,&a1,&a2,&a3) == 4) 
+        { cmd_ok=true; play(a0,a1,a2,a3);}
     }
 
     if(B.fullinfo_or_dark_or_blind == 1 || B.fullinfo_or_dark_or_blind == 2) {
