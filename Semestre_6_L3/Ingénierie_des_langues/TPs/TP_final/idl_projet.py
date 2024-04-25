@@ -175,3 +175,105 @@ train_and_evaluate_dt(features_count, reviews_df['label'])
 
 
 
+
+### 6. K-Nearest Neighbors
+
+from sklearn.neighbors import KNeighborsClassifier
+
+def train_and_evaluate_knn(features, labels):
+	X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.25, random_state=42)
+	model = KNeighborsClassifier()
+	model.fit(X_train, y_train)
+	y_pred = model.predict(X_test)
+	print("Accuracy:", accuracy_score(y_test, y_pred))
+	print("Classification Report:\n", classification_report(y_test, y_pred))
+
+### TF-IDF
+train_and_evaluate_knn(features, reviews_df['label'])
+
+### Count
+train_and_evaluate_knn(features_count, reviews_df['label'])
+
+
+
+
+#### 7. XGBoost
+
+from xgboost import XGBClassifier
+
+def train_and_evaluate_xgb(features, labels):
+	X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.25, random_state=42)
+	model = XGBClassifier()
+	model.fit(X_train, y_train)
+	y_pred = model.predict(X_test)
+	print("Accuracy:", accuracy_score(y_test, y_pred))
+	print("Classification Report:\n", classification_report(y_test, y_pred))
+
+### TF-IDF
+train_and_evaluate_xgb(features, reviews_df['label'])
+
+### Count
+train_and_evaluate_xgb(features_count, reviews_df['label'])
+
+
+
+
+
+## Evaluation
+
+comparison_data = {
+	"Model": [],
+	"Vectorization": [],
+	"Accuracy": [],
+	"Precision (macro)": [],
+	"Recall (macro)": [],
+	"F1-score (macro)": [],
+}
+
+def add_to_comparison(model_name, vectorization, accuracy, report):
+	"""Add data to the comparison table."""
+	comparison_data["Model"].append(model_name)
+	comparison_data["Vectorization"].append(vectorization)
+	comparison_data["Accuracy"].append(accuracy)
+	comparison_data["Precision (macro)"].append(report["macro avg"]["precision"])
+	comparison_data["Recall (macro)"].append(report["macro avg"]["recall"])
+	comparison_data["F1-score (macro)"].append(report["macro avg"]["f1-score"])
+
+
+def run_and_add_to_comparison(features, labels, model_name, model, vectorization_type):
+	"""Run the model and add it to the comparison table."""
+	X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.25, random_state=42)
+	model.fit(X_train, y_train)
+	y_pred = model.predict(X_test)
+	accuracy = accuracy_score(y_test, y_pred)
+	report = classification_report(y_test, y_pred, output_dict=True)
+	add_to_comparison(model_name, vectorization_type, accuracy, report)
+
+
+run_and_add_to_comparison(features, reviews_df['label'], "Logistic Regression", LogisticRegression(random_state=42), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "Logistic Regression", LogisticRegression(random_state=42), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "Random Forest", RandomForestClassifier(n_estimators=100, random_state=42), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "Random Forest", RandomForestClassifier(n_estimators=100, random_state=42), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "Naive Bayes", MultinomialNB(), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "Naive Bayes", MultinomialNB(), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "SVM", SVC(), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "SVM", SVC(), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "Decision Tree", DecisionTreeClassifier(random_state=42), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "Decision Tree", DecisionTreeClassifier(random_state=42), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "KNN", KNeighborsClassifier(), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "KNN", KNeighborsClassifier(), "Count")
+
+run_and_add_to_comparison(features, reviews_df['label'], "XGBoost", XGBClassifier(), "TF-IDF")
+run_and_add_to_comparison(features_count, reviews_df['label'], "XGBoost", XGBClassifier(), "Count")
+
+
+comparison_df = pd.DataFrame(comparison_data)
+print(comparison_df)
+
+
+
