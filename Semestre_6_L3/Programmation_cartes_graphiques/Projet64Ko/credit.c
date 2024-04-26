@@ -27,7 +27,7 @@ void credit_fin(int state) {
 		/* INITIALISEZ VOTRE ANIMATION (SES VARIABLES <STATIC>s) */
 		_texte = "\n                    Credits - Projet Demo64Ko                \n\n"
 		"    - Shaders: \n    Light Strip - glslsandbox.com \n    Light Strip Variant - glslsandbox.com \n\n"
-		"    - Musique: \n    Xion - Kingdom Hearts: 358/2 Days\n\n"
+		"    - Musique: \n    Beethoven - 9th Symphony (Ode To Joy)\n\n"
 		"    - Font: \n    Alagard - dafont.com\n\n"
 		"    - Code d'ajouter et de modification: \n    Viet Nguyen \n\n"
 		"    - Code de base: \n  GL4Dummies - Monsieur Fares BELHADJ\n";

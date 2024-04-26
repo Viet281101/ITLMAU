@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <chrono>
 #include "mybt.h"
 
 bt_t B;
@@ -14,7 +15,7 @@ bool white_turn = true;
 #ifndef VERBOSE_RAND_PLAYER
 #define VERBOSE_RAND_PLAYER
 bool verbose = false;
-bool showboard_at_each_move = false;
+bool showboard_at_each_move = true;
 #endif
 
 char playername[128];
@@ -171,6 +172,7 @@ void setboard(int _game_turn, char _str_board[MAX_COLS*MAX_LINES]) {
   printf("= \n\n");
 }
 void genmove() {
+  auto start = std::chrono::high_resolution_clock::now();
   int ret = B.endgame();  
   if(ret != EMPTY) {
     fprintf(stderr, "game finished\n");
@@ -186,7 +188,12 @@ void genmove() {
     fprintf(stderr, "\n");
   }
   white_turn = !white_turn;
-  printf("= %s\n\n", m.tostr(B.nbl).c_str());
+  printf("= %s\n", m.tostr(B.nbl).c_str());
+  auto finish = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = finish - start;
+  fprintf(stderr, "Elapsed time: %.3f seconds\n\n", elapsed.count());
+  if (showboard_at_each_move) showboard();
+  printf("= \n\n");
 }
 void randmove() {
   int ret = B.endgame();  
@@ -240,6 +247,7 @@ void play(char a0, char a1, char a2, char a3, char b0, char b1, char b2, char b3
   printf("= \n\n");
 }
 void mctsmove() {
+  auto start = std::chrono::high_resolution_clock::now();
   int ret = B.endgame();  
   if(ret != EMPTY) {
     fprintf(stderr, "game finished\n");
@@ -255,7 +263,12 @@ void mctsmove() {
     fprintf(stderr, "\n");
   }
   white_turn = !white_turn;
-  printf("= %s\n\n", m.tostr(B.nbl).c_str());
+  printf("= %s\n", m.tostr(B.nbl).c_str());
+  auto finish = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = finish - start;
+  fprintf(stderr, "Elapsed time: %.3f seconds\n\n", elapsed.count());
+  if (showboard_at_each_move) showboard();
+  printf("= \n\n");
 }
 bt_move_t best_move(Node* selected) {
   float score = 0;

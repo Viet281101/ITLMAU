@@ -1,4 +1,3 @@
-
 #include <GL4D/gl4du.h>
 #include <GL4D/gl4dp.h>
 #include <GL4D/gl4duw_SDL2.h>
@@ -10,10 +9,8 @@
 #include <GL4D/gl4dg.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-
 /*!\brief identifiant de la géométrie QUAD GL4Dummies */
 static GLuint _quadId = 0;
-
 void animation_vide(int state) {
 	switch(state) {
 	case GL4DH_DRAW:
@@ -24,7 +21,6 @@ void animation_vide(int state) {
 		return;
 	}
 }
-
 void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 	int vp[4], i;
 	GLint tId;
@@ -81,7 +77,6 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 		return;
 	}
 }
-
 void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	int vp[4], i;
@@ -145,7 +140,6 @@ void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
 		return;
 	}
 }
-
 void green(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	static double mp = 0.0;
@@ -173,7 +167,6 @@ void green(int state) {
 		return;
 	}
 }
-
 void blue(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	/* ... */
@@ -261,5 +254,4 @@ void animationsInit(void) {
 	if(!_quadId)
 		_quadId = gl4dgGenQuadf();
 }
-
 

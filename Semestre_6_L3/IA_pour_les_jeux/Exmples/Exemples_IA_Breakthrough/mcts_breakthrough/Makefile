@@ -7,3 +7,5 @@ IGN=-Wno-unused-variable -Wno-stringop-truncation
 mcts_player: mybt.h mcts_player.cpp
 	$(CC) $(CFLAGS) $(IGN) mcts_player.cpp -o $@
 
+clean:
+	rm -r -f mcts_player

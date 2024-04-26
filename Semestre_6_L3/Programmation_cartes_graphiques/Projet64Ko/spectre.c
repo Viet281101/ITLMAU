@@ -1,23 +1,17 @@
-
 #include <GL4D/gl4duw_SDL2.h>
 #include <GL4D/gl4dg.h>
 #include <GL4D/gl4dh.h>
 #include <stdio.h>
 #include "audioHelper.h"
-
 static void init(void);
 static void quit(void);
 static void draw(void);
-
 #define NB_E 1024
-
 static GLuint _wW = 1024, _wH = 768;
 static GLuint _cubeId = 0;
 static GLuint _pId = 0;
 static GLuint _quad = 0;
-
 static int _hauteurs[NB_E];
-
 void spectre(int state) {
 	/* INITIALISEZ VOS VARIABLES */
 	switch(state) {
@@ -43,7 +37,6 @@ void spectre(int state) {
 		return;
 	}
 }
-
 void init(void) {
 	SDL_GL_SetSwapInterval(1);
 	_cubeId = gl4dgGenCubef();
@@ -57,23 +50,20 @@ void init(void) {
 	gl4duFrustumf(-1.0f, 1.0f, (-1.0f * _wH)  / _wW, (1.0f * _wH)  / _wW, 1.0f, 1000.0f);
 
 	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
-	// glLineWidth(0.3f);
-	// glEnable(GL_LINE_SMOOTH);
+	glLineWidth(0.3f);
+	glEnable(GL_LINE_SMOOTH);
 }
-
 static double get_dt(void) {
 	static double t0 = 0.0f;
 	double t = gl4dGetElapsedTime(), dt = (t - t0) / 1000.0;
 	t0 = t;
 	return dt;
 }
-
 static void quit( void ) {
     if (_quad)
         gl4dgDelete(_quad);
     gl4duClean(GL4DU_ALL);
 }
-
 void draw(void) {
 	int i;
 	static GLfloat a = 0.0f;
@@ -99,7 +89,6 @@ void draw(void) {
 		}
 		gl4duPopMatrix();
 	}
-
 	glUseProgram(0);
 	a += 2.0f * M_PI * get_dt();
 }

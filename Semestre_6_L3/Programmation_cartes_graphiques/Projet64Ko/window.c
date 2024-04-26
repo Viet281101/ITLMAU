@@ -5,12 +5,10 @@
 #include <GL4D/gl4duw_SDL2.h>
 #include "animations.h"
 #include "audioHelper.h"
-
 static void init(void);
 static void quit(void);
 static void resize(int w, int h);
 static void keydown(int keycode);
-
 /*!\brief tableau contenant les animations sous la forme de timeline */
 static GL4DHanime _animations[] = {
 	{ 2000, spectre, NULL, transition_fondu },
@@ -20,10 +18,8 @@ static GL4DHanime _animations[] = {
 	{15000, credit_fin, NULL, NULL },
 	{    0, NULL, NULL, NULL }
 };
-
 /*!\brief dimensions initiales de la fenêtre */
 static GLfloat _dim[] = {1280, 720};
-
 /*!\brief fonction principale : initialise la fenêtre, OpenGL, audio
  * et lance la boucle principale (infinie).
  */
@@ -38,7 +34,7 @@ int main(int argc, char ** argv) {
 	gl4duwResizeFunc(resize);
 	gl4duwKeyDownFunc(keydown);
 	gl4duwDisplayFunc(gl4dhDraw);
-	ahInitAudio("mus.mid");
+	ahInitAudio("symphony.mid");
 	gl4duwMainLoop();
 	return 0;
 }
