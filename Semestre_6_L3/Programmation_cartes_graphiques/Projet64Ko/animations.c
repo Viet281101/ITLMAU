@@ -9,16 +9,14 @@
 #include <GL4D/gl4dg.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-/*!\brief identifiant de la géométrie QUAD GL4Dummies */
-static GLuint _quadId = 0;
+static GLuint _quadId = 0;/*!\brief identifiant de la géométrie QUAD GL4Dummies */
 void animation_vide(int state) {
 	switch(state) {
 	case GL4DH_DRAW:
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return;
-	default:
-		return;
+	default: return;
 	}
 }
 void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state) {
@@ -39,12 +37,7 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 		}
 		pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/mix.fs", NULL);
 		return;
-	case GL4DH_FREE:
-		if(tex[0]) {
-			glDeleteTextures(2, tex);
-			tex[0] = tex[1] = 0;
-		}
-		return;
+	case GL4DH_FREE: if(tex[0]) { glDeleteTextures(2, tex); tex[0] = tex[1] = 0; } return;
 	case GL4DH_UPDATE_WITH_AUDIO:
 		if(a0) a0(state);
 		if(a1) a1(state);
@@ -62,10 +55,7 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 		glBindTexture(GL_TEXTURE_2D, tex[0]);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, tex[1]);
-		if(et / (GLfloat)t > 1) {
-			fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t);
-			exit(0);
-		}
+		if(et / (GLfloat)t > 1) { fprintf(stderr, "%d-%d -- %f\n", et, t, et / (GLfloat)t); exit(0); }
 		glUniform1f(glGetUniformLocation(pId, "dt"), et / (GLfloat)t);
 		glUniform1i(glGetUniformLocation(pId, "tex0"), 0);
 		glUniform1i(glGetUniformLocation(pId, "tex1"), 1);
@@ -78,17 +68,13 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 	}
 }
 void green(int state) {
-	/* INITIALISEZ VOS VARIABLES */
 	static double mp = 0.0;
 	switch(state) {
 	case GL4DH_INIT:
-		/* INITIALISEZ VOTRE ANIMATION (SES VARIABLES <STATIC>s) */
 		return;
 	case GL4DH_FREE:
-		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO: {
-		/* METTRE A JOUR VOTRE ANIMATION EN FONCTION DU SON */
 		int l = ahGetAudioStreamLength(), i;
 		short * s = (short *)ahGetAudioStream();
 		double m = 0.0;
@@ -97,29 +83,20 @@ void green(int state) {
 		mp = m / (l / 2);
 		return;
 	}
-	default: /* GL4DH_DRAW */
-		/* JOUER L'ANIMATION */
+	default:
 		glClearColor(0.0f, 5.0f * mp, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return;
 	}
 }
 void blue(int state) {
-	/* INITIALISEZ VOS VARIABLES */
-	/* ... */
 	switch(state) {
 	case GL4DH_INIT:
-		/* INITIALISEZ VOTRE ANIMATION (SES VARIABLES <STATIC>s) */
 		return;
-	case GL4DH_FREE:
-		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
-		gl4dpDeleteScreen();
-		return;
+	case GL4DH_FREE: gl4dpDeleteScreen(); return;
 	case GL4DH_UPDATE_WITH_AUDIO:
-		/* METTRE A JOUR VOTRE ANIMATION EN FONCTION DU SON */
 		return;
-	default: /* GL4DH_DRAW */
-		/* JOUER L'ANIMATION */
+	default:
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return;
@@ -138,42 +115,30 @@ void run_shaders(GLuint shaderId, GLuint quadId, float* time, float timeScale, U
 	gl4dgDraw(quadId);
 	glUseProgram(0);
 }
+void sun_wave(int state) {
+	static float time = 0.0;
+	static GLuint _pId = 0, _quadId = 0;
+	static Uint32 lastTime = 0;
+	switch (state) {
+	case GL4DH_INIT:
+		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/sun_wave.fs", NULL);
+		_quadId = gl4dgGenQuadf();
+		break;
+	case GL4DH_FREE: gl4dgDelete(_quadId); gl4duClean(GL4DU_ALL); break;
+	case GL4DH_DRAW: run_shaders(_pId, _quadId, &time, 1.0f, &lastTime); break;
+	}
+}
 void strip(int state) {
 	static float time = 0.0;
-	static GLuint _pId = 0;
-	static GLuint _quadId = 0;
+	static GLuint _pId = 0, _quadId = 0;
 	static Uint32 lastTime = 0;
 	switch (state) {
 	case GL4DH_INIT:
 		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/strip.fs", NULL);
 		_quadId = gl4dgGenQuadf();
 		break;
-	case GL4DH_FREE:
-		gl4dgDelete(_quadId);
-		gl4duClean(GL4DU_ALL);
-		break;
-	case GL4DH_DRAW:
-		run_shaders(_pId, _quadId, &time, 1.0f, &lastTime);
-		break;
-	}
-}
-void strip2(int state) {
-	static float time = 0.0;
-	static GLuint _pId = 0;
-	static GLuint _quadId = 0;
-	static Uint32 lastTime = 0;
-	switch (state) {
-	case GL4DH_INIT:
-		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/strip2.fs", NULL);
-		_quadId = gl4dgGenQuadf();
-		break;
-	case GL4DH_FREE:
-		gl4dgDelete(_quadId);
-		gl4duClean(GL4DU_ALL);
-		break;
-	case GL4DH_DRAW:
-		run_shaders(_pId, _quadId, &time, 1.5f, &lastTime);
-		break;
+	case GL4DH_FREE: gl4dgDelete(_quadId); gl4duClean(GL4DU_ALL); break;
+	case GL4DH_DRAW: run_shaders(_pId, _quadId, &time, 1.5f, &lastTime); break;
 	}
 }
 void animationsInit(void) {

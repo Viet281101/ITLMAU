@@ -13,26 +13,21 @@ static GLuint _pId = 0;
 static GLuint _quad = 0;
 static int _hauteurs[NB_E];
 void spectre(int state) {
-	/* INITIALISEZ VOS VARIABLES */
 	switch(state) {
 	case GL4DH_INIT:
-		/* INITIALISEZ VOTRE ANIMATION (SES VARIABLES <STATIC>s) */
 		init();
 		return;
 	case GL4DH_FREE:
-		/* LIBERER LA MEMOIRE UTILISEE PAR LES <STATIC>s */
 		quit();
 		return;
 	case GL4DH_UPDATE_WITH_AUDIO: {
-		/* METTRE A JOUR VOTRE ANIMATION EN FONCTION DU SON */
 		int l = ahGetAudioStreamLength(), i;
 		short * s = (short *)ahGetAudioStream();
 		for(i = 0; i < l / 4; ++i)
 		_hauteurs[i] = s[2 * i] >> 10;
 		return;
 	}
-	default: /* GL4DH_DRAW */
-		/* JOUER L'ANIMATION */
+	default:
 		draw();
 		return;
 	}
@@ -43,12 +38,10 @@ void init(void) {
 	_pId = gl4duCreateProgram("<vs>shaders/spectre.vs", "<fs>shaders/spectre.fs", NULL);
 	_quad = gl4dgGenQuadf();
 	gl4duGenMatrix(GL_FLOAT, "modelView");
-
 	gl4duGenMatrix(GL_FLOAT, "proj");
 	gl4duBindMatrix("proj");
 	gl4duLoadIdentityf();
 	gl4duFrustumf(-1.0f, 1.0f, (-1.0f * _wH)  / _wW, (1.0f * _wH)  / _wW, 1.0f, 1000.0f);
-
 	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
 	glLineWidth(0.3f);
 	glEnable(GL_LINE_SMOOTH);
@@ -65,8 +58,7 @@ static void quit( void ) {
     gl4duClean(GL4DU_ALL);
 }
 void draw(void) {
-	int i;
-	static GLfloat a = 0.0f;
+	int i; static GLfloat a = 0.0f;
 	glClearColor(0, 0, 0, 255);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(_pId);

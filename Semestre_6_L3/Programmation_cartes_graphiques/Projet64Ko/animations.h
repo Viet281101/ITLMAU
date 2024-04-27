@@ -12,15 +12,12 @@ extern "C" {
 #endif
 	/* animations */
 	extern void animation_vide(int state);
-
+	extern void animationsInit(void);
 	extern void green(int state);
 	extern void blue(int state);
 	extern void strip(int state);
-	extern void strip2(int state);
+	extern void sun_wave(int state);
 	extern void credit_fin(int state);
-
-	extern void animationsInit(void);
-
 	/* transition */
 	extern void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state);
 	extern void spectre(int state);

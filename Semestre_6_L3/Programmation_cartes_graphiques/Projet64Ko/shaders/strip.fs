@@ -3,19 +3,16 @@ uniform float time;
 uniform vec2 resolution;
 out vec4 fragColor;
 
-#define PI 3.14159
-
-void main() {
+void main( void ) {
 	vec2 p = (gl_FragCoord.xy - 0.5 * resolution) / min(resolution.x, resolution.y);
-	vec3 c = vec3(0);
-	for(int i = 0; i < 20; i++) {
-		float t = 0.4 * PI * float(i) / 30.0 * time * 5.5;
-		float x = cos(3.0*t);
-		float y = sin(4.0*t);
-		vec2 o = 0.40 * vec2(x, y);
-		float r = fract(x);
-		float g = 1.0 - r;
-		c += 0.01 / (length(p-o)) * vec3(r, g, 0.9);
+	vec3 c = vec3(0.005, 0.0021, 0.009);
+	vec3 lightCol = vec3(0.1 + 0.09 * tan (time * 1.), 0.3, 0.6 + 0.04 * tan (time * 3.));
+	for(int i = 0; i < 50; ++i) {
+		float t = 0.8 * 3. * float(i) / 4. * fract(time * .1);
+		float x = cos(t);
+		float y = sin(t);
+		vec2 o = .5 * vec2(x  * fract(time * .1) - sin (time * 0.4) * y, y);
+		c += 0.02 / (length(p - o)) * lightCol * 0.6;
 	}
-	fragColor = vec4(c, 1);
+	fragColor = vec4(c,1.);
 }

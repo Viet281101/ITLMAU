@@ -1,8 +1,3 @@
-/*
-
-KARUNAKARAN Nithusha
-L2 Informatique Groupe Y
-*/
 #include <GL4D/gl4dh.h>
 #include "audioHelper.h"
 #include <assert.h>
@@ -19,93 +14,84 @@ static float steps = 5.0f;
 
 void animation_sierpinski(int state) {
 	static GLuint screen_id;
-	switch(state)
-	{
-		case GL4DH_INIT:
-			screen_id = gl4dpInitScreen();
-			gl4dpUpdateScreen(NULL);
-			return;
-		case GL4DH_FREE:
-			gl4dpSetScreen(screen_id);
-			gl4dpDeleteScreen();
-			return;
-		case GL4DH_UPDATE_WITH_AUDIO:
-			return;
-		default:
-			gl4dpSetScreen(screen_id);
-			sierpinski_anim();
-			gl4dpUpdateScreen(NULL);
-			return;
+	switch(state) {
+	case GL4DH_INIT:
+		screen_id = gl4dpInitScreen();
+		gl4dpUpdateScreen(NULL);
+		return;
+	case GL4DH_FREE:
+		gl4dpSetScreen(screen_id);
+		gl4dpDeleteScreen();
+		return;
+	case GL4DH_UPDATE_WITH_AUDIO:
+		return;
+	default:
+		gl4dpSetScreen(screen_id);
+		sierpinski_anim();
+		gl4dpUpdateScreen(NULL);
+		return;
 	}
 }
-
 
 void animation_mendel(int state) {
 	static GLuint screen_id;
-	switch(state)
-	{
-		case GL4DH_INIT:
-			screen_id = gl4dpInitScreen();
-			gl4dpUpdateScreen(NULL);
-			return;
-		case GL4DH_FREE:
-			gl4dpSetScreen(screen_id);
-			gl4dpDeleteScreen();
-			return;
-		case GL4DH_UPDATE_WITH_AUDIO:
-			return;
-		default:
-			gl4dpSetScreen(screen_id);
-			mendel_anim();
-			gl4dpUpdateScreen(NULL);
-			return;
+	switch(state) {
+	case GL4DH_INIT:
+		screen_id = gl4dpInitScreen();
+		gl4dpUpdateScreen(NULL);
+		return;
+	case GL4DH_FREE:
+		gl4dpSetScreen(screen_id);
+		gl4dpDeleteScreen();
+		return;
+	case GL4DH_UPDATE_WITH_AUDIO:
+		return;
+	default:
+		gl4dpSetScreen(screen_id);
+		mendel_anim();
+		gl4dpUpdateScreen(NULL);
+		return;
 	}
 }
-
-
 
 void animation_julia(int state) {
 	static GLuint screen_id;
 	static int etat = 0;
 	static double cImaginaire = 1;
 	static double cReel = 1;
-	switch(state) 
-	{
-		case GL4DH_INIT:
-			screen_id = gl4dpInitScreen();
-			julia(1.0,40,cImaginaire,cReel);
-			gl4dpUpdateScreen(NULL);
-			return;
-		case GL4DH_FREE:
-			gl4dpSetScreen(screen_id);
-			gl4dpDeleteScreen();
-			return;
-		case GL4DH_UPDATE_WITH_AUDIO:
-			return;
-		default:
-			gl4dpSetScreen(screen_id);
-			julia(1,40,cImaginaire,cReel);
-			switch(etat)
-			{
-				case 0:
-					cImaginaire -=0.01;
-					cReel -= 0.01;
-					if(cReel < -2){ etat = 1; }
-					break;
-				case 1:
-					cImaginaire +=0.015;
-					if(cImaginaire > 2){ etat = 2; }
-					break;
-				case 2 :
-					cReel +=0.015;
-					if(cReel > 2){ etat = 0; }
-			}
-			gl4dpUpdateScreen(NULL);
-			return;
+	switch(state) {
+	case GL4DH_INIT:
+		screen_id = gl4dpInitScreen();
+		julia(1.0,40,cImaginaire,cReel);
+		gl4dpUpdateScreen(NULL);
+		return;
+	case GL4DH_FREE:
+		gl4dpSetScreen(screen_id);
+		gl4dpDeleteScreen();
+		return;
+	case GL4DH_UPDATE_WITH_AUDIO:
+		return;
+	default:
+		gl4dpSetScreen(screen_id);
+		julia(1,40,cImaginaire,cReel);
+		switch(etat) {
+		case 0:
+			cImaginaire -=0.01;
+			cReel -= 0.01;
+			if(cReel < -2){ etat = 1; }
+			break;
+		case 1:
+			cImaginaire +=0.015;
+			if(cImaginaire > 2){ etat = 2; }
+			break;
+		case 2 :
+			cReel +=0.015;
+			if(cReel > 2){ etat = 0; }
+		}
+		gl4dpUpdateScreen(NULL);
+		return;
 	}
 }
-
-
 
 void animation_julia_zoom(int state) {
 	static GLuint screen_id;
@@ -132,8 +118,6 @@ void animation_julia_zoom(int state) {
 			return;
 	}
 }
-
-
 
 void animation_pythagore(int state) {
 	static GLuint screen_id;
@@ -182,17 +166,12 @@ void animation_barnsley(int state) {
 	}
 }
 
-
-
 void animationsInit(void) {
 	if(!_quadId)
 		_quadId = gl4dgGenQuadf();
 }
 
-
-
 /*
-
 HSBtoRGB
 CODE ISSU DE L'ANCIENNE BIBLIOTHEQUE GRAPHIQUE AWT POUR JAVA : COLOR.JAVA
 JE NE SUIS PAS L'AUTEUR DU CODE,J'AI JUSTE TRADUIS LE CODE JAVA EN C,
@@ -200,12 +179,10 @@ http://www.docar.com/html/api/java/awt/Color.java.html
 LIGNE 839 À 884
 */
 
-
 int HSBtoRGB(float hue, float saturation, float brightness) {
 	int r = 0, g = 0, b = 0;
-	if (saturation == 0) {
-		r = g = b = (int) (brightness * 255.0f + 0.5f);
-	} else {
+	if (saturation == 0) { r = g = b = (int) (brightness * 255.0f + 0.5f); }
+	else {
 		float h = (hue - (float)floor(hue)) * 6.0f;
 		float f = h - (float)floor(h);
 		float p = brightness * (1.0f - saturation);
@@ -213,45 +190,43 @@ int HSBtoRGB(float hue, float saturation, float brightness) {
 		float t = brightness * (1.0f - (saturation * (1.0f - f)));
 		switch ((int) h) {
 		case 0:
-				r = (int) (brightness * 255.0f + 0.5f);
-				g = (int) (t * 255.0f + 0.5f);
-				b = (int) (p * 255.0f + 0.5f);
-				break;
+			r = (int) (brightness * 255.0f + 0.5f);
+			g = (int) (t * 255.0f + 0.5f);
+			b = (int) (p * 255.0f + 0.5f);
+			break;
 		case 1:
-				r = (int) (q * 255.0f + 0.5f);
-				g = (int) (brightness * 255.0f + 0.5f);
-				b = (int) (p * 255.0f + 0.5f);
-				break;
+			r = (int) (q * 255.0f + 0.5f);
+			g = (int) (brightness * 255.0f + 0.5f);
+			b = (int) (p * 255.0f + 0.5f);
+			break;
 		case 2:
-				r = (int) (p * 255.0f + 0.5f);
-				g = (int) (brightness * 255.0f + 0.5f);
-				b = (int) (t * 255.0f + 0.5f);
-				break;
+			r = (int) (p * 255.0f + 0.5f);
+			g = (int) (brightness * 255.0f + 0.5f);
+			b = (int) (t * 255.0f + 0.5f);
+			break;
 		case 3:
-				r = (int) (p * 255.0f + 0.5f);
-				g = (int) (q * 255.0f + 0.5f);
-				b = (int) (brightness * 255.0f + 0.5f);
-				break;
+			r = (int) (p * 255.0f + 0.5f);
+			g = (int) (q * 255.0f + 0.5f);
+			b = (int) (brightness * 255.0f + 0.5f);
+			break;
 		case 4:
-				r = (int) (t * 255.0f + 0.5f);
-				g = (int) (p * 255.0f + 0.5f);
-				b = (int) (brightness * 255.0f + 0.5f);
-				break;
+			r = (int) (t * 255.0f + 0.5f);
+			g = (int) (p * 255.0f + 0.5f);
+			b = (int) (brightness * 255.0f + 0.5f);
+			break;
 		case 5:
-				r = (int) (brightness * 255.0f + 0.5f);
-				g = (int) (p * 255.0f + 0.5f);
-				b = (int) (q * 255.0f + 0.5f);
-				break;
+			r = (int) (brightness * 255.0f + 0.5f);
+			g = (int) (p * 255.0f + 0.5f);
+			b = (int) (q * 255.0f + 0.5f);
+			break;
 		}
 	}
 	return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
 }
 
-
 /*
 Fonctions pour créer un ensemble de Mendelbrot
 */
-
 void mendel_anim(){
 	mendel(max);
 	if(max == 50){ etat = 0; }
@@ -259,8 +234,6 @@ void mendel_anim(){
 	if(etat == 0){ --max; }
 	if(etat == 1){ ++max; }
 }
-
-
 
 void mendel(int max){
 	int height = gl4dpGetHeight();
@@ -283,38 +256,25 @@ void mendel(int max){
 			nouveauReel = nouveauIm = reel = imaginaire = 0;
 
 			int i = 0;
-			while (nouveauReel * nouveauReel + nouveauIm * nouveauIm <= 4 && i < max)
-			{
+			while (nouveauReel * nouveauReel + nouveauIm * nouveauIm <= 4 && i < max) {
 				reel = nouveauReel;
 				imaginaire = nouveauIm;
 				nouveauReel = reel * reel - imaginaire * imaginaire + cReel;
 				nouveauIm = 2 * reel * imaginaire + cImaginaire;
 				i++;
 			}
-			if (i < max){
-				gl4dpSetColor(color[i]);
-				gl4dpPutPixel(col, ligne);
-			} else {
-				gl4dpSetColor(RGB(0,0,0));
-				gl4dpPutPixel(col, ligne);
-			}
+			if (i < max){ gl4dpSetColor(color[i]); gl4dpPutPixel(col, ligne); }
+			else { gl4dpSetColor(RGB(0,0,0)); gl4dpPutPixel(col, ligne); }
 		}
 	}
 }
 
-
-/*
-Fonction pour dessiner un triangle de Sierpinski
-*/
-
+/* Fonction pour dessiner un triangle de Sierpinski */
 void sierpinski_triangle(float steps){
 	float h = gl4dpGetHeight() ;
 	float w = gl4dpGetWidth();
 
-	point a;
-	point b;
-	point c;
-	point p;
+	point a, b, c, p;
 
 	a.x = 10;
 	a.y = h - 10;
@@ -328,26 +288,25 @@ void sierpinski_triangle(float steps){
 
 	for(int n = 0; n < steps; ++n)
 	{
-		switch(abs(rand() % 3))
-		{
-			case 0:
-				p.x = (p.x + a.x) / 2.0;
-				p.y = (p.y + a.y) / 2.0;
-				gl4dpSetColor(RGB(255,0,0));
-				gl4dpPutPixel(p.x,p.y);
-				break;
-			case 1:
-				p.x = (p.x + b.x) / 2.0;
-				p.y = (p.y + b.y) / 2.0;
-				gl4dpSetColor(RGB(0,255,0));
-				gl4dpPutPixel(p.x,p.y);
-				break;
-			case 2:
-				p.x = (p.x + c.x) / 2.0;
-				p.y = (p.y + c.y) / 2.0;
-				gl4dpSetColor(RGB(0,0,255));
-				gl4dpPutPixel(p.x,p.y);
-				break;
+		switch(abs(rand() % 3)) {
+		case 0:
+			p.x = (p.x + a.x) / 2.0;
+			p.y = (p.y + a.y) / 2.0;
+			gl4dpSetColor(RGB(255,0,0));
+			gl4dpPutPixel(p.x,p.y);
+			break;
+		case 1:
+			p.x = (p.x + b.x) / 2.0;
+			p.y = (p.y + b.y) / 2.0;
+			gl4dpSetColor(RGB(0,255,0));
+			gl4dpPutPixel(p.x,p.y);
+			break;
+		case 2:
+			p.x = (p.x + c.x) / 2.0;
+			p.y = (p.y + c.y) / 2.0;
+			gl4dpSetColor(RGB(0,0,255));
+			gl4dpPutPixel(p.x,p.y);
+			break;
 		}
 	}
 }
@@ -369,15 +328,9 @@ void sierpinski_anim(){
 	}
 }
 
-
-/*
-Fonction pour créer un arbre de Pythagore
-*/
-
+/* Fonction pour créer un arbre de Pythagore */
 void pythagore_arbre(point a,point b,int i){
-	point alpha;
-	point beta;
-	point gamma;
+	point alpha, beta, gamma;
 
 	alpha.x = b.x -(a.y - b.y);
 	alpha.y = b.y - (b.x - a.x);
@@ -400,18 +353,13 @@ void pythagore_arbre(point a,point b,int i){
 }
 
 double zoomeur( double zoom, int val){
-
 	double nouveau_max = 2 / zoom;
 	double nouveau_min = -2 / zoom;
 
 	return (( double)val * (nouveau_max - nouveau_min)) / gl4dpGetWidth() + nouveau_min;
 }
 
-/*
-Fonction pour créer un ensemble de Julia
-*/
-
-
+/* Fonction pour créer un ensemble de Julia */
 void julia(double zoom,int maxIterations,double cImaginaire,double cReel){
 	int height = gl4dpGetHeight();
 	int width = gl4dpGetWidth();
@@ -449,15 +397,10 @@ void julia(double zoom,int maxIterations,double cImaginaire,double cReel){
 }
 
 
-/*
-Fonction pour creer une une fougère de Barnsley
-*/
-
+/* Fonction pour creer une une fougère de Barnsley */
 void barnsley(int width, int i){
-	double x0=0;
-	double y0=0;
-	double nouveau_x;
-	double nouveau_y;
+	double x0=0, y0=0;
+	double nouveau_x, nouveau_y;
 
 	int random;
 	for(int j= 0;j< i;++j){
