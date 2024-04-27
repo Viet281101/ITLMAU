@@ -12,7 +12,7 @@ static void keydown(int keycode);
 /*!\brief tableau contenant les animations sous la forme de timeline */
 static GL4DHanime _animations[] = {
 	{ 2000, spectre, NULL, transition_fondu },
-	{ 3500, strip, NULL, fondu },
+	{ 3500, strip, NULL, transition_fondu },
 	{ 2500, strip2, NULL, NULL },
 	{ 1000, blue, NULL, transition_fondu },
 	{15000, credit_fin, NULL, NULL },

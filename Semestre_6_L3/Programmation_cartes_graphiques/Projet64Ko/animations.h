@@ -23,7 +23,6 @@ extern "C" {
 
 	/* transition */
 	extern void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state);
-	extern void fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, int state);
 	extern void spectre(int state);
 #ifdef __cplusplus
 }
