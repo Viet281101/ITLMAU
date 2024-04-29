@@ -5,7 +5,7 @@
 - Utiliser dune buile (Attention la version dune dans les fichiers **"dune"** et **"dune-projet"** ) :
 
 ```
-dune buile main.exe
+dune build main.exe
 ```
 
 ou

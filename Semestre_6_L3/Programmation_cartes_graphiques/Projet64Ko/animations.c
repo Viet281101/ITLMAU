@@ -9,7 +9,7 @@
 #include <GL4D/gl4dg.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-static GLuint _quadId = 0;/*!\brief identifiant de la géométrie QUAD GL4Dummies */
+static GLuint _quadId = 0;
 void animation_vide(int state) {
 	switch(state) {
 	case GL4DH_DRAW:
@@ -70,10 +70,8 @@ void transition_fondu(void (* a0)(int), void (* a1)(int), Uint32 t, Uint32 et, i
 void green(int state) {
 	static double mp = 0.0;
 	switch(state) {
-	case GL4DH_INIT:
-		return;
-	case GL4DH_FREE:
-		return;
+	case GL4DH_INIT: return;
+	case GL4DH_FREE: gl4dpDeleteScreen(); return;
 	case GL4DH_UPDATE_WITH_AUDIO: {
 		int l = ahGetAudioStreamLength(), i;
 		short * s = (short *)ahGetAudioStream();
@@ -91,58 +89,123 @@ void green(int state) {
 }
 void blue(int state) {
 	switch(state) {
-	case GL4DH_INIT:
-		return;
+	case GL4DH_INIT: return;
 	case GL4DH_FREE: gl4dpDeleteScreen(); return;
-	case GL4DH_UPDATE_WITH_AUDIO:
-		return;
+	case GL4DH_UPDATE_WITH_AUDIO: return;
 	default:
 		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		return;
 	}
 }
-void run_shaders(GLuint shaderId, GLuint quadId, float* time, float timeScale, Uint32* lastTimePtr) {
+void red(int state) {
+	switch(state) {
+	case GL4DH_INIT: return;
+	case GL4DH_FREE: gl4dpDeleteScreen(); return;
+	case GL4DH_UPDATE_WITH_AUDIO: return;
+	default:
+		glClearColor(0.37f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		return;
+	}
+}
+void audio_analyzer(int state) {
+	static GLuint screen = 0;
+	int l, i;
+	Sint16 * s;
+	static Sint16 t[256];
+	static int w, h; 
+	switch(state) { 
+	case GL4DH_INIT:
+		screen = gl4dpInitScreen(); 
+		w = gl4dpGetWidth(); 
+		h = gl4dpGetHeight(); 
+		return; 
+	case GL4DH_FREE:
+		if(screen) { gl4dpSetScreen(screen); gl4dpDeleteScreen(); gl4duClean(GL4DU_ALL); screen = 0; } return; 
+	case GL4DH_UPDATE_WITH_AUDIO:
+		s = (Sint16 *)ahGetAudioStream();
+		l = ahGetAudioStreamLength();
+		if(l >= 2 * 256) for(i = 0; i < 256; i++) t[i] = h / 2 + (h / 2) * s[i] / ((1 << 15) - 1.0); 
+		return; 
+	default:
+		gl4dpSetScreen(screen); 
+		gl4dpClearScreen(); 
+		for(i = 0; i < 256 - 1; i++) { 
+		int x0, y0, x1, y1;
+		x0 = (i * (w - 1)) / (256 - 1); 
+		y0 = t[i]; 
+		x1 = ((i + 1) * (w - 1)) / (256 - 1); 
+		y1 = t[i + 1]; 
+		gl4dpSetColor(rand());
+		gl4dpLine(x0, y0, x1, y1);
+		} 
+		gl4dpUpdateScreen(NULL);
+		return;
+	}
+}
+void setupAnim(int state, const char* fsPath, Anim* anim) {
+	switch (state) {
+	case GL4DH_INIT:
+		anim->progId = gl4duCreateProgram("<vs>shaders/basic.vs", fsPath, NULL);
+		anim->quadId = gl4dgGenQuadf();
+		anim->lastTime = SDL_GetTicks(); break;
+	case GL4DH_FREE: gl4dgDelete(anim->quadId); gl4duClean(GL4DU_ALL); break;
+	}
+}
+void runAnim(Anim* anim, float timeScale) {
 	Uint32 currentTime = SDL_GetTicks();
-	float deltaTime = (*lastTimePtr > 0) ? (currentTime - *lastTimePtr) / 1000.0f : 0.0f;
-	*lastTimePtr = currentTime;
-	*time += deltaTime * timeScale;
-	glUseProgram(shaderId);
-	glUniform1f(glGetUniformLocation(shaderId, "time"), *time);
+	float deltaTime = (anim->lastTime > 0) ? (currentTime - anim->lastTime) / 1000.0f : 0.0f;
+	anim->lastTime = currentTime;
+	anim->time += deltaTime * timeScale;
+	glUseProgram(anim->progId);
+	glUniform1f(glGetUniformLocation(anim->progId, "time"), anim->time);
 	int width, height;
 	SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &width, &height);
-	glUniform2f(glGetUniformLocation(shaderId, "resolution"), (float) width, (float) height);
-	gl4dgDraw(quadId);
+	glUniform2f(glGetUniformLocation(anim->progId, "resolution"), (float) width, (float) height);
+	gl4dgDraw(anim->quadId);
 	glUseProgram(0);
 }
 void sun_wave(int state) {
-	static float time = 0.0;
-	static GLuint _pId = 0, _quadId = 0;
-	static Uint32 lastTime = 0;
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/sun_wave.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
+}
+void sun_sphere(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/sun_sphere.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
+}
+void sun(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/sun.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
+}
+void sphere(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/sphere.fs", &anim);
 	switch (state) {
-	case GL4DH_INIT:
-		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/sun_wave.fs", NULL);
-		_quadId = gl4dgGenQuadf();
-		break;
-	case GL4DH_FREE: gl4dgDelete(_quadId); gl4duClean(GL4DU_ALL); break;
-	case GL4DH_DRAW: run_shaders(_pId, _quadId, &time, 1.0f, &lastTime); break;
+	default: runAnim(&anim, 1.0f); return;
 	}
+}
+void gravity_wave(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/gravity_wave.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
+}
+void wave(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/wave.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
+}
+void wave2(int state) {
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/wave2.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 1.0f); }
 }
 void strip(int state) {
-	static float time = 0.0;
-	static GLuint _pId = 0, _quadId = 0;
-	static Uint32 lastTime = 0;
-	switch (state) {
-	case GL4DH_INIT:
-		_pId = gl4duCreateProgram("<vs>shaders/basic.vs", "<fs>shaders/strip.fs", NULL);
-		_quadId = gl4dgGenQuadf();
-		break;
-	case GL4DH_FREE: gl4dgDelete(_quadId); gl4duClean(GL4DU_ALL); break;
-	case GL4DH_DRAW: run_shaders(_pId, _quadId, &time, 1.5f, &lastTime); break;
-	}
+	static Anim anim = {0};
+	setupAnim(state, "<fs>shaders/strip.fs", &anim);
+	if (state == GL4DH_DRAW) { runAnim(&anim, 3.0f); }
 }
-void animationsInit(void) {
-	if(!_quadId)
-		_quadId = gl4dgGenQuadf();
-}
-
+void animationsInit(void) { if(!_quadId) _quadId = gl4dgGenQuadf(); }

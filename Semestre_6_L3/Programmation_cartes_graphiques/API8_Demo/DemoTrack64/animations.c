@@ -58,10 +58,7 @@ for(i = 0; i < 256 - 1; i++) {
   gl4dpSetColor(rand());
   gl4dpLine(x0, y0, x1, y1);
  } 
-gl4dpUpdateScreen(NULL); 
-
-
-
+gl4dpUpdateScreen(NULL);
 return; 
 } 
 }

@@ -2,7 +2,6 @@
 uniform float time;
 uniform vec2 resolution;
 out vec4 fragColor;
-
 #define power 1.9
 #define zoomOut 1.0
 #define rot 1.0
@@ -14,7 +13,6 @@ out vec4 fragColor;
 #define Speed 0.08
 #define WaveSpeed 0.9
 #define Brightness 0.3
-
 void main() {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
 	vec2 XYScale = vec2(1.,1.);
@@ -32,6 +30,5 @@ void main() {
 	vec3 col = vec3(vec3(glow,glow,glow)/sin(time * WaveSpeed - length(uv.yx) - uv.y));
 	finalCol = vec3(col * col);
 	vec3 Color = vec3(1.0, 0.2, 0.1) * Brightness;
-	// Color = Color * Color * 0.5 + 0.5 * cos(time + uv.xyx + vec3(0,2,4)) * huePower;
 	fragColor = vec4(finalCol.rgb * Color, 1) * power;
 }

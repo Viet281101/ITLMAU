@@ -11,18 +11,26 @@ static void resize(int w, int h);
 static void keydown(int keycode);
 /*!\brief tableau contenant les animations sous la forme de timeline */
 static GL4DHanime _animations[] = {
-	{ 1000, animation_vide, NULL, NULL },
-	{ 6500, sun_wave, NULL, transition_fondu },
+	{ 1200, animation_vide, spectre, transition_fondu },
+	{ 5000, spectre, gravity_wave, transition_fondu },
+	{ 8000, gravity_wave, wave, transition_fondu },
+	{ 3000, wave, NULL, transition_fondu },
+	{ 3000, sun_sphere, sphere, transition_fondu },
+	{ 5000, sphere, audio_analyzer, transition_fondu },
+	{ 1000, audio_analyzer, sun_wave, transition_fondu },
+	{ 4000, sun_wave, red, transition_fondu },
+	{ 1000, red, sun, transition_fondu },
+	{ 3000, sun, wave2, transition_fondu },
+	{ 3000, wave2, blue, transition_fondu },
 	{ 2000, spectre, NULL, transition_fondu },
-	{ 2500, strip, NULL, NULL },
-	{ 2000, blue, NULL, transition_fondu },
+	{ 3000, strip, NULL, NULL },
+	{ 2000, blue, credit_fin, transition_fondu },
 	{15000, credit_fin, NULL, NULL },
 	{    0, NULL, NULL, NULL }
 };
 /*!\brief dimensions initiales de la fenêtre */
 static GLfloat _dim[] = {1280, 720};
-/*!\brief fonction principale : initialise la fenêtre, OpenGL, audio
- * et lance la boucle principale (infinie).*/
+/*!\brief fonction principale : initialise la fenêtre, OpenGL, audio et lance la boucle principale (infinie).*/
 int main(int argc, char ** argv) {
 	if(!gl4duwCreateWindow(argc, argv, "Demo 64Ko", 
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 
@@ -34,20 +42,17 @@ int main(int argc, char ** argv) {
 	gl4duwResizeFunc(resize);
 	gl4duwKeyDownFunc(keydown);
 	gl4duwDisplayFunc(gl4dhDraw);
-	ahInitAudio("symphony.mid");
+	ahInitAudio("odetojoy.mid");
 	gl4duwMainLoop();
 	return 0;
 }
-/*!\brief Cette fonction initialise les paramètres et éléments OpenGL
- * ainsi que les divers données et fonctionnalités liées à la gestion
- * des animations.*/
+/*!\brief Cette fonction initialise les paramètres et éléments OpenGL ainsi que les divers données et fonctionnalités liées à la gestion des animations.*/
 static void init(void) {
 	glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 	gl4dhInit(_animations, _dim[0], _dim[1], animationsInit);
 	resize(_dim[0], _dim[1]);
 }
-/*!\brief paramétre la vue (viewPort) OpenGL en fonction des
- * dimensions de la fenêtre.
+/*!\brief paramétre la vue (viewPort) OpenGL en fonction des dimensions de la fenêtre.
  * \param w largeur de la fenêtre.
  * \param w hauteur de la fenêtre.*/
 static void resize(int w, int h) {
@@ -60,7 +65,7 @@ static void resize(int w, int h) {
  * \param keycode code de la touche pressée.*/
 static void keydown(int keycode) {
 	switch(keycode) {
-	case SDLK_ESCAPE:
+	case SDLK_ESCAPE: exit(0);
 	case 'q': exit(0);
 	default: break;
 	}

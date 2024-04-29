@@ -20,10 +20,10 @@ void credit_fin(int state) {
 	switch(state) {
 	case GL4DH_INIT:
 		_texte = "\n                    Credits - Projet Demo64Ko                \n\n"
-		"    - Shaders: \n    Shaders GL4Dummies\n\n    glslsandbox.com \n\n"
+		"    - Shaders: \n    Shaders GL4Dummies\n    glslsandbox.com \n\n"
 		"    - Musique: \n    Beethoven - 9th Symphony (Ode To Joy)\n\n"
 		"    - Font: \n    Alagard - dafont.com\n\n"
-		"    - Code d'ajouter et de modification: \n    Viet Nguyen \n\n"
+		"    - Code d'ajouter et de modification: \n    Viet Nguyen - 20006303 - L3Y\n\n"
 		"    - Code de base: \n  GL4Dummies - Monsieur Fares BELHADJ\n";
 		init(); return;
 	case GL4DH_FREE: sortie(); return;
@@ -38,20 +38,17 @@ void init(void) {
 	_pId = gl4duCreateProgram("<vs>shaders/texte.vs", "<fs>shaders/texte.fs", NULL);
 	/* initialiser la lib SDL2_ttf */
 	if(TTF_Init() == -1) {
-		fprintf(stderr, "TTF_Init: %s\n", TTF_GetError());
-		exit(2);
+		fprintf(stderr, "TTF_Init: %s\n", TTF_GetError()); exit(2);
 	}
 	/* chargement de la font */
 	if( !(font = TTF_OpenFont("alagard.ttf", _fontSize)) ) {
-		fprintf(stderr, "TTF_OpenFont: %s\n", TTF_GetError());
-		exit(2);
+		fprintf(stderr, "TTF_OpenFont: %s\n", TTF_GetError()); exit(2);
 	}
 	/* création d'une surface SDL avec le texte */
 	s = TTF_RenderUTF8_Blended_Wrapped(font, _texte, c, 2048);
 	if(s == NULL) {
 		TTF_CloseFont(font);
-		fprintf(stderr, "Erreur lors du TTF_RenderText\n");
-		exit(2);
+		fprintf(stderr, "Erreur lors du TTF_RenderText\n"); exit(2);
 	}
 	/* création d'une surface vierge et "compatible transfert" GL */
 	d = SDL_CreateRGBSurface(0, s->w, s->h, 32, R_MASK, G_MASK, B_MASK, A_MASK);

@@ -2,7 +2,6 @@
 uniform float time;
 uniform vec2 resolution;
 out vec4 fragColor;
-
 void main( void ) {
 	vec2 p = (gl_FragCoord.xy - 0.5 * resolution) / min(resolution.x, resolution.y);
 	vec3 c = vec3(0.005, 0.0021, 0.009);

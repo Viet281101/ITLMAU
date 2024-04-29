@@ -8,28 +8,19 @@ static void quit(void);
 static void draw(void);
 #define NB_E 1024
 static GLuint _wW = 1024, _wH = 768;
-static GLuint _cubeId = 0;
-static GLuint _pId = 0;
-static GLuint _quad = 0;
+static GLuint _cubeId = 0, _pId = 0, _quad = 0;
 static int _hauteurs[NB_E];
 void spectre(int state) {
 	switch(state) {
-	case GL4DH_INIT:
-		init();
-		return;
-	case GL4DH_FREE:
-		quit();
-		return;
+	case GL4DH_INIT: init(); return;
+	case GL4DH_FREE: quit(); return;
 	case GL4DH_UPDATE_WITH_AUDIO: {
 		int l = ahGetAudioStreamLength(), i;
 		short * s = (short *)ahGetAudioStream();
-		for(i = 0; i < l / 4; ++i)
-		_hauteurs[i] = s[2 * i] >> 10;
+		for(i = 0; i < l / 4; ++i) _hauteurs[i] = s[2 * i] >> 10;
 		return;
 	}
-	default:
-		draw();
-		return;
+	default: draw(); return;
 	}
 }
 void init(void) {
@@ -42,7 +33,6 @@ void init(void) {
 	gl4duBindMatrix("proj");
 	gl4duLoadIdentityf();
 	gl4duFrustumf(-1.0f, 1.0f, (-1.0f * _wH)  / _wW, (1.0f * _wH)  / _wW, 1.0f, 1000.0f);
-	/* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
 	glLineWidth(0.3f);
 	glEnable(GL_LINE_SMOOTH);
 }
