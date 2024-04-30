@@ -15,12 +15,12 @@ static GL4DHanime _animations[] = {
 	{ 3000, spectre, gravity_wave, transition_fondu },
 	{ 8000, gravity_wave, wave, transition_fondu },
 	{ 4000, wave, sun_sphere, transition_fondu },
-	{ 4000, sun_sphere, sphere, transition_fondu },
-	{ 5000, sphere, audio_analyzer, transition_fondu },
+	{ 5000, sun_sphere, sphere, transition_fondu },
+	{ 4500, sphere, audio_analyzer, transition_fondu },
 	{ 1000, audio_analyzer, sun_wave, transition_fondu },
 	{ 4000, sun_wave, red, transition_fondu },
 	{ 1000, red, sun, transition_fondu },
-	{ 3000, sun, red, transition_fondu },
+	{ 2500, sun, red, transition_fondu },
 	{ 3000, sound_sphere, wave2, transition_fondu },
 	{ 3000, wave2, spectre, transition_fondu },
 	{ 1000, spectre, red, transition_fondu },
@@ -53,8 +53,7 @@ static void init(void) {
 	resize(_dim[0], _dim[1]);
 }
 /*!\brief paramétre la vue (viewPort) OpenGL en fonction des dimensions de la fenêtre.
- * \param w largeur de la fenêtre.
- * \param w hauteur de la fenêtre.*/
+ * \param w largeur de la fenêtre. \param w hauteur de la fenêtre.*/
 static void resize(int w, int h) {
 	_dim[0] = w; _dim[1] = h;
 	glViewport(0, 0, _dim[0], _dim[1]);

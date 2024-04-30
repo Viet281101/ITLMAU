@@ -33,7 +33,7 @@ void credit_fin(int state) {
 void init(void) {
 	SDL_Surface * s = NULL, * d = NULL;
 	TTF_Font * font = NULL;
-	SDL_Color c = {255, 51, 25, 255};
+	SDL_Color c = {255, 255, 255, 255};
 	_quadId = gl4dgGenQuadf();
 	_pId = gl4duCreateProgram("<vs>shaders/texte.vs", "<fs>shaders/texte.fs", NULL);
 	if(!_pId) { fprintf(stderr, "Error creating shader program\n"); exit(1); }
