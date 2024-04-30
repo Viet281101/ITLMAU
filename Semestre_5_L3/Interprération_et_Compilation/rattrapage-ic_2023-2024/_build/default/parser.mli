@@ -3,15 +3,20 @@
 
 type token = 
   | Lvar of (string)
+  | Lthen
   | Lsub
   | Lsc
   | Lreturn
   | Lopar
   | Lmul
   | Lint of (int)
+  | Lif
+  | Leq
   | Lend
+  | Lelse
   | Ldiv
   | Lcpar
+  | Lbool of (bool)
   | Lassign
   | Ladd
 

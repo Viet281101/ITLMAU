@@ -103,7 +103,7 @@ Error on line 2 col 0: syntax error.
 
 	4.1- Ajoutez le support des valeurs booléennes "true" et "false" (sans forcément rajouté de mot clés).
 
-
+	Tester dans le fichier `tests/13.test` et `tests/14.test` les valeurs booléennes `true` et `false`.
 
 
 	4.2- Ajoutez au moins l'opérateur de comparaison "==" dans la baselib de sorte à ce que le tests 7 fonctionne.

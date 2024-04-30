@@ -13,8 +13,8 @@ rule token = parse
 | [ ' ' '\t' ]    { token lexbuf }
 | '\n'            { Lexing.new_line lexbuf; token lexbuf }
 | '#'             { comment lexbuf }
-| "true"         	{ Lbool true }
-| "false"        	{ Lbool false }
+| "true"          { Lbool true }
+| "false"         { Lbool false }
 | "+"             { Ladd }
 | "-"             { Lsub }
 | "*"             { Lmul }
@@ -24,6 +24,10 @@ rule token = parse
 | "return"        { Lreturn }
 | "="             { Lassign }
 | ";"             { Lsc }
+| "=="            { Leq }
+| "if"            { Lif }
+| "then"          { Lthen }
+| "else"          { Lelse }
 | identifier as s { Lvar (s) }
 | num+ as n       { Lint (int_of_string n) }
 | _ as c          { raise (Error c) }

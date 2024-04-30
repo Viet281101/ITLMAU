@@ -4,8 +4,9 @@
 
 %token <int> Lint
 %token <string> Lvar
-%token Ladd Lsub Lmul Ldiv Lopar Lcpar
-%token Lreturn Lassign Lsc Lend
+%token <bool> Lbool
+%token Ladd Lsub Lmul Ldiv Lopar Lcpar Leq
+%token Lreturn Lassign Lsc Lend Lif Lthen Lelse
 
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -32,6 +33,9 @@ expr:
 | n = Lint {
 	Val { value = Int (n) ; pos = $startpos }
 }
+| b = Lbool {
+	Val { value = Bool (b) ; pos = $startpos }
+}
 | Lsub; n = Lint {
 	Val { value = Int (-n) ; pos = $startpos }
 }
@@ -50,5 +54,11 @@ expr:
 | a = expr; Ldiv; b = expr {
 	Cal { func = "%div" ; args = [ a ; b ] ; pos = $startpos($2) }
 }
+| a = expr; Leq; b = expr {
+	Cal { func = "%eq"; args = [ a; b ]; pos = $startpos($2) }
+}
 | Lopar; e = expr; Lcpar { e }
+| Lopar; Lif; cond = expr; Lthen; e1 = expr; Lelse; e2 = expr; Lcpar {
+	If { condition = cond; then_branch = e1; else_branch = e2; pos = $startpos }
+}
 ;

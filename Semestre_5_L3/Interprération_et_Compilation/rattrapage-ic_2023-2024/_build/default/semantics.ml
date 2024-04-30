@@ -11,6 +11,7 @@ let expr_pos expr =
 	| Syntax.Val v -> v.pos
 	| Syntax.Var v -> v.pos
 	| Syntax.Cal c -> c.pos
+	| Syntax.If { condition; pos; _ } -> pos
 
 let errt expected given pos =
 	raise (Error (Printf.sprintf "expected %s but given %s"
@@ -22,6 +23,7 @@ let errt expected given pos =
 
 let analyze_value = function
 	| Syntax.Int n -> Int n, Int_t
+	| Syntax.Bool b -> Bool b, Bool_t
 
 let rec analyze_expr expr env =
 	match expr with
@@ -50,6 +52,13 @@ let rec analyze_expr expr env =
 			| None -> raise (Error (Printf.sprintf "undefined function '%s'" c.func,
 															c.pos))
 		end
+	| Syntax.If { condition; then_branch; else_branch; pos } ->
+		let cond_val, cond_type = analyze_expr condition env in
+		if cond_type != Bool_t then
+				raise (Error ("condition must be a boolean expression", pos));
+		let then_val, _ = analyze_expr then_branch env in
+		let else_val, _ = analyze_expr else_branch env in
+		IR.If (cond_val, then_val, else_val), Int_t
 
 let analyze_instr instr env =
 	match instr with
