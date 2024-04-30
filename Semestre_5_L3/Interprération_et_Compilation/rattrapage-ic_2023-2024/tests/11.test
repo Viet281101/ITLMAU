@@ -1,0 +1,3 @@
+x = "bonjour";
+y = x * 2;
+return y;

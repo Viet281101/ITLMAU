@@ -1,0 +1,30 @@
+(** @canonical Dune__exe.Ast *)
+module Ast = Dune__exe__Ast
+
+
+(** @canonical Dune__exe.Baselib *)
+module Baselib = Dune__exe__Baselib
+
+
+(** @canonical Dune__exe.Interp *)
+module Interp = Dune__exe__Interp
+
+
+(** @canonical Dune__exe.Lexer *)
+module Lexer = Dune__exe__Lexer
+
+
+(** @canonical Dune__exe.Main *)
+module Main = Dune__exe__Main
+
+
+(** @canonical Dune__exe.Parser *)
+module Parser = Dune__exe__Parser
+
+
+(** @canonical Dune__exe.Printer *)
+module Printer = Dune__exe__Printer
+
+
+(** @canonical Dune__exe.Semantics *)
+module Semantics = Dune__exe__Semantics
