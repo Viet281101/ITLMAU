@@ -1,5 +1,4 @@
-
-# Projet IA: Clustering
+# Clustering de données réelles, comparaison, évaluation et explications
 
 ## Dataset
 
@@ -8,6 +7,5 @@
 - [Customer Segmentation & Clustering](https://www.kaggle.com/datasets/sinderpreet/customer-segmentation-and-clustering-python)
 
 - [Iris Dataset](https://www.kaggle.com/datasets/himanshunakrani/iris-dataset)
-
 
 

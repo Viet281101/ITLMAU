@@ -1,4 +1,3 @@
-
 # IDL 16 Système de recommandation de films
 
 Pour ce TP, le fichier `fims.json` est fourni. Il contient des entrées de la forme suivante : 
