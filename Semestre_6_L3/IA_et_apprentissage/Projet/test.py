@@ -1,3 +1,12 @@
+"""
+Apply different clustering algorithms to the heart failure dataset and evaluate
+them using Silhouette Score.
+
+The dataset is available at:
+https://www.kaggle.com/datasets/rabieelkharoua/predict-survival-of-patients-with-heart-failure?resource=download
+
+The goal is to cluster patients into groups based on their medical records.
+"""
 
 import numpy as np
 import pandas as pd
@@ -36,6 +45,16 @@ data_scaled.head()
 
 from sklearn.cluster import KMeans
 def apply_kmeans(data, n_clusters=3):
+	"""
+	Apply K-Means clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		n_clusters (int): The number of clusters.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	kmeans = KMeans(n_clusters=n_clusters, random_state=0)
 	clusters = kmeans.fit_predict(data)
 	return clusters
@@ -45,6 +64,16 @@ kmeans_clusters = apply_kmeans(data_scaled)
 
 from sklearn.cluster import AgglomerativeClustering
 def apply_hierarchical(data, n_clusters=3):
+	"""
+	Apply Hierarchical Clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		n_clusters (int): The number of clusters.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	clustering = AgglomerativeClustering(n_clusters=n_clusters)
 	clusters = clustering.fit_predict(data)
 	return clusters
@@ -54,6 +83,19 @@ hierarchical_clusters = apply_hierarchical(data_scaled)
 
 from sklearn.cluster import DBSCAN
 def apply_dbscan(data, eps=0.5, min_samples=5):
+	"""
+	Apply DBSCAN clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		eps (float): The maximum distance between two samples for them to be
+			considered as in the same neighborhood.
+		min_samples (int): The number of samples in a neighborhood for a
+			point to be considered as a core point.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	dbscan = DBSCAN(eps=eps, min_samples=min_samples)
 	clusters = dbscan.fit_predict(data)
 	return clusters
@@ -63,6 +105,17 @@ dbscan_clusters = apply_dbscan(data_scaled)
 
 from sklearn.cluster import MeanShift
 def apply_mean_shift(data, bandwidth=None):
+	"""
+	Apply Mean Shift clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		bandwidth (float): The bandwidth of the kernel. If not provided, it is
+			computed automatically.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	mean_shift = MeanShift(bandwidth=bandwidth)
 	clusters = mean_shift.fit_predict(data)
 	return clusters
@@ -72,6 +125,16 @@ mean_shift_clusters = apply_mean_shift(data_scaled)
 
 from sklearn.cluster import SpectralClustering
 def apply_spectral(data, n_clusters=3):
+	"""
+	Apply Spectral Clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		n_clusters (int): The number of clusters.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	spectral = SpectralClustering(n_clusters=n_clusters, random_state=0)
 	clusters = spectral.fit_predict(data)
 	return clusters
@@ -80,6 +143,16 @@ spectral_clusters = apply_spectral(data_scaled)
 
 
 def apply_agglomerative(data, n_clusters=3):
+	"""
+	Apply Agglomerative Clustering to the data.
+
+	Parameters:
+		data (DataFrame): The scaled data.
+		n_clusters (int): The number of clusters.
+
+	Returns:
+		array: The cluster labels for each patient.
+	"""
 	agglomerative = AgglomerativeClustering(n_clusters=n_clusters)
 	clusters = agglomerative.fit_predict(data)
 	return clusters
@@ -124,6 +197,5 @@ cluster_labels = {
 # Evaluate all clustering algorithms
 evaluation_results = evaluate_clustering_algorithms(data_scaled, cluster_labels)
 evaluation_results
-
 
 
