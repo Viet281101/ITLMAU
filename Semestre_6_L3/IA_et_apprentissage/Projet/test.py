@@ -10,6 +10,7 @@ The goal is to cluster patients into groups based on their medical records.
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load the dataset
 data = pd.read_csv('data/heart_failure_clinical_records_dataset.csv')
@@ -197,5 +198,86 @@ cluster_labels = {
 # Evaluate all clustering algorithms
 evaluation_results = evaluate_clustering_algorithms(data_scaled, cluster_labels)
 evaluation_results
+
+
+## Number of clusters ideal for K-Means
+def find_optimal_k_kmeans(data, max_clusters=10):
+	distortions = []
+	for k in range(1, max_clusters + 1):
+		kmeans = KMeans(n_clusters=k, random_state=0)
+		kmeans.fit(data)
+		distortions.append(kmeans.inertia_)
+	plt.figure(figsize=(8, 6))
+	plt.plot(range(1, max_clusters + 1), distortions, marker='o')
+	plt.title('Elbow Method for Optimal K')
+	plt.xlabel('Number of clusters')
+	plt.ylabel('Distortion')
+	plt.show()
+# Apply Elbow Method for K-Means
+find_optimal_k_kmeans(data_scaled)
+
+
+## Number of clusters ideal for Hierarchical Clustering
+from scipy.cluster.hierarchy import dendrogram, linkage
+def plot_dendrogram(data, method='ward'):
+	linked = linkage(data, method=method)
+	plt.figure(figsize=(10, 7))
+	dendrogram(linked, truncate_mode='lastp', p=12, leaf_rotation=90., leaf_font_size=12.)
+	plt.title('Dendrogram for Hierarchical Clustering')
+	plt.xlabel('Cluster Size')
+	plt.ylabel('Distance')
+	plt.show()
+# Plot Dendrogram for Hierarchical Clustering
+plot_dendrogram(data_scaled)
+
+
+## Number of clusters ideal for DBSCAN
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
+def find_optimal_eps(data, k=5):
+	neighbors = NearestNeighbors(n_neighbors=k)
+	neighbors_fit = neighbors.fit(data)
+	distances, indices = neighbors_fit.kneighbors(data)
+	distances = np.sort(distances[:, k - 1], axis=0)
+	plt.figure(figsize=(8, 6))
+	plt.plot(distances)
+	plt.title('k-NN Distance Graph for Optimal Eps')
+	plt.xlabel('Data Points sorted by Distance')
+	plt.ylabel(f'{k}-NN Distance')
+	plt.show()
+# Find optimal Eps for DBSCAN
+find_optimal_eps(data_scaled)
+
+
+## Number of clusters ideal for Mean Shift
+from sklearn.cluster import estimate_bandwidth
+def find_optimal_bandwidth(data):
+	bandwidth = estimate_bandwidth(data, quantile=0.2)
+	print("Estimated Bandwidth:", bandwidth)
+	mean_shift = MeanShift(bandwidth=bandwidth)
+	clusters = mean_shift.fit_predict(data)
+	return clusters
+# Apply Mean Shift with optimal bandwidth
+mean_shift_clusters = find_optimal_bandwidth(data_scaled)
+
+
+## Number of clusters ideal for Spectral and Agglomerative
+from sklearn.metrics import silhouette_score
+def find_optimal_clusters_silhouette(data, algorithm_class, max_clusters=10):
+	scores = []
+	for k in range(2, max_clusters + 1):
+		model = algorithm_class(n_clusters=k)
+		clusters = model.fit_predict(data)
+		score = silhouette_score(data, clusters)
+		scores.append(score)
+	plt.figure(figsize=(8, 6))
+	plt.plot(range(2, max_clusters + 1), scores, marker='o')
+	plt.title('Silhouette Score for Optimal Clusters')
+	plt.xlabel('Number of clusters')
+	plt.ylabel('Silhouette Score')
+	plt.show()
+# Apply Silhouette Score for Spectral and Agglomerative Clustering
+find_optimal_clusters_silhouette(data_scaled, SpectralClustering)
+find_optimal_clusters_silhouette(data_scaled, AgglomerativeClustering)
 
 
