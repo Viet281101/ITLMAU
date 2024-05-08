@@ -167,11 +167,11 @@ from sklearn.metrics import silhouette_score
 def evaluate_clustering_algorithms(data, cluster_labels):
 	"""
 	Evaluate clustering algorithms using Silhouette Score.
-	
+
 	Parameters:
 		data (DataFrame): The scaled data used for clustering.
 		cluster_labels (dict): A dictionary containing the cluster labels from different algorithms.
-	
+
 	Returns:
 		DataFrame: A DataFrame containing the silhouette scores of each algorithm.
 	"""
@@ -182,7 +182,7 @@ def evaluate_clustering_algorithms(data, cluster_labels):
 			scores[algorithm] = score
 		else:
 			scores[algorithm] = None  # Not applicable if only one cluster
-	
+
 	return pd.DataFrame(list(scores.items()), columns=['Algorithm', 'Silhouette Score'])
 
 # Dictionary of cluster labels from various algorithms
