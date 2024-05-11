@@ -204,6 +204,12 @@ def find_optimal_clusters_kmeans(data, max_k):
 # %%
 find_optimal_clusters_kmeans(data_scaled, 10)
 
+# %%
+kmeans_optimal = KMeans(n_clusters=7, random_state=42)
+kmeans_labels_optimal = kmeans_optimal.fit_predict(data_scaled)
+score_kmeans_optimal = silhouette_score(data_scaled, kmeans_labels_optimal)
+print("Silhouette Score for K-Means:", score_kmeans_optimal)
+
 # %% [markdown]
 # ### Silhouette Score
 
@@ -247,6 +253,12 @@ def plot_dendrogram(data, method='ward'):
 # %%
 plot_dendrogram(data_scaled)
 
+# %%
+hierarchical_optimal = AgglomerativeClustering(n_clusters=7)
+hierarchical_labels_optimal = hierarchical_optimal.fit_predict(data_scaled)
+score_hierarchical_optimal = silhouette_score(data_scaled, hierarchical_labels_optimal)
+print("Silhouette Score for Hierarchical Clustering:", score_hierarchical_optimal)
+
 # %% [markdown]
 # ### Mean Shift
 
@@ -263,6 +275,10 @@ def find_optimal_bandwidth(data):
 
 # %%
 mean_shift_clusters = find_optimal_bandwidth(data_scaled)
+
+# %%
+mean_shift_optimal = MeanShift(bandwidth=estimate_bandwidth(data_scaled))
+mean_shift_labels_optimal = mean_shift_optimal.fit_predict(data_scaled)
 
 # %% [markdown]
 # ### DBSCAN
@@ -294,6 +310,12 @@ min_samples_range = range(2, 10)
 best_eps, best_min_samples, best_score = tune_dbscan(data_scaled, eps_range, min_samples_range)
 print("Best eps:", best_eps, "Best min_samples:", best_min_samples, "Best Silhouette Score:", best_score)
 
+# %%
+dbscan_optimal = DBSCAN(eps=best_eps, min_samples=best_min_samples)
+dbscan_labels_optimal = dbscan_optimal.fit_predict(data_scaled)
+score_dbscan_optimal = silhouette_score(data_scaled, dbscan_labels_optimal)
+print("Silhouette Score for DBSCAN:", score_dbscan_optimal)
+
 # %% [markdown]
 # ### Spectral Clustering & Agglomerative Clustering
 
@@ -319,10 +341,127 @@ def find_optimal_clusters_silhouette(data, algorithm_class, max_clusters=10):
 find_optimal_clusters_silhouette(data_scaled, SpectralClustering)
 
 # %%
+spectral_optimal = SpectralClustering(n_clusters=10, random_state=42)
+spectral_labels_optimal = spectral_optimal.fit_predict(data_scaled)
+score_spectral_optimal = silhouette_score(data_scaled, spectral_labels_optimal)
+print("Silhouette Score for Spectral Clustering:", score_spectral_optimal)
+
+# %%
 find_optimal_clusters_silhouette(data_scaled, AgglomerativeClustering)
+
+# %%
+agglomerative_optimal = AgglomerativeClustering(n_clusters=10)
+agglomerative_labels_optimal = agglomerative_optimal.fit_predict(data_scaled)
+score_agglomerative_optimal = silhouette_score(data_scaled, agglomerative_labels_optimal)
+print("Silhouette Score for Agglomerative Clustering:", score_agglomerative_optimal)
 
 # %% [markdown]
 # ## La qualité de la classification des clusters idéma
+
+# %%
+from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
+
+# %%
+def evaluate_clustering_quality(data, labels_dict):
+	results = []
+	for algorithm, labels in labels_dict.items():
+		num_labels = len(set(labels))
+		if num_labels > 1:
+			silhouette = silhouette_score(data, labels)
+			davies_bouldin = davies_bouldin_score(data, labels)
+			calinski_harabasz = calinski_harabasz_score(data, labels)
+		else:
+			silhouette = None
+			davies_bouldin = None
+			calinski_harabasz = None
+		results.append((algorithm, silhouette, davies_bouldin, calinski_harabasz))
+	results_df = pd.DataFrame(results, columns=['Algorithm', 'Silhouette Score', 'Davies-Bouldin Index', 'Calinski-Harabasz Index'])
+	return results_df
+
+# %%
+optimal_labels = {
+	'K-Means': kmeans_labels_optimal,
+	'Hierarchical': hierarchical_labels_optimal,
+	'DBSCAN': dbscan_labels_optimal,
+	'Mean Shift': mean_shift_labels_optimal,
+	'Spectral': spectral_labels_optimal,
+	'Agglomerative': agglomerative_labels_optimal
+}
+
+# %%
+clustering_quality_results = evaluate_clustering_quality(data_scaled, optimal_labels)
+clustering_quality_results
+
+# %% [markdown]
+# ## Visualisation des clusters
+
+# %% [markdown]
+# ### PCA
+
+# %%
+from sklearn.decomposition import PCA
+
+# %%
+pca = PCA(n_components=2)
+data_pca = pca.fit_transform(data_scaled)
+
+# %%
+def plot_clusters(data, labels, title):
+	plt.figure(figsize=(10, 6))
+	unique_labels = np.unique(labels)
+	for label in unique_labels:
+		plt.scatter(data[labels == label, 0], data[labels == label, 1], label=f'Cluster {label}')
+	plt.title(title)
+	plt.xlabel('PCA Component 1')
+	plt.ylabel('PCA Component 2')
+	plt.legend()
+	plt.show()
+
+# %%
+plot_clusters(data_pca, kmeans_labels_optimal, 'K-Means Clustering')
+
+# %%
+plot_clusters(data_pca, hierarchical_labels_optimal, 'Hierarchical Clustering')
+
+# %%
+plot_clusters(data_pca, dbscan_labels_optimal, 'DBSCAN Clustering')
+
+# %%
+plot_clusters(data_pca, mean_shift_labels_optimal, 'Mean Shift Clustering')
+
+# %%
+plot_clusters(data_pca, spectral_labels_optimal, 'Spectral Clustering')
+
+# %%
+plot_clusters(data_pca, agglomerative_labels_optimal, 'Agglomerative Clustering')
+
+# %% [markdown]
+# ### T-SNE
+
+# %%
+from sklearn.manifold import TSNE
+
+# %%
+tsne = TSNE(n_components=2, random_state=42)
+data_tsne = tsne.fit_transform(data_scaled)
+
+# %%
+plot_clusters(data_tsne, kmeans_labels_optimal, 'K-Means Clustering (t-SNE)')
+
+# %%
+plot_clusters(data_tsne, hierarchical_labels_optimal, 'Hierarchical Clustering (t-SNE)')
+
+# %%
+plot_clusters(data_tsne, dbscan_labels_optimal, 'DBSCAN Clustering (t-SNE)')
+
+# %%
+plot_clusters(data_tsne, mean_shift_labels_optimal, 'Mean Shift Clustering (t-SNE)')
+
+# %%
+plot_clusters(data_tsne, spectral_labels_optimal, 'Spectral Clustering (t-SNE)')
+
+# %%
+plot_clusters(data_tsne, agglomerative_labels_optimal, 'Agglomerative Clustering (t-SNE)')
 
 # %%
 
