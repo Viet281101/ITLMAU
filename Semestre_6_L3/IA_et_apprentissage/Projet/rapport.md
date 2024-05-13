@@ -1,10 +1,16 @@
 # Clustering de données réelles, comparaison, évaluation et explications
 
+Rapport de projet réalisé par __Viet Nguyen -- 20006303__.
+
 ## Introduction
 
 ### Objectif et Contexte
 
 Ce projet vise à explorer et à comparer différents algorithmes de clustering sur un ensemble de données cliniques de défaillance cardiaque. L'objectif est de déterminer le nombre de clusters optimal et d'évaluer la qualité des clusters générés par chaque algorithme.
+
+Source de donnée : [Heart Failure Clinical Records](https://www.kaggle.com/datasets/rabieelkharoua/predict-survival-of-patients-with-heart-failure?resource=download)
+
+Ce projet repose sur le fichier notebook Jupyter `heart_failure.ipynb`, qui exécute chaque ligne de code en Python et affiche immédiatement les résultats dans le notebook.
 
 
 ## Méthodologie
@@ -53,7 +59,5 @@ Détermination du Nombre Optimal de Clusters
 - Clustering Spectral et Agglomératif : Utilisation de l'analyse Silhouette.
 
 
-## Préambule
 
-## Conclusion
 
