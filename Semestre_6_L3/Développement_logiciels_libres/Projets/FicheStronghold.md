@@ -28,6 +28,5 @@ Améliorations possibles
 
 Statut actuel
 
-Code partiellement réalise (pseudocode)
 
 Explication faite sur la théorie et pratique en jeu mais à appliquer en code 

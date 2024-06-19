@@ -51,6 +51,5 @@ Utilisation
     IvanTopGaming (auteur)
     1 autre contributeur
 
-Possibilité de tester et expliquer plus en détails,
 
 J'ai contribué à ce projet en traduisant la description du projet et des prints du code de russe à anglais / français 

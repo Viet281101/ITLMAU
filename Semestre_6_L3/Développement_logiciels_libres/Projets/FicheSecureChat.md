@@ -46,5 +46,4 @@ URL: https://github.com/IvanTopGaming/Secure_chat
     Raphaelmos
 
 
-
-A ajouter : screens et preuve du travail effectuer 
+Mise en place de rsa / aes / connection avec flask et authentification et interface
