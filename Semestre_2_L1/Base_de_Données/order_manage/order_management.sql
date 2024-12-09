@@ -1,4 +1,5 @@
 -- Tạo cơ sở dữ liệu QuanLyBanHang
+DROP DATABASE QuanLyBanHang;
 CREATE DATABASE QuanLyBanHang;
 USE QuanLyBanHang;
 
@@ -34,3 +35,5 @@ CREATE TABLE OrderDetail (
 	FOREIGN KEY (oID) REFERENCES `Order`(oID),
 	FOREIGN KEY (pID) REFERENCES Product(pID)
 );
+
+SHOW TABLES;
